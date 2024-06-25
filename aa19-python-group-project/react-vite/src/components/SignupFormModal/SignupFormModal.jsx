@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -19,7 +21,7 @@ function SignupFormModal() {
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
-          "Confirm Password field must be the same as the Password field",
+          "Passwords don't match",
       });
     }
 
@@ -37,10 +39,11 @@ function SignupFormModal() {
       closeModal();
     }
   };
-
+  const isDisabled = email.trim() === "" || username.trim().length < 4 || password.trim().length < 6 || confirmPassword.trim() === "" ;
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className='modal-signup'>
+      <h1>Create an account</h1>
+      <div id='top'>We are excited to see you! </div>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
@@ -83,9 +86,19 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={isDisabled}>Sign Up</button>
       </form>
-    </>
+      <div className="modal-container12">
+      <div>Already have an account?  
+      <div className="modal-l"><OpenModalMenuItem
+                itemText="Log In"
+
+                modalComponent={<LoginFormModal />}
+              />
+              </div>
+      </div>
+      </div>
+    </div>
   );
 }
 

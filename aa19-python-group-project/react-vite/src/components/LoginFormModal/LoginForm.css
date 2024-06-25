@@ -5,13 +5,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
     padding: 30px 40px 30px 40px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 220px;
     height: 400px;
-    background-color: #133252;
+    background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
   }
   
   .modal-login h1 {

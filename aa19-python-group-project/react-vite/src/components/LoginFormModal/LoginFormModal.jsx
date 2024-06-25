@@ -47,7 +47,7 @@ function LoginFormModal() {
       <h5>We are excited to see you again!</h5>
       <form onSubmit={handleSubmit}>
         <label>
-          <div>Email or Username</div>
+          <div>Email</div>
           <input
             type="text"
             value={email}
