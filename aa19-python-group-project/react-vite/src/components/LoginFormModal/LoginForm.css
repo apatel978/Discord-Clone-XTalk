@@ -1,0 +1,94 @@
+/* LoginFormModal.css */
+
+.modal-login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 40px 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    height: 400px;
+    background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
+  }
+  
+  .modal-login h1 {
+    color: white;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .modal-login h5 {
+    color: white;
+    margin-bottom: 0px;
+    margin-top: 7px;
+    text-align: center;
+  }
+  
+  .modal-login form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-login label {
+    color: white;
+    margin-top: 20px;
+    /* margin-bottom: 10px; */
+    
+  }
+  
+  .modal-login input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 198px;
+  }
+  
+  .modal-login button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+ 
+  }
+ 
+button.demo-user-button{
+    padding: 10px 20px;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    /* align-content: flex-end; */
+    
+  }
+  .buttons-container{
+    margin-top: 30px;
+
+  }
+  .modal-login button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .modal-login button:hover {
+    background-color: #0056b3;
+  }
+  
+  .modal-login p {
+    color: red;
+    margin-top: 0px;
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+
+  }
+  
