@@ -7,6 +7,16 @@ from flask_login import current_user, login_user, logout_user, login_required
 auth_routes = Blueprint('auth', __name__)
 
 
+@auth_routes.route('/me')
+def current_user():
+    """
+    return current user
+    """
+    if current_user.is_authenticated:
+        return { "user": current_user.to_dict() }
+    return { "user": None }
+
+
 @auth_routes.route('/')
 def authenticate():
     """
