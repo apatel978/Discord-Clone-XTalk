@@ -341,7 +341,7 @@ Returns the details of a server specified by its id.
 
 ### Create a Server
 
-Creates and returns a new spot.
+Creates and returns a new server.
 
 * Require Authentication: true
 * Request
@@ -803,7 +803,7 @@ Create and return a new message for a channel specified by id.
 
 ### Edit a Message
 
-Update and return an existing booking.
+Update and return an existing message.
 
 * Require Authentication: true
 * Require proper authorization: Message must belong to the current user
