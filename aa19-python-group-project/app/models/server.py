@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .user import User
+import sqlalchemy
 
 
 class Server(db.Model):
@@ -12,6 +13,8 @@ class Server(db.Model):
     name = db.Column(db.String(100), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     preview = db.Column(db.String(2000))
+    created_at =  db.Column(db.Time, server_default=sqlalchemy.func.now())
+    updated_at = db.Column(db.Time, server_default=sqlalchemy.func.now())
 
     owner = db.relationship('User', back_populates='servers')
     users = db.relationship('User', secondary='members', back_populates='server')
@@ -21,6 +24,6 @@ class Server(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'owner_id': self.owner_id,
+            'ownerId': self.owner_id,
             'preview': self.preview
         }
