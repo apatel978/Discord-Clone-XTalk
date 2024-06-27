@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, redirect
+from flask import Blueprint, jsonify, redirect, request
 from flask_login import login_required, current_user
 from app.models import Server, db , Channel
 from app.forms import ServerForm
@@ -6,7 +6,7 @@ from app.forms import ServerForm
 server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/')
-# @login_required
+@login_required
 def servers():
 
     servers = Server.query.all()
@@ -18,18 +18,48 @@ def servers():
 @server_routes.route('/', methods=['POST'])
 @login_required
 def post_server():
-    serverForm = ServerForm()
-    if serverForm.validate_on_submit():
-        model = Server()
-        serverForm.populate_obj(model)
-        db.session.add(model)
-        db.session.commit()
-        return redirect('/api/servers')
+    # serverForm = ServerForm()
+    data = request.get_json()
 
-    return {
-        "message": "Bad Request",
-        "errors": { "name": "Name is required" }
-    }, 400
+    if 'name' not in data:
+        return jsonify({
+            "message": "Bad Request",
+            "errors": { "name": "Name is required" }
+        }), 400
+
+    if not (2 <= len(data['name']) <= 100):
+        return jsonify({
+            "message": "Bad Request",
+            "errors": { "name": "Name length must be between 2 and 100" }
+        }), 400
+
+    model = Server()
+    model.name = data['name']
+    model.owner_id = current_user.id
+    model.preview = data['preview']
+
+    db.session.add(model)
+    db.session.commit()
+
+    return jsonify({
+        'id': model.id,
+        'ownerId': model.owner_id,
+        'name': model.name,
+        'preview': model.preview,
+        'createdAt': model.created_at
+    }), 201
+
+    # if serverForm.validate_on_submit():
+    #     model = Server()
+    #     serverForm.populate_obj(model)
+    #     db.session.add(model)
+    #     db.session.commit()
+    #     return redirect('/api/servers')
+
+    # return {
+    #     "message": "Bad Request",
+    #     "errors": { "name": "Name is required" }
+    # }, 400
 
 
 @server_routes.route('/<int:id>')
@@ -43,7 +73,9 @@ def server(id):
 
     return { "message": "Server couldn't be found" }, 404
 
-## Get Channel 
+## Edit A Server
+
+## Get Channel
 @server_routes.route('/<int:serverId>/channels', methods=['GET'])
 @login_required
 def get_all_channels(serverId):
@@ -51,14 +83,14 @@ def get_all_channels(serverId):
     server = Server.query.get(serverId)
     if not server:
         return jsonify({'error': 'Server not found'}), 404
-    
+
     # Verify that the current user is a member of the server
     if current_user not in server.users:
         return jsonify({'error': 'Unauthorized'}), 403
-    
+
     # Get all channels for the server
     channels = Channel.query.filter_by(server_id=serverId).all()
-    
+
     # Format the channels for the response
     channels_response = [{
         'id': channel.id,
@@ -67,5 +99,5 @@ def get_all_channels(serverId):
         'name': channel.name,
         'createdAt': channel.created_at
     } for channel in channels]
-    
+
     return jsonify({'Channels': channels_response}), 200
