@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .user import User
 import sqlalchemy
+import datetime
 
 
 class Server(db.Model):
@@ -13,8 +14,8 @@ class Server(db.Model):
     name = db.Column(db.String(100), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     preview = db.Column(db.String(2000))
-    created_at =  db.Column(db.Time, server_default=sqlalchemy.func.now())
-    updated_at = db.Column(db.Time, server_default=sqlalchemy.func.now())
+    created_at =  db.Column(db.DateTime, default=datetime.now())
+    updated_at = db.Column(db.DateTime, default=datetime.now())
 
     owner = db.relationship('User', back_populates='servers')
     users = db.relationship('User', secondary='members', back_populates='server')
