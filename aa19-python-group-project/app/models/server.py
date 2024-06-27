@@ -19,7 +19,7 @@ class Server(db.Model):
 
     owner = db.relationship('User', back_populates='servers')
     users = db.relationship('User', secondary='members', back_populates='server')
-    server_channels = db.relationship('Channel', back_populates='server')
+    server_channels = db.relationship('Channel', back_populates='server',  cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
