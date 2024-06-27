@@ -30,7 +30,7 @@ def update_channel(channelId):
     
     # Update the channel
     channel.name = data['name']
-    channel.updated_at = datetime.utcnow()
+    # channel.updated_at = datetime.utcnow()
     db.session.commit()
 
     # Return the updated channel
@@ -39,9 +39,28 @@ def update_channel(channelId):
         'userId': channel.user_id,
         'serverId': channel.server_id,
         'name': channel.name,
-        'createdAt': channel.created_at,
-        'updatedAt': channel.updated_at
+        # 'createdAt': channel.created_at,
+        # 'updatedAt': channel.updated_at
     }), 200
+
+@channels_routes.route('/<int:channelId>', methods=['DELETE'])
+@login_required
+def delete_channel(channelId):
+    # Find the channel by ID
+    channel = Channel.query.get(channelId)
+    if not channel:
+        return jsonify({"message": "Channel couldn't be found"}), 404
+
+    # Check if the current user owns the channel
+    if channel.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized"}), 403
+
+    # Delete the channel
+    db.session.delete(channel)
+    db.session.commit()
+
+    # Return success message
+    return jsonify({"message": "Successfully deleted"}), 200
 
 
 # @server_routes.route('/<int:serverId>/channels', methods=['GET'])
