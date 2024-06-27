@@ -92,7 +92,7 @@ def post_message(channelId):
 
     data = request.get_json()
 
-    if not (len(data['message']) < 0):
+    if (len(data['message']) <= 0):
         return jsonify({
             "message": "Bad Request",
             "errors": {  "message": "Cannot be empty" }
