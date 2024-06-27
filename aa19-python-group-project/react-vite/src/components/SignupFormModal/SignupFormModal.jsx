@@ -97,14 +97,14 @@ function SignupFormModal() {
         <button type="submit" className="submit-btn" disabled={isDisabled}>Sign Up</button>
       </form>
       <div className="modal-container12">
-      <div>Already have an account?  
+      <div>Already have an account?  </div>
       <div className="modal-l"><OpenModalMenuItem
-                itemText="Log In"
+                itemText=" Log In"
 
                 modalComponent={<LoginFormModal />}
               />
               </div>
-      </div>
+      
       </div>
       <span className="sp sp-t"></span>
 			<span className="sp sp-r"></span>
