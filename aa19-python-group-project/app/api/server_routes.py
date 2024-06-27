@@ -115,7 +115,7 @@ def edit_a_server(serverId):
     }), 200
 
 ## Delete A Server
-server_routes.route('/<int:serverId>', methods=['DELETE'])
+@server_routes.route('/<int:serverId>', methods=['DELETE'])
 @login_required
 def delete_a_server(serverId):
     server = Server.query.get(serverId)
