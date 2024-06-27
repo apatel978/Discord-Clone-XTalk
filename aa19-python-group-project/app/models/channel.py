@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 
 
 class Channel(db.Model):
@@ -11,6 +12,8 @@ class Channel(db.Model):
     name = db.Column(db.String(100), nullable=False)
     server_id = db.Column(db.Integer, db.ForeignKey('servers.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at =  db.Column(db.DateTime, default=datetime.now())
+    updated_at = db.Column(db.DateTime, default=datetime.now())
 
     owner = db.relationship('User', back_populates='channel_user')
     server = db.relationship('Server', back_populates='server_channels')
