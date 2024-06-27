@@ -5,6 +5,7 @@ from app.forms import ServerForm
 
 server_routes = Blueprint('servers', __name__)
 
+##Get all servers
 @server_routes.route('/')
 @login_required
 def servers():
@@ -14,7 +15,7 @@ def servers():
         'Servers': [server.to_dict() for server in servers]
     }
 
-
+## Create a Server
 @server_routes.route('/', methods=['POST'])
 @login_required
 def post_server():
@@ -61,7 +62,7 @@ def post_server():
     #     "errors": { "name": "Name is required" }
     # }, 400
 
-
+## Get a server by ID
 @server_routes.route('/<int:id>')
 @login_required
 def server(id):
