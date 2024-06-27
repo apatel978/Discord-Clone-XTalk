@@ -101,3 +101,39 @@ def get_all_channels(serverId):
     } for channel in channels]
 
     return jsonify({'Channels': channels_response}), 200
+
+## Create a Channel
+
+@server_routes.route('/<int:server_id>/channels', methods=['POST'])
+@login_required
+def create_channel(server_id):
+    # Get the request data
+    data = request.get_json()
+
+    # Validate the request body
+    if 'name' not in data or not (1 <= len(data['name']) <= 100):
+        return jsonify({
+            "message": "Bad Request",
+            "errors": {"name": "Length must be between 1-100"}
+        }), 400
+    
+    # Create a new channel
+    new_channel = Channel(
+        name=data['name'],
+        server_id= server_id,
+        user_id=current_user.id  # Assuming the user who creates the channel is the owner
+    )
+
+    # Add the new channel to the session and commit it
+    db.session.add(new_channel)
+    db.session.commit()
+
+    # Return the newly created channel
+    return jsonify({
+        'id': new_channel.id,
+        'userId': new_channel.user_id,
+        'server_id': new_channel.server_id,
+        'name': new_channel.name,
+        'createdAt': new_channel.created_at,
+        'updatedAt': new_channel.updated_at
+    }), 201

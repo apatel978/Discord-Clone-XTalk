@@ -5,6 +5,7 @@ from datetime import datetime
 
 channels_routes = Blueprint('channels', __name__)
 
+## Edit a channel
 
 @channels_routes.route('/<int:channelId>', methods=['PUT'])
 @login_required
@@ -43,6 +44,8 @@ def update_channel(channelId):
         'updatedAt': channel.updated_at
     }), 200
 
+## DELETE a channel
+
 @channels_routes.route('/<int:channelId>', methods=['DELETE'])
 @login_required
 def delete_channel(channelId):
@@ -61,5 +64,3 @@ def delete_channel(channelId):
 
     # Return success message
     return jsonify({"message": "Successfully deleted"}), 200
-
-

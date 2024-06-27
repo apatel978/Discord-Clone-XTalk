@@ -11,6 +11,7 @@ from .api.server_routes import server_routes
 from .api.user_routes import user_routes
 from .api.channels_routes import channels_routes
 from .api.upload_routes import upload_routes
+from .api.retrieve_routes import retrieve_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -35,6 +36,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
 app.register_blueprint(channels_routes, url_prefix='/api/channels')
 app.register_blueprint(upload_routes, url_prefix='/api')
+app.register_blueprint(retrieve_routes, url_prefix='/api')
 db.init_app(app)
 Migrate(app, db)
 
