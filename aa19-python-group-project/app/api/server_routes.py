@@ -74,6 +74,62 @@ def server(id):
     return { "message": "Server couldn't be found" }, 404
 
 ## Edit A Server
+@server_routes.route('/<int:serverId>', methods=['PUT'])
+@login_required
+def edit_a_server(serverId):
+    data = request.get_json()
+
+    if 'name' not in data:
+        return jsonify({
+            "message": "Bad Request",
+            "errors": { "name": "Name is required" }
+        }), 400
+
+    if not (2 <= len(data['name']) <= 100):
+        return jsonify({
+            "message": "Bad Request",
+            "errors": { "name": "Name length must be between 2 and 100" }
+        }), 400
+
+    server = Server.query.get(serverId)
+
+    if not server:
+        return jsonify({ "message": "Server couldn't be found" }), 404
+
+    if server.owner_id != current_user.id:
+        return jsonify({ "message": "Unauthorized" }), 403
+
+    server.name = data['name']
+    server.preview = data['preview']
+
+    db.session.commit()
+
+    return jsonify({
+        'id': server.id,
+        'ownerId': server.owner_id,
+        'name': server.name,
+        'preview': server.preview,
+        'createdAt': server.created_at,
+        'updatedAt': server.updated_at
+    }), 200
+
+## Delete A Server
+server_routes.route('/<int:serverId>', methods=['DELETE'])
+@login_required
+def delete_a_server(serverId):
+    server = Server.query.get(serverId)
+
+    if not server:
+        return jsonify({ "message": "Server couldn't be found" }), 404
+
+    if server.owner_id != current_user.id:
+        return jsonify({ "message": "Unauthorized" }), 403
+
+    db.session.delete(server)
+    db.session.commit()
+
+    return jsonify({ "message": "Successfully deleted" }), 200
+
 
 ## Get Channel
 @server_routes.route('/<int:serverId>/channels', methods=['GET'])
