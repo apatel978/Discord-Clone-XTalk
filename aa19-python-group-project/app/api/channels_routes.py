@@ -2,7 +2,7 @@ from app.models import Channel, Server, db, Message
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from datetime import datetime
-from api.messages_routes import message_routes
+
 
 channels_routes = Blueprint('channels', __name__)
 
@@ -67,9 +67,10 @@ def delete_channel(channelId):
     return jsonify({"message": "Successfully deleted"}), 200
 
 
+    ## MESSAGES
 
 ##Get all channel's messages
-@message_routes.route('/<int:channelId>/messages')
+@channels_routes.route('/<int:channelId>/messages')
 @login_required
 def messages(channelId):
 
@@ -86,13 +87,13 @@ def messages(channelId):
 
 
 ## Create a Message for a Channel
-@message_routes.route('/<int:channelId>/messages', methods=['POST'])
+@channels_routes.route('/<int:channelId>/messages', methods=['POST'])
 @login_required
 def post_message(channelId):
 
     data = request.get_json()
 
-    if not (len(data['message']) < 0):
+    if (len(data['message']) <= 0):
         return jsonify({
             "message": "Bad Request",
             "errors": {  "message": "Cannot be empty" }

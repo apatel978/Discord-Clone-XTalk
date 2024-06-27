@@ -4,9 +4,11 @@ from app.models import Message, db
 
 message_routes = Blueprint('messages', __name__)
 
+
+##Edit a message
 @message_routes.route('/<int:messageid>', methods=['PUT'])
 @login_required
-def edit_messages(messageId):
+def edit_messages(messageid):
     data = request.get_json()
 
     # Validate the request body
@@ -17,7 +19,7 @@ def edit_messages(messageId):
         }), 400
 
     # Find the channel by ID
-    message = Message.query.get(messageId)
+    message = Message.query.get(messageid)
     #Check if message exists
     if not message:
         return jsonify({ "message": "Message couldn't be found" }), 404
