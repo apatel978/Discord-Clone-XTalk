@@ -51,6 +51,8 @@ function SignupFormModal() {
           <input
             type="text"
             value={email}
+            placeholder="email@domain.com"
+            className="input-field"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -61,6 +63,8 @@ function SignupFormModal() {
           <input
             type="text"
             value={username}
+            className="input-field"
+            placeholder="Display name"
             onChange={(e) => setUsername(e.target.value)}
             required
           />
@@ -71,6 +75,8 @@ function SignupFormModal() {
           <input
             type="password"
             value={password}
+            className="input-field"
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -80,13 +86,15 @@ function SignupFormModal() {
           Confirm Password
           <input
             type="password"
+            className="input-field"
             value={confirmPassword}
+            placeholder="Password"
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit" disabled={isDisabled}>Sign Up</button>
+        <button type="submit" className="submit-btn" disabled={isDisabled}>Sign Up</button>
       </form>
       <div className="modal-container12">
       <div>Already have an account?  
@@ -98,6 +106,10 @@ function SignupFormModal() {
               </div>
       </div>
       </div>
+      <span className="sp sp-t"></span>
+			<span className="sp sp-r"></span>
+			<span className="sp sp-b"></span>
+			<span className="sp sp-l"></span>
     </div>
   );
 }

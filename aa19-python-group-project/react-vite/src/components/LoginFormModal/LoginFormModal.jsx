@@ -51,6 +51,7 @@ function LoginFormModal() {
           <input
             type="text"
             value={email}
+            className="input-field"
             placeholder="email@domain.com"
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -61,6 +62,7 @@ function LoginFormModal() {
           Password
           <input
             type="password"
+            className="input-field"
             value={password}
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
@@ -69,10 +71,14 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <div className="buttons-container">
-        <button type="submit" className="demo-user-button" disabled={isSubmitDisabled}>Log In</button>
-        <button onClick={handleDemoUserLogin} className="demo-user-button">Demo User</button>
+        <button type="submit" className="submit-btn" disabled={isSubmitDisabled}>Log In</button>
+        <button onClick={handleDemoUserLogin} className="submit-btn">Demo User</button>
         </div>
       </form>
+      <span className="sp sp-t"></span>
+			<span className="sp sp-r"></span>
+			<span className="sp sp-b"></span>
+			<span className="sp sp-l"></span>
       </div>
   );
 }

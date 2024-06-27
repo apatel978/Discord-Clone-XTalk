@@ -39,8 +39,8 @@ def update_channel(channelId):
         'userId': channel.user_id,
         'serverId': channel.server_id,
         'name': channel.name,
-        # 'createdAt': channel.created_at,
-        # 'updatedAt': channel.updated_at
+        'createdAt': channel.created_at,
+        'updatedAt': channel.updated_at
     }), 200
 
 @channels_routes.route('/<int:channelId>', methods=['DELETE'])
@@ -63,28 +63,3 @@ def delete_channel(channelId):
     return jsonify({"message": "Successfully deleted"}), 200
 
 
-# @server_routes.route('/<int:serverId>/channels', methods=['GET'])
-# @login_required
-# def get_all_channels(serverId):
-#     # Verify that the server exists
-#     server = Server.query.get(serverId)
-#     if not server:
-#         return jsonify({'error': 'Server not found'}), 404
-    
-#     # Verify that the current user is a member of the server
-#     if current_user not in server.users:
-#         return jsonify({'error': 'Unauthorized'}), 403
-    
-#     # Get all channels for the server
-#     channels = Channel.query.filter_by(server_id=serverId).all()
-    
-#     # Format the channels for the response
-#     channels_response = [{
-#         'id': channel.id,
-#         'serverId': channel.server_id,
-#         'userId': channel.user_id,
-#         'name': channel.name,
-#         'createdAt': channel.created_at
-#     } for channel in channels]
-    
-#     return jsonify({'Channels': channels_response}), 200
