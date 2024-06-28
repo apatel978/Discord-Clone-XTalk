@@ -1,9 +1,7 @@
 body, html {
   background: linear-gradient(to right, rgb(7, 4, 54), rgb(0, 0, 11));
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 
 }
 .landing-page {
