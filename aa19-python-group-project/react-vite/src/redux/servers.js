@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const GET_ALL_SERVERS = "servers/getServers";
 
 const getAllServers = (servers) => ({
@@ -6,15 +8,12 @@ const getAllServers = (servers) => ({
 });
 
 export const thunkGetAllServers = () => async (dispatch) => {
-  const res = await fetch("/api/servers/");
-  console.log(res);
+  const res = await csrfFetch("/api/servers/");
   if (res.ok) {
     const data = await res.json();
     if (data.errors) {
       return;
-    } else {
-      console.error("Failed to fetch servers");
-    }
+    } 
     dispatch(getAllServers(data));
   }
 };
