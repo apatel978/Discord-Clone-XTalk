@@ -1,14 +1,14 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Message, db
+from app.models import Message, db, Reaction
 
 message_routes = Blueprint('messages', __name__)
 
 
 ##Edit a message
-@message_routes.route('/<int:messageid>', methods=['PUT'])
+@message_routes.route('/<int:messageId>', methods=['PUT'])
 @login_required
-def edit_messages(messageid):
+def edit_messages(messageId):
     data = request.get_json()
 
     # Validate the request body
@@ -19,7 +19,7 @@ def edit_messages(messageid):
         }), 400
 
     # Find the channel by ID
-    message = Message.query.get(messageid)
+    message = Message.query.get(messageId)
     #Check if message exists
     if not message:
         return jsonify({ "message": "Message couldn't be found" }), 404
@@ -57,3 +57,44 @@ def delete_a_message(messageId):
     db.session.delete(message)
     db.session.commit()
     return jsonify({ "message": "Successfully deleted" }), 200
+
+
+#Get all Reactions for a Message
+@message_routes.route('/<int:messageId>/messages')
+@login_required
+def messages(messageId):
+    reactions = Reaction.query.filter(Reaction.message_id==messageId).all()
+
+    #If message does not exist
+    if not reactions:
+        return jsonify({ "message": "Message couldn't be found" }), 404
+
+    return {
+        'Reactions': [ reaction.to_dict() for reaction in reactions ]
+    }
+
+
+
+#Create A Reaction For A Message
+@message_routes.route('/<int:messageId>/reactions', methods=['POST'])
+@login_required
+def post_reaction(messageId):
+    #Check if message exists
+    message = Message.query.get(messageId)
+    if not message:
+        return { "message": "Message couldn't be found" }, 404
+
+    data = request.get_json()
+
+    model = Reaction()
+    model.reaction = data['reaction']
+    model.user_id = current_user.id
+
+    db.session.add(model)
+    db.session.commit()
+
+    return jsonify({
+        'id': model.id,
+        'userId': model.user_id,
+        'messageId': model.message_id
+    }), 200

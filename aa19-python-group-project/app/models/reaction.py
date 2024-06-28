@@ -14,3 +14,11 @@ class Reaction(db.Model):
 
     message = db.relationship('Message', back_populates='reactions')
     users = db.relationship('User', back_populates='rxns')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'messageId': self.message_id,
+            'userId': self.user_id,
+            'reaction': self.reaction
+        }

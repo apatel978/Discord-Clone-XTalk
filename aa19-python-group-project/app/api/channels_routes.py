@@ -90,6 +90,10 @@ def messages(channelId):
 @channels_routes.route('/<int:channelId>/messages', methods=['POST'])
 @login_required
 def post_message(channelId):
+    #Check if channel exists
+    channel = Channel.query.get(channelId)
+    if not channel:
+        return { "message": "Channel couldn't be found" }, 404
 
     data = request.get_json()
 

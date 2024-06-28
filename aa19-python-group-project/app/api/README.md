@@ -927,15 +927,13 @@ Return all the reactions that the message has.
            "id": 1,
            "messageId": 1,
            "userId": 1,
-           "reaction": "emoji",
-           "createdAt": "2021-11-19 20:39:36"
+           "reaction": "emoji"
         },
         {
            "id": 2,
            "messageId": 1,
            "userId": 1,
-           "reaction": "emoji2",
-           "createdAt": "2021-11-19 20:39:36"
+           "reaction": "emoji2"
         }
       ]
     }
@@ -982,8 +980,7 @@ Create and return a new reaction for a message specified by id.
       "id": 1,
       "userId": 1,
       "messageId": 1,
-      "reaction": "emoji3",
-      "createdAt": "2021-11-19 20:39:36"
+      "reaction": "emoji3"
     }
     ```
 
