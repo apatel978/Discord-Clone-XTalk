@@ -60,7 +60,7 @@ def delete_a_message(messageId):
 
 
 #Get all Reactions for a Message
-@message_routes.route('/<int:messageId>/messages')
+@message_routes.route('/<int:messageId>/reactions')
 @login_required
 def messages(messageId):
     reactions = Reaction.query.filter(Reaction.message_id==messageId).all()
@@ -89,6 +89,7 @@ def post_reaction(messageId):
     model = Reaction()
     model.reaction = data['reaction']
     model.user_id = current_user.id
+    model.message_id = messageId
 
     db.session.add(model)
     db.session.commit()
@@ -96,5 +97,6 @@ def post_reaction(messageId):
     return jsonify({
         'id': model.id,
         'userId': model.user_id,
-        'messageId': model.message_id
+        'messageId': model.message_id,
+        'reaction': model.reaction
     }), 200
