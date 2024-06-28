@@ -11,7 +11,14 @@
     color: white;
     overflow: hidden;
      }
-   
+     .modal-signup h1 {
+      color: rgb(78, 105, 169);
+      margin-bottom: 0px;
+      margin-top: 10px;
+      text-align: center;
+      margin-bottom: 10px;
+      
+    }
      #passwordErrors {
        width: 318px;
        height: 32px;
@@ -27,11 +34,7 @@
         color: rgb(178, 35, 181);
 
      }
-     .modal-signup h1 {
-       font-size: 1.5rem;
-     /* margin-bottom: 40px; */
-       text-align: center;
-     }
+ 
      .modal-signup #top {
     
       margin-bottom: 15px;

@@ -2,8 +2,9 @@
 import './LandingPage.css';
 
 const LandingPage = () => {
-  return (<>
+  return (<> <div className='lph1'>
       <h1>CONNECT, CHAT, AND PLAY TOGETHER</h1>
+      </div>
     <div className="landing-page">
       
       <div className="text-container">

@@ -17,7 +17,7 @@ body, html {
     color: rgb(145, 158, 196);
   }
 
-  h1 {
+ .lph1 h1 {
     font-family: 'Raleway', sans-serif;
     font-size: 3em;
     background: linear-gradient(45deg, #ff6b6b, #f06595, #6c5ce7, #74b9ff, #00cec9);
@@ -30,7 +30,7 @@ body, html {
     animation: gradientShift 5s infinite linear;
 }
 
-h1::before {
+.lph1 h1::before {
     content: "";
     position: absolute;
     top: 0;

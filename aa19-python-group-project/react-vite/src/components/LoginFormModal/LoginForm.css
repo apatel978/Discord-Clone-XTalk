@@ -8,18 +8,19 @@
     padding: 30px 40px 30px 40px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 220px;
-    height: 400px;
+    width: 240px;
+    height: 420px;
     background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
     
     overflow: hidden;
   }
   
   .modal-login h1 {
-    color: white;
+    color: rgb(78, 105, 169);
     margin-bottom: 0px;
     margin-top: 10px;
     text-align: center;
+    
   }
   .modal-login h5 {
     color: white;
