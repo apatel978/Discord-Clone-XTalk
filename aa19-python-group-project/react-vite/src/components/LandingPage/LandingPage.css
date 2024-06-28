@@ -1,0 +1,86 @@
+body, html {
+  background: linear-gradient(to right, rgb(7, 4, 54), rgb(0, 0, 11));
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.landing-page {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    align-items: flex-start;
+    /* align-items: center; */
+    padding: 20px;
+    height: 100vh;
+    color: rgb(145, 158, 196);
+  }
+
+  h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 3em;
+    background: linear-gradient(45deg, #ff6b6b, #f06595, #6c5ce7, #74b9ff, #00cec9);
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-align: center;
+    position: relative;
+    animation: gradientShift 5s infinite linear;
+}
+
+h1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.8;
+    animation: gradientShift 5s infinite linear;
+}
+  .text-container {
+    justify-content: flex-start;
+    flex: 1;
+    flex: 0 1 40%;
+    padding: 20px;
+    font-size: larger;
+   
+  }
+  
+  .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .image-container img {
+    width: 100%; /* Set the desired width */
+    height: auto; /* Maintain the aspect ratio */
+    -webkit-mask-image: 
+        linear-gradient(to right, transparent, black 20%, black 80%, transparent), /* Left and right */
+        linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); /* Top and bottom */
+    mask-image: 
+        linear-gradient(to right, transparent, black 20%, black 80%, transparent), /* Left and right */
+        linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); /* Top and bottom */
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+
+  }
+  @keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

@@ -1,3 +1,36 @@
 .profile-dropdown {
   position: absolute;
 }
+
+.hidden {
+  display: none;
+}
+
+.logo {
+  width: 120px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none; 
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto; 
+  height: 3em;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: solid rgba(36, 37, 37, 0.1);
+  padding-bottom: 13px;
+  color: white;
+}
+
+.profile {
+  cursor: pointer;
+  grid-column: 3; 
+  display: grid;
+  margin-top: 10px;
+  grid-template-columns: 5fr 2fr;
+  
+}
+
