@@ -1,4 +1,9 @@
 
 .main-page{
     color:white;
+    display: grid;
+    height: 10fr;
+    border-color: white;
+    grid-template-columns: 1fr 2fr 5fr 2fr; /* 4 columns */
+    
 }
