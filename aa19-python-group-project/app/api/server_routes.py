@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, redirect, request
 from flask_login import login_required, current_user
 from app.models import Server, db , Channel
 from app.forms import ServerForm
+from sqlalchemy.orm import joinedload
 
 server_routes = Blueprint('servers', __name__)
 
@@ -67,10 +68,22 @@ def post_server():
 @login_required
 def server(id):
 
-    server = Server.query.get(id)
+    server = Server.query.options(joinedload(Server.server_channels)).filter_by(id=id).first()
+    # server = Server.query.get(id)
+    # channels = Channel.query.filter_by(id=id).all()
+    # channel_list = [channel.to_dict() for channel in channels]
 
     if server:
-        return server.to_dict()
+        # dictServer = server.to_dict()
+        # dictServer["channels"] = channel_list
+        server_data = {
+            'id': server.id,
+            'ownerId': server.owner_id,
+            'name': server.name,
+            'preview': server.preview,
+            'channels': [{'id': channel.id, 'serverId': channel.server_id, 'userId': channel.user_id, 'name': channel.name, 'createdAt': channel.created_at} for channel in server.server_channels]
+        }
+        return server_data
 
     return { "message": "Server couldn't be found" }, 404
 
@@ -173,7 +186,7 @@ def create_channel(server_id):
             "message": "Bad Request",
             "errors": {"name": "Length must be between 1-100"}
         }), 400
-    
+
     # Create a new channel
     new_channel = Channel(
         name=data['name'],
