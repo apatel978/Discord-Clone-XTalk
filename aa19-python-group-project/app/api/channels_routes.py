@@ -85,6 +85,27 @@ def messages(channelId):
     }
 
 
+##Get all channel's messages and reactions w/ join load
+@channels_routes.route('/<int:channelId>/messages')
+@login_required
+def messages(channelId):
+
+    messages_and_reactions = db.session.query(Message).joinLoad(Message.reactions).filter_by(channelId=channelId).all()
+
+    #If channel does not exist
+    if not messages:
+        return jsonify({ "message": "Message couldn't be found" }), 404
+
+    result = []
+    for message in messages_and_reactions:
+        entry = message.to_dict()
+        entry["reactions"] = [x.to_dict() for x in message.reactions]
+        result.append(entry)
+    return {
+        'Messages': result
+    }
+
+
 
 ## Create a Message for a Channel
 @channels_routes.route('/<int:channelId>/messages', methods=['POST'])
