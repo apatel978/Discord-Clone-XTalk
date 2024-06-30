@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, redirect, request
 from flask_login import login_required, current_user
-from app.models import Server, db , Channel
+from app.models import Server, db , Channel, Member, User
 from app.forms import ServerForm
 from sqlalchemy.orm import joinedload
 
@@ -69,6 +69,8 @@ def post_server():
 def server(id):
 
     server = Server.query.options(joinedload(Server.server_channels)).filter_by(id=id).first()
+    members = db.session.query(User).join(Member, User.id == Member.user_id).filter(Member.server_id == id).all()
+    members_usernames = [{ 'id': member.id, 'username': member.username, 'serverId': id, 'userId': member.id } for member in members]
     # server = Server.query.get(id)
     # channels = Channel.query.filter_by(id=id).all()
     # channel_list = [channel.to_dict() for channel in channels]
@@ -81,7 +83,8 @@ def server(id):
             'ownerId': server.owner_id,
             'name': server.name,
             'preview': server.preview,
-            'channels': [{'id': channel.id, 'serverId': channel.server_id, 'userId': channel.user_id, 'name': channel.name, 'createdAt': channel.created_at} for channel in server.server_channels]
+            'channels': [{'id': channel.id, 'serverId': channel.server_id, 'userId': channel.user_id, 'name': channel.name, 'createdAt': channel.created_at} for channel in server.server_channels],
+            'members': members_usernames
         }
         return server_data
 
