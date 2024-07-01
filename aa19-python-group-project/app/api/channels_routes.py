@@ -69,20 +69,20 @@ def delete_channel(channelId):
 
     ## MESSAGES
 
-##Get all channel's messages
-@channels_routes.route('/<int:channelId>/messages')
-@login_required
-def messages(channelId):
+# ##Get all channel's messages
+# @channels_routes.route('/<int:channelId>/messages')
+# @login_required
+# def messages(channelId):
 
-    messages = Message.query.filter(Message.channel_id==channelId).all()
+#     messages = Message.query.filter(Message.channel_id==channelId).all()
 
-    #If channel does not exist
-    if not messages:
-        return jsonify({ "message": "Message couldn't be found" }), 404
+#     #If channel does not exist
+#     if not messages:
+#         return jsonify({ "message": "Message couldn't be found" }), 404
 
-    return {
-        'Messages': [ message.to_dict() for message in messages ]
-    }
+#     return {
+#         'Messages': [ message.to_dict() for message in messages ]
+#     }
 
 
 ##Get all channel's messages and reactions w/ join load
