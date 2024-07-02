@@ -5,5 +5,38 @@
     height: 10fr;
     border-color: white;
     grid-template-columns: 1fr 2fr 5fr 2fr; /* 4 columns */
-    
+
+}
+
+.serverPreviewContainer {
+    border: 2px orange solid;
+}
+
+.serverPreview {
+    width: 40px;
+    height: 40px
+}
+
+.ServerLink {
+    position: relative;
+}
+
+#tooltip {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.74);
+    color: white;
+    font-size: 14px;
+    z-index: 1;
+    margin-left: 40px;
+    margin-bottom: 50px;
+    top: -15px;
+    left: 10px;
+    justify-self: flex-start;
+}
+
+.ServerLink:hover #tooltip {
+    opacity: 1;
+    visibility: visible;
 }
