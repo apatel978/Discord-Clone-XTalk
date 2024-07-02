@@ -91,7 +91,7 @@ def delete_channel(channelId):
 @login_required
 def messages(channelId):
 
-    messages_and_reactions = db.session.query(Message).options(joinedload(Message.reactions)).filter_by(channelId=channelId).all()
+    messages_and_reactions = db.session.query(Message).options(joinedload(Message.reactions)).filter_by(channel_id=channelId).all()
 
     #If channel does not exist
     if not messages:
