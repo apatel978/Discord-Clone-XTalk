@@ -31,9 +31,11 @@ const HomePage = () => {
       {serverList.map((server) => (
         <ServerPreviewTile key={`${server.id}`}  server={server}/>
       ))}
-      <ProfileButton user={user}/>
     </div>
-    {user.username}
+    <div className="profile-area">
+      <ProfileButton user={user}/>
+      {user.username}
+    </div>
   </div>
 )}
 

@@ -4,8 +4,7 @@
     display: grid;
     height: 10fr;
     border-color: white;
-    grid-template-columns: 1fr 2fr 5fr 2fr; /* 4 columns */
-
+    grid-template-columns: 1fr 2fr 5fr 2fr; 4 columns
 }
 
 .serverPreviewContainer {
@@ -56,4 +55,9 @@
 .ServerLink:hover #tooltip {
     opacity: 1;
     visibility: visible;
+}
+
+.profile-area{
+    border: 2px rgb(0, 0, 0) solid;
+
 }
