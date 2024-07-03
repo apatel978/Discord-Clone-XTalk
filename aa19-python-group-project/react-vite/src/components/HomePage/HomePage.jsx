@@ -1,16 +1,17 @@
 // src/components/HomePage/HomePage.js
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { thunkGetAllServers } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
 import ServerPreviewTile from './ServerPreviewTiles';
+import ProfileButton from '../../components/Navigation/ProfileButton'
 import './HomePage.css'
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state)=> state.session.user);
   const servers = useSelector((state)=>state.servers);
-  const channels = useSelector((state)=> state.channels);
+  // const channels = useSelector((state)=> state.channels);
   let serverList = Object.values(servers)
   console.log(serverList)
 
@@ -30,6 +31,7 @@ const HomePage = () => {
       {serverList.map((server) => (
         <ServerPreviewTile key={`${server.id}`}  server={server}/>
       ))}
+      <ProfileButton user={user}/>
     </div>
     {user.username}
   </div>

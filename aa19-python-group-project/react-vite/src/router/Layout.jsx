@@ -3,9 +3,12 @@ import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
-import Navigation from "../components/Navigation/Navigation";
+// import Navigation from "../components/Navigation/Navigation";
+import{ useSelector } from "react-redux"
 
 export default function Layout() {
+  const user = useSelector((state) => state.session.user);
+
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -14,11 +17,10 @@ export default function Layout() {
 
   return (
     <>
-      <ModalProvider>
-        <Navigation />
-        {isLoaded && <Outlet />}
+    <ModalProvider>
+        {isLoaded && <Outlet /> }
         <Modal />
-      </ModalProvider>
+    </ModalProvider>
     </>
   );
 }

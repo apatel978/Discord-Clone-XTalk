@@ -1,8 +1,10 @@
-
+import Navigation from "../../components/Navigation";
 import './LandingPage.css';
 
 const LandingPage = () => {
-  return (<> <div className='lph1'>
+  return (<>
+  <Navigation />
+  <div className='lph1'>
       <h1>CONNECT AND CHAT TOGETHER</h1>
       </div>
     <div className="landing-page">
