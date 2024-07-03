@@ -9,12 +9,29 @@
 }
 
 .serverPreviewContainer {
-    border: 2px orange solid;
+    border: 2px rgb(0, 0, 0) solid;
+    background-color: rgb(22, 15, 114);
+    display: flex;
+    width: 80px;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .serverPreview {
-    width: 40px;
-    height: 40px
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+.ServerLinkHolder {
+    /* border: green 1px solid; */
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ServerLink {
@@ -31,8 +48,8 @@
     z-index: 1;
     margin-left: 40px;
     margin-bottom: 50px;
-    top: -15px;
-    left: 10px;
+    top: 20px;
+    left: 18px;
     justify-self: flex-start;
 }
 

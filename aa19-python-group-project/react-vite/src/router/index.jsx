@@ -24,6 +24,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <ConditionalHomePage />,
       },
+      {
+        path: "/servers/:serverId",
+        element: <></>
+      }
     ],
   },
 ]);

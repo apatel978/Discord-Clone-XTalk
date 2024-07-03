@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function ServerPreviewTile({ server }) {
     return (
-        <div>
+        <div className='ServerLinkHolder'>
             <Link className="ServerLink" to={`servers/${server.id}`}>
                 <img src={server.preview} className='serverPreview'/>
                 <div>
