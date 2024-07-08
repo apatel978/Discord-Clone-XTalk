@@ -7,3 +7,20 @@
     grid-template-columns: 1fr 2fr 5fr 2fr; /* 4 columns */
     
 }
+.server-img {
+    width: 70px;
+    height: 70px; /* Ensure the height matches the width for a perfect circle */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+.tooltip
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .servers:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

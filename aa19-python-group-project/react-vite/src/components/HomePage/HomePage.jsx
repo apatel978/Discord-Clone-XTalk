@@ -10,7 +10,7 @@ const HomePage = () => {
   const user = useSelector((state)=> state.session.user)
   const servers = useSelector((state)=>state.servers)
   const channels = useSelector((state)=> state.channels)
-
+console.log(servers)
   useEffect(() => {
     dispatch(thunkGetAllServers(), thunkGetAllChannels(2));
   }, [dispatch]);
@@ -22,7 +22,17 @@ const HomePage = () => {
 
   return (
   <div className='main-page'>
-  <h1>Welcome to the Home Page!</h1>
+     <div className="servers" >
+        {Object.values(servers).map((server) => (
+            <div key={server.id} className="spot">
+                    <img  className='server-img'  src={server.preview} alt={server.name} />
+                    <span className="tooltiptext">{server.name}</span>
+                 
+                    
+                </div>
+            
+        ))}  
+    </div>
   {user.username}
   </div>
 )}
