@@ -2,6 +2,7 @@ from app.models import Channel, Server, db, Message
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from datetime import datetime
+from sqlalchemy.orm import joinedload
 
 
 channels_routes = Blueprint('channels', __name__)
@@ -69,20 +70,20 @@ def delete_channel(channelId):
 
     ## MESSAGES
 
-##Get all channel's messages
-@channels_routes.route('/<int:channelId>/messages')
-@login_required
-def messages(channelId):
+# ##Get all channel's messages
+# @channels_routes.route('/<int:channelId>/messages')
+# @login_required
+# def messages(channelId):
 
-    messages = Message.query.filter(Message.channel_id==channelId).all()
+#     messages = Message.query.filter(Message.channel_id==channelId).all()
 
-    #If channel does not exist
-    if not messages:
-        return jsonify({ "message": "Message couldn't be found" }), 404
+#     #If channel does not exist
+#     if not messages:
+#         return jsonify({ "message": "Message couldn't be found" }), 404
 
-    return {
-        'Messages': [ message.to_dict() for message in messages ]
-    }
+#     return {
+#         'Messages': [ message.to_dict() for message in messages ]
+#     }
 
 
 ##Get all channel's messages and reactions w/ join load
@@ -90,7 +91,7 @@ def messages(channelId):
 @login_required
 def messages(channelId):
 
-    messages_and_reactions = db.session.query(Message).joinLoad(Message.reactions).filter_by(channelId=channelId).all()
+    messages_and_reactions = db.session.query(Message).options(joinedload(Message.reactions)).filter_by(channel_id=channelId).all()
 
     #If channel does not exist
     if not messages:

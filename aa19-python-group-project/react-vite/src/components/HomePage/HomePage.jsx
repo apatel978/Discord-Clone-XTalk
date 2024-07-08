@@ -1,16 +1,20 @@
 // src/components/HomePage/HomePage.js
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { thunkGetAllServers } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
+import ServerPreviewTile from './ServerPreviewTiles';
+import ProfileButton from '../../components/Navigation/ProfileButton'
 import './HomePage.css'
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state)=> state.session.user)
-  const servers = useSelector((state)=>state.servers)
-  const channels = useSelector((state)=> state.channels)
-console.log(servers)
+  const user = useSelector((state)=> state.session.user);
+  const servers = useSelector((state)=>state.servers);
+  // const channels = useSelector((state)=> state.channels);
+  let serverList = Object.values(servers)
+  console.log(serverList)
+
   useEffect(() => {
     dispatch(thunkGetAllServers(), thunkGetAllChannels(2));
   }, [dispatch]);
@@ -22,18 +26,16 @@ console.log(servers)
 
   return (
   <div className='main-page'>
-     <div className="servers" >
-        {Object.values(servers).map((server) => (
-            <div key={server.id} className="spot">
-                    <img  className='server-img'  src={server.preview} alt={server.name} />
-                    <span className="tooltiptext">{server.name}</span>
-                 
-                    
-                </div>
-            
-        ))}  
+    {/* <h1>Welcome to the Home Page!</h1> */}
+    <div className='serverPreviewContainer'>
+      {serverList.map((server) => (
+        <ServerPreviewTile key={`${server.id}`}  server={server}/>
+      ))}
     </div>
-  {user.username}
+    <div className="profile-area">
+      <ProfileButton user={user}/>
+      {user.username}
+    </div>
   </div>
 )}
 

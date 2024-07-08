@@ -13,7 +13,7 @@ export const thunkGetAllServers = () => async (dispatch) => {
     const data = await res.json();
     if (data.errors) {
       return;
-    } 
+    }
     dispatch(getAllServers(data));
   }
 };

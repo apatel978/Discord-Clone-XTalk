@@ -4,8 +4,62 @@
     display: grid;
     height: 10fr;
     border-color: white;
-    grid-template-columns: 1fr 2fr 5fr 2fr; /* 4 columns */
-    
+    grid-template-columns: 1fr 2fr 5fr 2fr; 4 columns
+}
+
+.serverPreviewContainer {
+    border: 2px rgb(0, 0, 0) solid;
+    background-color: rgb(22, 15, 114);
+    display: flex;
+    width: 80px;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.serverPreview {
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+.ServerLinkHolder {
+    /* border: green 1px solid; */
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ServerLink {
+    position: relative;
+}
+
+#tooltip {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.74);
+    color: white;
+    font-size: 14px;
+    z-index: 1;
+    margin-left: 40px;
+    margin-bottom: 50px;
+    top: 20px;
+    left: 18px;
+    justify-self: flex-start;
+}
+
+.ServerLink:hover #tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-area{
+    border: 2px rgb(0, 0, 0) solid;
+
 }
 .server-img {
     width: 70px;
