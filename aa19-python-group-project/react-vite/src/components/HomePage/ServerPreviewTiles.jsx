@@ -4,6 +4,7 @@ function ServerPreviewTile({ server }) {
     return (
         <div className='ServerLinkHolder'>
             <Link className="ServerLink" to={`servers/${server.id}`}>
+          
                 <img src={server.preview} className='serverPreview'/>
                 <div>
                     <span id='tooltip'>{server.name}</span>

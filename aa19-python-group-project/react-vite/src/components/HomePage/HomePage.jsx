@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { thunkGetAllServers } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from './ServerPreviewTiles';
 import ProfileButton from '../../components/Navigation/ProfileButton'
+import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import './HomePage.css'
 
 const HomePage = () => {
@@ -20,7 +22,7 @@ const HomePage = () => {
   }, [dispatch]);
   useEffect(() => {
     dispatch(thunkGetAllChannels(2));
-  }, [dispatch, 1]);
+  }, [dispatch]);
   // console.log(servers)
 
 
@@ -31,6 +33,10 @@ const HomePage = () => {
       {serverList.map((server) => (
         <ServerPreviewTile key={`${server.id}`}  server={server}/>
       ))}
+       <OpenModalMenuItem
+      modalComponent={<CreateServerModal />}
+      itemText={<img src='../../../images/plus2.png' className='serverPreview' alt="Plus Sign" />}
+    />
     </div>
     <div className="profile-area">
       <ProfileButton user={user}/>

@@ -1,19 +1,6 @@
 /* LoginFormModal.css */
 
-.modal-login {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px 40px 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 240px;
-    height: 420px;
-    background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
-    
-    overflow: hidden;
-  }
+
   
   .modal-login h1 {
     color: rgb(78, 105, 169);
@@ -62,7 +49,7 @@
  
 
   .buttons-container{
-    margin-top: 30px;
+    margin-top: 10px;
 
   }
   .modal-login button:disabled {
@@ -74,13 +61,14 @@
     background-color: #0056b3;
   }
   
-  .modal-login p {
-    color: red;
-    margin-top: 0px;
-    font-size: 0.9rem;
-    margin-bottom: 0px;
-
-  }
+.Cs {
+    z-index: 1;
+    width: 150px;
+    
+    color: white;
+    margin-left: 45px;
+    filter: invert(48%) sepia(91%) saturate(4547%) hue-rotate(230deg) brightness(94%) contrast(108%);
+}   
   
 
 .sp {
@@ -236,4 +224,3 @@
       animBTN 5s linear infinite;
   ;
 }
-

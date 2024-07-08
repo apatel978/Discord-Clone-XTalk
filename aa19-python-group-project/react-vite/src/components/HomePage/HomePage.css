@@ -4,7 +4,7 @@
     display: grid;
     height: 10fr;
     border-color: white;
-    grid-template-columns: 1fr 2fr 5fr 2fr; 4 columns
+    grid-template-columns: 1fr 2fr 5fr 2fr; 
 }
 
 .serverPreviewContainer {
@@ -19,9 +19,9 @@
 }
 
 .serverPreview {
-    width: 50px;
-    height: 50px;
-    border-radius: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
 .ServerLinkHolder {
@@ -65,6 +65,7 @@
     width: 70px;
     height: 70px; /* Ensure the height matches the width for a perfect circle */
     border-radius: 50%; /* Make the image circular */
+    
     object-fit: cover;
     margin-bottom: 5px;
 }
@@ -72,9 +73,11 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+
   }
   
   .servers:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+   
   }
