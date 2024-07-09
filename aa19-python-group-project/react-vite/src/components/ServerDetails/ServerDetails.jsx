@@ -5,6 +5,7 @@ import { thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
 import ChannelsList from '../ChannelsList/ChannelsList';
+import MemberList from '../MembersList/MembersList';
 import ProfileButton from '../../components/Navigation/ProfileButton'
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import { useParams } from 'react-router-dom';
@@ -22,6 +23,8 @@ const ServerDetail = () => {
     // console.log('all channels: ', allChannels)
     // let serverChannels = allChannels.filter((channel) => channel.serverId === Number(serverId));
     // console.log('filtered: ', serverChannels);
+    const members = useSelector((state) => state.servers[Number(serverId)]?.members)
+    // console.log(members)
 
     useEffect(() => {
       dispatch(thunkGetAllServers());
@@ -47,6 +50,7 @@ const ServerDetail = () => {
         <ProfileButton user={user}/>
         {user.username}
       </div>
+      <MemberList members={members}/>
     </div>
   )
 }
