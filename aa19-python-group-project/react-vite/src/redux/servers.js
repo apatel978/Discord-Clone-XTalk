@@ -43,14 +43,11 @@ export const thunkServerById = (serverId) => async (dispatch) => {
 };
 
 export const thunkCreateServer = (serverName, file) => async (dispatch) => {
+  let previewImageUrl;
 
+  if (file) {
     // Upload the file to get the preview image URL
     const formData = new FormData();
-
-    if (!file) {
-      file = "aa19-python-group-project/react-vite/images/defaultserver.png"
-    }
-
     formData.append('file', file);
 
     const uploadResponse = await fetch('/api/upload', {
@@ -64,42 +61,34 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
       throw new Error(uploadData.error);
     }
 
-
-    const serverData = {
-      name: serverName,
-      preview: uploadData.imageUrl 
-    };
-
-    // Send the POST request to create the server
-    const serverResponse = await csrfFetch('/api/servers/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(serverData),
-
-    });
-
-    if (serverResponse.ok) {
-      const serverDataResponse = await serverResponse.json();
-<<<<<<< HEAD
-      return serverDataResponse
-    }
-     
-
-     const serverDataResponse = await serverResponse.json();
-=======
->>>>>>> 3f9294617112fd247b6850112481a3d2339dc745
-      return dispatch(createServer(serverDataResponse ))
-    }
-
-<<<<<<< HEAD
-  } catch (error) {
-
+    previewImageUrl = uploadData.imageUrl;
+  } else {
+    previewImageUrl = 'https://crosstalkappbuck.s3.us-east-2.amazonaws.com/defaultserver.png'
   }
-=======
->>>>>>> 3f9294617112fd247b6850112481a3d2339dc745
-}
+
+  const serverData = {
+    name: serverName,
+    preview: previewImageUrl,
+  };
+
+  // Send the POST request to create the server
+  const serverResponse = await csrfFetch('/api/servers/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(serverData),
+  });
+
+  if (serverResponse.ok) {
+    const serverDataResponse = await serverResponse.json();
+    dispatch(createServer(serverDataResponse));
+    return serverDataResponse;
+  } else {
+    const errorResponse = await serverResponse.json();
+    throw new Error(errorResponse.error);
+  }
+};
 
 const initialState = {};
 
@@ -128,10 +117,9 @@ function serversReducer(state = initialState, action) {
       case CREATE_SERVER:
           return {
             ...state,
-            servers: {
           ...state.servers,
           [action.payload.id]: action.payload
-        }
+        
       };
       default:
         return state;
