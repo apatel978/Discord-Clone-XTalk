@@ -76,16 +76,11 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
       const serverDataResponse = await serverResponse.json();
       return serverDataResponse
     }
-     
 
-<<<<<<< HEAD
-      // return dispatch(createServer(serverDataResponse )) 
-  
-=======
+
      const serverDataResponse = await serverResponse.json();
       return dispatch(createServer(serverDataResponse ))
 
->>>>>>> a2d6a880099a270ea942e0ebf081085ad22d489a
   } catch (error) {
 
   }
