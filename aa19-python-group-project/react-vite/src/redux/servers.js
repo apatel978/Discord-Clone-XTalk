@@ -43,9 +43,14 @@ export const thunkServerById = (serverId) => async (dispatch) => {
 };
 
 export const thunkCreateServer = (serverName, file) => async (dispatch) => {
-  try {
+
     // Upload the file to get the preview image URL
     const formData = new FormData();
+
+    if (!file) {
+      file = "aa19-python-group-project/react-vite/images/defaultserver.png"
+    }
+
     formData.append('file', file);
 
     const uploadResponse = await fetch('/api/upload', {
@@ -58,6 +63,8 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
     if (uploadData.error) {
       throw new Error(uploadData.error);
     }
+
+
     const serverData = {
       name: serverName,
       preview: uploadData.imageUrl
@@ -72,21 +79,16 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
       body: JSON.stringify(serverData),
 
     });
-    if (response.ok) {
+
+    if (serverResponse.ok) {
       const serverDataResponse = await serverResponse.json();
-      return serverDataResponse
+      return dispatch(createServer(serverDataResponse ))
     }
 
-
-     const serverDataResponse = await serverResponse.json();
-      return dispatch(createServer(serverDataResponse ))
-
-  } catch (error) {
-
-  }
 }
 
 const initialState = {};
+
 
 function serversReducer(state = initialState, action) {
     switch (action.type) {
