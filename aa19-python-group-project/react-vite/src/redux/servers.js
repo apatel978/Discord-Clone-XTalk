@@ -64,7 +64,7 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
     };
 
     // Send the POST request to create the server
-    const serverResponse = await csrfFetch('/api/servers', {
+    const serverResponse = await csrfFetch('/api/servers/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -72,9 +72,13 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
       body: JSON.stringify(serverData),
     
     });
+    if (response.ok) {
+      const serverDataResponse = await serverResponse.json();
+      return serverDataResponse
+    }
+     
 
-     const serverDataResponse = await serverResponse.json();
-      return dispatch(createServer(serverDataResponse )) 
+      // return dispatch(createServer(serverDataResponse )) 
   
   } catch (error) {
   
