@@ -56,7 +56,7 @@ const CreateServerModal = () => {
                    
         //         } else {
         //             console.error('Server Creation Error:', serverDataResponse.errors);
-        //             // Handle server creation errors
+        //           
         //         }
         //     } catch (error) {
         //         console.error('Error uploading file:', error);

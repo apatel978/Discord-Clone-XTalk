@@ -21,7 +21,7 @@ const HomePage = () => {
     dispatch(thunkGetAllServers(), thunkGetAllChannels(2));
   }, [dispatch]);
   useEffect(() => {
-    dispatch(thunkGetAllChannels(2));
+    dispatch(thunkGetAllChannels(2)); 
   }, [dispatch]);
   // console.log(servers)
 
