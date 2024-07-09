@@ -13,6 +13,12 @@ const getServerById = (server) => ({
   type: GET_SERVER_BY_ID,
   payload: server
 });
+const createServer = (server) => ({
+  type: CREATE_SERVER,
+  payload: server,
+});
+
+
 
 export const thunkGetAllServers = () => async (dispatch) => {
   const res = await csrfFetch("/api/servers/");
