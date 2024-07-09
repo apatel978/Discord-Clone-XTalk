@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
-import { thunkGetAllServers } from '../../redux/servers';
+import { thunkGetAllServers, thunkServerById } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
-import { thunkServerById } from '../../redux/servers';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
 import ProfileButton from '../../components/Navigation/ProfileButton'
@@ -24,10 +23,9 @@ const ServerDetail = () => {
     // console.log('filtered: ', serverChannels);
 
     useEffect(() => {
-      dispatch(thunkGetAllServers(), thunkServerById(Number(serverId)), thunkGetAllChannels(Number(serverId)));
-    }, [dispatch, serverId]);
-    useEffect(() => {
-      dispatch(thunkGetAllChannels(Number(serverId)), thunkServerById(Number(serverId)));
+      dispatch(thunkGetAllServers());
+      dispatch(thunkServerById(Number(serverId)));
+      dispatch(thunkGetAllChannels(Number(serverId)));
     }, [dispatch, serverId]);
     // console.log(servers)
 
