@@ -30,6 +30,17 @@ export const thunkGetAllServers = () => async (dispatch) => {
     dispatch(getAllServers(data));
   }
 };
+export const thunkServerById = (serverId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/servers/${serverId}`);
+  if (res.ok) {
+    const server = await res.json();
+    if (server.errors) {
+      return;
+    }
+    dispatch(getServerById(server))
+    return server;
+  }
+};
 
 export const thunkCreateServer = (serverName, file) => async (dispatch) => {
   try {
@@ -63,7 +74,7 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
     });
 
      const serverDataResponse = await serverResponse.json();
-      return serverDataResponse 
+      return dispatch(createServer(serverDataResponse )) 
   
   } catch (error) {
   
