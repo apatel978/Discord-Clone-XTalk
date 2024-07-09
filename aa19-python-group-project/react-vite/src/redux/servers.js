@@ -85,6 +85,14 @@ function serversReducer(state = initialState, action) {
         console.log('SERVER: ', server);
         return cloneState;
       }
+      case CREATE_SERVER:
+          return {
+            ...state,
+            servers: {
+          ...state.servers,
+          [action.payload.id]: action.payload
+        }
+      };
       default:
         return state;
     }
