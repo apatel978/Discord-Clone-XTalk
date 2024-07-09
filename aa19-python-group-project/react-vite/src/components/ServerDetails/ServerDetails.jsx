@@ -4,6 +4,7 @@ import { thunkGetAllServers, thunkServerById } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
+import ChannelsList from '../ChannelsList/ChannelsList';
 import ProfileButton from '../../components/Navigation/ProfileButton'
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import { useParams } from 'react-router-dom';
@@ -14,8 +15,8 @@ const ServerDetail = () => {
     const dispatch = useDispatch();
     const user = useSelector((state)=> state.session.user);
     const servers = useSelector((state)=>state.servers);
-    // const channels = useSelector((state)=> state.channels);
     let serverList = Object.values(servers);
+    // const channels = useSelector((state)=> state.channels);
     // let allChannels = Object.values(channels);
     // console.log(serverList)
     // console.log('all channels: ', allChannels)
