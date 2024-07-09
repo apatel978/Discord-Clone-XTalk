@@ -89,6 +89,7 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
 
 const initialState = {};
 
+
 function serversReducer(state = initialState, action) {
     switch (action.type) {
       case GET_ALL_SERVERS: {
