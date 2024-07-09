@@ -42,8 +42,7 @@ function serversReducer(state = initialState, action) {
     switch (action.type) {
       case GET_ALL_SERVERS: {
         let nextState = {};
-        Object.entries(action.payload.Servers).forEach(([key, value]) => {
-              console.log('keys', key)
+        Object.values(action.payload.Servers).forEach((value) => {
               nextState[value.id] = value;
         })
         return {
