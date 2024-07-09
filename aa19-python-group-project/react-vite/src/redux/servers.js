@@ -70,14 +70,14 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(serverData),
-    
+
     });
 
      const serverDataResponse = await serverResponse.json();
-      return dispatch(createServer(serverDataResponse )) 
-  
+      return dispatch(createServer(serverDataResponse ))
+
   } catch (error) {
-  
+
   }
 }
 
@@ -87,7 +87,7 @@ function serversReducer(state = initialState, action) {
     switch (action.type) {
       case GET_ALL_SERVERS: {
         let nextState = {};
-        Object.values(action.payload.Servers).forEach((value) => {
+        action.payload.Servers.forEach((value) => {
               nextState[value.id] = value;
         })
         return {
