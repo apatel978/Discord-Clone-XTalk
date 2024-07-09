@@ -103,7 +103,10 @@ function serversReducer(state = initialState, action) {
       case GET_SERVER_BY_ID: {
         const cloneState = structuredClone(state);
         const server = action.payload;
-        console.log('SERVER: ', server);
+        const serverId = Number(server.id);
+        // console.log(cloneState)
+        cloneState[serverId] = server
+        // console.log('SERVER: ', server);
         return cloneState;
       }
       case CREATE_SERVER:
