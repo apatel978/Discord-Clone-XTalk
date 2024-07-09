@@ -43,9 +43,14 @@ export const thunkServerById = (serverId) => async (dispatch) => {
 };
 
 export const thunkCreateServer = (serverName, file) => async (dispatch) => {
-  try {
+
     // Upload the file to get the preview image URL
     const formData = new FormData();
+
+    if (!file) {
+      file = "aa19-python-group-project/react-vite/images/defaultserver.png"
+    }
+
     formData.append('file', file);
 
     const uploadResponse = await fetch('/api/upload', {
@@ -58,6 +63,8 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
     if (uploadData.error) {
       throw new Error(uploadData.error);
     }
+
+
     const serverData = {
       name: serverName,
       preview: uploadData.imageUrl 
@@ -72,21 +79,30 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
       body: JSON.stringify(serverData),
 
     });
-    if (response.ok) {
+
+    if (serverResponse.ok) {
       const serverDataResponse = await serverResponse.json();
+<<<<<<< HEAD
       return serverDataResponse
     }
      
 
      const serverDataResponse = await serverResponse.json();
+=======
+>>>>>>> 3f9294617112fd247b6850112481a3d2339dc745
       return dispatch(createServer(serverDataResponse ))
+    }
 
+<<<<<<< HEAD
   } catch (error) {
 
   }
+=======
+>>>>>>> 3f9294617112fd247b6850112481a3d2339dc745
 }
 
 const initialState = {};
+
 
 function serversReducer(state = initialState, action) {
     switch (action.type) {
@@ -103,7 +119,10 @@ function serversReducer(state = initialState, action) {
       case GET_SERVER_BY_ID: {
         const cloneState = structuredClone(state);
         const server = action.payload;
-        console.log('SERVER: ', server);
+        const serverId = Number(server.id);
+        // console.log(cloneState)
+        cloneState[serverId] = server
+        // console.log('SERVER: ', server);
         return cloneState;
       }
       case CREATE_SERVER:
