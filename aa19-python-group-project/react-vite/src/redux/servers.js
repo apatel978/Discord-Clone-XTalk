@@ -67,7 +67,7 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
 
     const serverData = {
       name: serverName,
-      preview: uploadData.imageUrl
+      preview: uploadData.imageUrl 
     };
 
     // Send the POST request to create the server
@@ -82,9 +82,23 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
 
     if (serverResponse.ok) {
       const serverDataResponse = await serverResponse.json();
+<<<<<<< HEAD
+      return serverDataResponse
+    }
+     
+
+     const serverDataResponse = await serverResponse.json();
+=======
+>>>>>>> 3f9294617112fd247b6850112481a3d2339dc745
       return dispatch(createServer(serverDataResponse ))
     }
 
+<<<<<<< HEAD
+  } catch (error) {
+
+  }
+=======
+>>>>>>> 3f9294617112fd247b6850112481a3d2339dc745
 }
 
 const initialState = {};
