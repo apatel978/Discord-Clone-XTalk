@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LandingPage from '../components/LandingPage/LandingPage'
 import HomePage from '../components/HomePage/HomePage';
+import ServerDetail from '../components/ServerDetails/ServerDetails';
 import { useSelector } from 'react-redux';
 import Layout from './Layout';
 
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/servers/:serverId",
-        element: <></>
+        element: <ServerDetail />
       }
     ],
   },
