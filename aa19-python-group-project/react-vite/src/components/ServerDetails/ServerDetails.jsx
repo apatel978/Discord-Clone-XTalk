@@ -15,12 +15,12 @@ const ServerDetail = () => {
     const dispatch = useDispatch();
     const user = useSelector((state)=> state.session.user);
     const servers = useSelector((state)=>state.servers);
-    const channels = useSelector((state)=> state.channels);
+    // const channels = useSelector((state)=> state.channels);
     let serverList = Object.values(servers);
-    let allChannels = Object.values(channels);
+    // let allChannels = Object.values(channels);
     // console.log(serverList)
     // console.log('all channels: ', allChannels)
-    let serverChannels = allChannels.filter((channel) => channel.serverId === Number(serverId));
+    // let serverChannels = allChannels.filter((channel) => channel.serverId === Number(serverId));
     // console.log('filtered: ', serverChannels);
 
     useEffect(() => {

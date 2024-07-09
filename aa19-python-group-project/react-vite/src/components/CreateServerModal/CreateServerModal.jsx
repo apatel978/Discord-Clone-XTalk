@@ -9,9 +9,9 @@ const CreateServerModal = () => {
     const { closeModal } = useModal();
     const username = useSelector((state)=> state.session.user.username);
     const [serverName, setServerName] = useState(`${username}'s Server`);
-    const fileInputRef = useRef(null); 
+    const fileInputRef = useRef(null);
     const [file, setFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null); // State to store image URL
+    // const [imageUrl, setImageUrl] = useState(null); // State to store image URL
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +34,7 @@ const CreateServerModal = () => {
         //         } else {
         //             console.log('Upload Successful:', uploadData.message);
         //             setImageUrl(uploadData.imageUrl);
-        //             console.log('line 35', imageUrl) 
+        //             console.log('line 35', imageUrl)
         //         }
         //         const serverData = {
         //             name: serverName,
@@ -48,12 +48,12 @@ const CreateServerModal = () => {
         //             body: JSON.stringify(serverData),
         //             credentials: 'include'
         //         });
-    
+
         //         const serverDataResponse = await serverResponse.json();
-    
+
         //         if (serverResponse.status === 200) {
         //             console.log('Server Created:', serverDataResponse);
-                   
+
         //         } else {
         //             console.error('Server Creation Error:', serverDataResponse.errors);
         //             // Handle server creation errors
@@ -64,7 +64,7 @@ const CreateServerModal = () => {
         // }else {
         //     console.log('No file uploaded');
         // }
-      
+
           closeModal();
       };
       const handleImageClick = () => {
@@ -79,17 +79,17 @@ const CreateServerModal = () => {
         <div className='modal-login'>
         <h1>Create Your Server</h1>
         <h5>Give your Server a personality with a name an icon.</h5>
-        <img 
+        <img
             src='../../../images/upload.png'
-            alt="Upload Icon" 
-            onClick={handleImageClick} 
+            alt="Upload Icon"
+            onClick={handleImageClick}
             className='Cs'>
         </img>
-        <input 
-            type="file" 
-            ref={fileInputRef} 
-            style={{ display: 'none' }} 
-            onChange={handleFileChange} 
+        <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
         />
 <form onSubmit={handleSubmit}>
         <label>
@@ -111,7 +111,7 @@ const CreateServerModal = () => {
 			<span className="sp sp-r"></span>
 			<span className="sp sp-b"></span>
 			<span className="sp sp-l"></span>
-        
+
         </div>
     )
 }
