@@ -1,11 +1,18 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_SERVERS = "servers/getServers";
+const CREATE_SERVER = "servers/createServer";
 
 const getAllServers = (servers) => ({
   type: GET_ALL_SERVERS,
   payload: servers,
 });
+
+const createServer = (server) => ({
+  type: CREATE_SERVER,
+  payload: server,
+});
+
 
 export const thunkGetAllServers = () => async (dispatch) => {
   const res = await csrfFetch("/api/servers/");
@@ -17,6 +24,45 @@ export const thunkGetAllServers = () => async (dispatch) => {
     dispatch(getAllServers(data));
   }
 };
+
+export const thunkCreateServer = (serverName, file) => async (dispatch) => {
+  try {
+    // Upload the file to get the preview image URL
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const uploadResponse = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const uploadData = await uploadResponse.json();
+
+    if (uploadData.error) {
+      throw new Error(uploadData.error);
+    }
+    const serverData = {
+      name: serverName,
+      preview: uploadData.imageUrl
+    };
+
+    // Send the POST request to create the server
+    const serverResponse = await csrfFetch('/api/servers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(serverData),
+    
+    });
+
+     const serverDataResponse = await serverResponse.json();
+      return serverDataResponse 
+  
+  } catch (error) {
+  
+  }
+}
 
 const initialState = {};
 
@@ -31,6 +77,15 @@ function serversReducer(state = initialState, action) {
                 ...state,
                 ...nextState
             };
+        case CREATE_SERVER:
+          return {
+            ...state,
+            servers: {
+          ...state.servers,
+          [action.payload.id]: action.payload
+        }
+      };
+
         default:
             return state;
     }
