@@ -3,6 +3,9 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SERVERS = "servers/getServers";
 const CREATE_SERVER = "servers/createServer";
 const GET_SERVER_BY_ID = "servers/getServerById";
+const DELETE_SERVER = "servers/deleteServer";
+const LEAVE_SERVER = "servers/leaveServer";
+const EDIT_SERVER = "servers/editServer";
 
 const getAllServers = (servers) => ({
   type: GET_ALL_SERVERS,
@@ -13,10 +16,27 @@ const getServerById = (server) => ({
   type: GET_SERVER_BY_ID,
   payload: server
 });
+
 const createServer = (server) => ({
   type: CREATE_SERVER,
   payload: server,
 });
+
+const deleteServer = (serverId) => ({
+  type: DELETE_SERVER,
+  payload: serverId,
+});
+
+const leaveServer = (serverId) => ({
+  type: LEAVE_SERVER,
+  payload: serverId,
+});
+
+const editServer = (server) => ({
+  type: EDIT_SERVER,
+  payload: server,
+});
+
 
 
 
@@ -90,7 +110,78 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
       return dispatch(createServer(serverDataResponse ))
     }
 
+    export const thunkDeleteServer = (serverId) => async (dispatch) => {
+      const res = await csrfFetch(`/api/servers/${serverId}`, {
+        method: 'DELETE',
+      });
+    
+      if (res.ok) {
+        dispatch(deleteServer(serverId));
+      } else {
+        const error = await res.json();
+        throw new Error(error.message);
+      }
+    };
+    
+    export const thunkLeaveServer = (serverId) => async (dispatch) => {
+      const res = await csrfFetch(`/api/servers/${serverId}/leave`, {
+        method: 'DELETE',
+      });
+    
+      if (res.ok) {
+        dispatch(leaveServer(serverId));
+      } else {
+        const error = await res.json();
+        throw new Error(error.message);
+      }
+    };
 
+    export const thunkEditServer = (serverName, file, serverId) => async (dispatch) => {
+      let previewImageUrl;
+    
+      if (file) {
+        // Upload the file to get the preview image URL
+        const formData = new FormData();
+        formData.append('file', file);
+    
+        const uploadResponse = await fetch('/api/upload', {
+          method: 'POST', // Typically, uploads use POST, ensure your API endpoint supports this
+          body: formData,
+        });
+    
+        const uploadData = await uploadResponse.json();
+    
+        if (uploadData.error) {
+          throw new Error(uploadData.error);
+        }
+    
+        previewImageUrl = uploadData.imageUrl;
+      } else {
+        previewImageUrl = 'https://crosstalkappbuck.s3.us-east-2.amazonaws.com/defaultserver.png';
+      }
+    
+      const serverData = {
+        name: serverName,
+        preview: previewImageUrl,
+      };
+    
+      const res = await csrfFetch(`/api/servers/${serverId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(serverData),
+      });
+    
+      if (res.ok) {
+        const updatedServer = await res.json();
+        dispatch(editServer(updatedServer));
+        return updatedServer;
+      } else {
+        const error = await res.json();
+        throw new Error(error.message);
+      }
+    };
 
 const initialState = {};
 
@@ -121,8 +212,22 @@ function serversReducer(state = initialState, action) {
             ...state,
           ...state.servers,
           [action.payload.id]: action.payload
-
       };
+      case DELETE_SERVER: {
+        const newState = { ...state };
+        delete newState[action.payload];
+        return newState;
+      }
+      case LEAVE_SERVER: {
+        const newState = { ...state };
+        delete newState[action.payload];
+        return newState;
+      }
+      case EDIT_SERVER: {
+        const newState = { ...state };
+        newState[action.payload.id] = action.payload;
+        return newState;
+      }
       default:
         return state;
     }

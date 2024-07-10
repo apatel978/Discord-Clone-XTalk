@@ -148,6 +148,21 @@ def delete_a_server(serverId):
 
     return jsonify({ "message": "Successfully deleted" }), 200
 
+## Leave A Server
+@server_routes.route('/<int:serverId>/leave', methods=['DELETE'])
+@login_required
+def leave_server(serverId):
+    try:
+        # Find the membership record
+        membership = Member.query.filter_by(server_id=serverId, user_id=current_user.id).first()
+        if not membership:
+            return jsonify({ "message": "User is not a member of this server" }), 404
+        db.session.delete(membership)
+        db.session.commit()
+        return jsonify({ "message": "Successfully left the server" }), 200
+    except Exception as e:
+        return jsonify({ "message": "Internal Server Error" }), 500
+
 
 ## Get Channel
 @server_routes.route('/<int:serverId>/channels', methods=['GET'])

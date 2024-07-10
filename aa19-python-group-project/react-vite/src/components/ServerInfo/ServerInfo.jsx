@@ -57,18 +57,18 @@ function ServerInfo() {
                     <OpenModalMenuItem
                     itemText="Edit Server"
                     onItemClick={closeMenu}
-                    modalComponent={<EditServerModal />}
+                    modalComponent={<EditServerModal serverId={serverId} />}
                     />
                     <OpenModalMenuItem
                     itemText="Delete Server"
                     onItemClick={closeMenu}
-                    modalComponent={<DeleteServerModal />}
+                    modalComponent={<DeleteServerModal serverId={serverId}/>}
                     />
                 </>):( 
                     <OpenModalMenuItem
                     itemText="Leave Server"
                     onItemClick={closeMenu}
-                    modalComponent={<LeaveServerModal />}
+                    modalComponent={<LeaveServerModal serverId={serverId}/>}
                     />)}
                 </>
             </div>

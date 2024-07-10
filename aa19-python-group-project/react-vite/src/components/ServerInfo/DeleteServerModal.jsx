@@ -1,18 +1,20 @@
 
 import { useDispatch,useSelector } from "react-redux";
-import { useState, useRef} from "react";
+import { useState} from "react";
 import { useModal } from "../../context/Modal";
-import { thunkCreateServer } from '../../redux/servers';
+import { thunkDeleteServer } from '../../redux/servers';
 
-const DeleteServerModal = () => {
-
+const DeleteServerModal = (serverId) => {
+    const servId=Object.values(serverId)
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const username = useSelector((state)=> state.session.user.username);
-    const [serverName, setServerName] = useState(`${username}'s Server`);
+    const [serverName] = useState(`${username}'s Server`);
 
     const handleDelete = async (e) => {
         e.preventDefault();
+        dispatch(thunkDeleteServer(servId))
+        closeModal()
     }
 
     return (

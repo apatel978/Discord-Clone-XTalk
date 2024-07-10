@@ -2,10 +2,10 @@ import "./CreateServerModal.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useState, useRef} from "react";
 import { useModal } from "../../context/Modal";
-import { thunkCreateServer } from '../../redux/servers';
+import { thunkEditServer } from '../../redux/servers';
 
-const EditServerModal = () => {
-
+const EditServerModal = (serverId) => {
+    const servId=Object.values(serverId)
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const username = useSelector((state)=> state.session.user.username);
@@ -16,7 +16,7 @@ const EditServerModal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch(thunkCreateServer(serverName, file));
+        dispatch(thunkEditServer(serverName, file, servId));
           closeModal();
       };
       const handleImageClick = () => {

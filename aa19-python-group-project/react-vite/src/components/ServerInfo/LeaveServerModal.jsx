@@ -1,20 +1,21 @@
 
 import { useDispatch,useSelector } from "react-redux";
-import { useState, useRef} from "react";
+import { useState} from "react";
 import { useModal } from "../../context/Modal";
-import { thunkCreateServer } from '../../redux/servers';
+import { thunkLeaveServer } from '../../redux/servers';
 
-const LeaveServerModal = () => {
-
+const LeaveServerModal = (serverId) => {
+    const servId= Object.values(serverId)
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const username = useSelector((state)=> state.session.user.username);
-    const [serverName, setServerName] = useState(`${username}'s Server`);
+    const [serverName] = useState(`${username}'s Server`);
 
-    const handleDelete = async (e) => {
+    const handleLeave = async (e) => {
         e.preventDefault();
+        dispatch(thunkLeaveServer(servId))
+        closeModal()
     }
-
     return (
         <div className='modal-login'>
         <h1>Leave {serverName}?</h1>
@@ -23,7 +24,7 @@ const LeaveServerModal = () => {
 
           <div className="buttons-container">
           <button onClick={closeModal} className="submit-btn" >No</button>
-        <button onClick={handleDelete} className="button-leave" >Leave</button>
+        <button onClick={handleLeave} className="button-leave" >Leave</button>
         </div>
         
         <span className="sp sp-t"></span>
