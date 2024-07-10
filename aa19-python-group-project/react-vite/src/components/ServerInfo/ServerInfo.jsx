@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditServerModal from "../CreateServerModal/EditServerModal";
 import LeaveServerModal from "./LeaveServerModal"
+import DeleteServerModal from "./DeleteServerModal";
 
 function ServerInfo() {
   const { serverId } = useParams()
@@ -50,18 +51,24 @@ function ServerInfo() {
           {showMenu && (
             <div className={"profile-dropdown"} ref={ulRef}>
                 <>
-                 {owner ?  ( <OpenModalMenuItem
-                itemText="Edit Server"
-                onItemClick={closeMenu}
-                modalComponent={<EditServerModal />}
-              />):
-                  
-                  ( <OpenModalMenuItem
+                {owner ?  ( 
+                <>
+                    <OpenModalMenuItem
+                    itemText="Edit Server"
+                    onItemClick={closeMenu}
+                    modalComponent={<EditServerModal />}
+                    />
+                    <OpenModalMenuItem
+                    itemText="Delete Server"
+                    onItemClick={closeMenu}
+                    modalComponent={<DeleteServerModal />}
+                    />
+                </>):( 
+                    <OpenModalMenuItem
                     itemText="Leave Server"
                     onItemClick={closeMenu}
                     modalComponent={<LeaveServerModal />}
-                  />)
-                  }
+                    />)}
                 </>
             </div>
           )}

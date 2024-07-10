@@ -4,7 +4,7 @@ import { useState, useRef} from "react";
 import { useModal } from "../../context/Modal";
 import { thunkCreateServer } from '../../redux/servers';
 
-const LeaveServerModal = () => {
+const DeleteServerModal = () => {
 
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -17,13 +17,13 @@ const LeaveServerModal = () => {
 
     return (
         <div className='modal-login'>
-        <h1>Leave {serverName}?</h1>
-        <h5>Your are about to leave {serverName}, are you sure?</h5>
+        <h1>Delete {serverName}?</h1>
+        <h5>Your are about to delete {serverName}, are you sure?</h5>
         
 
           <div className="buttons-container">
           <button onClick={closeModal} className="submit-btn" >No</button>
-        <button onClick={handleDelete} className="button-leave" >Leave</button>
+        <button onClick={handleDelete} className="button-leave" >Delete</button>
         </div>
         
         <span className="sp sp-t"></span>
@@ -35,4 +35,4 @@ const LeaveServerModal = () => {
     )
 }
 
-export default LeaveServerModal
+export default DeleteServerModal
