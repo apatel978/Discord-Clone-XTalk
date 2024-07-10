@@ -31,3 +31,15 @@
         0 0 50px #53b6b5,
         0 0 100px #38b2da;
   }
+
+  .server-info{
+    background-color: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .server-info:hover{
+    background-color: gray;
+  }

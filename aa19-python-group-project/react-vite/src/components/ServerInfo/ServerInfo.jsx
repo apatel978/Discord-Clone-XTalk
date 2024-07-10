@@ -5,6 +5,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditServerModal from "../CreateServerModal/EditServerModal";
 import LeaveServerModal from "./LeaveServerModal"
 import DeleteServerModal from "./DeleteServerModal";
+import { FaCaretDown } from 'react-icons/fa';
 
 function ServerInfo() {
   const { serverId } = useParams()
@@ -45,8 +46,8 @@ function ServerInfo() {
   return (
     <>
         <div >
-          <button onClick={toggleMenu}>
-            {server.name}
+          <button className="server-info" onClick={toggleMenu}>
+            {server.name} <FaCaretDown />
           </button>
           {showMenu && (
             <div className={"profile-dropdown"} ref={ulRef}>
