@@ -5,6 +5,7 @@ import { thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
 import ChannelsList from '../ChannelsList/ChannelsList';
+import ChannelsMessages from '../ChannelsList/ChannelsMessage';
 import MemberList from '../MembersList/MembersList';
 import ProfileButton from '../../components/Navigation/ProfileButton';
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
@@ -41,6 +42,11 @@ const ServerDetail = ({ serverId, setSelectedServerId }) => {
           {channel.name}
         </div>
       ))}
+      {channelId === null ? (
+        <div>Good to see you!</div>
+      ) : (
+        <ChannelsMessages channelId={channelId}/>
+      )}
       {/* <ChannelsList channels={serverChannels} /> */}
     </div>
   );
