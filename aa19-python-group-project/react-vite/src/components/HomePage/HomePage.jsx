@@ -19,12 +19,9 @@ const HomePage = () => {
   console.log(serverList)
 
   useEffect(() => {
-    dispatch(thunkGetAllServers(), thunkGetAllChannels(2));
+    dispatch(thunkGetAllServers());
+    dispatch(thunkGetAllChannels(2));
   }, [dispatch]);
-  useEffect(() => {
-    dispatch(thunkGetAllChannels(2)); 
-  }, [dispatch]);
-  // console.log(servers)
 
 
   return (

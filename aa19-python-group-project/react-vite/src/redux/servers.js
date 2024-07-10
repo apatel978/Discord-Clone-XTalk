@@ -189,23 +189,21 @@ const initialState = {};
 function serversReducer(state = initialState, action) {
     switch (action.type) {
       case GET_ALL_SERVERS: {
-        let nextState = {};
-        action.payload.Servers.forEach((value) => {
-              nextState[value.id] = value;
+        let nextState = {...state};
+        action.payload.Servers.forEach((server) => {
+              nextState[server.id] = server;
         })
         return {
-          ...state,
-          ...nextState
+        ...state,
+        ...nextState
         };
       }
       case GET_SERVER_BY_ID: {
-        const cloneState = structuredClone(state);
         const server = action.payload;
-        const serverId = Number(server.id);
-        // console.log(cloneState)
-        cloneState[serverId] = server
-        // console.log('SERVER: ', server);
-        return cloneState;
+        return {
+          ...state,
+          [server.id]: server,
+        };
       }
       case CREATE_SERVER:
           return {

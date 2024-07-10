@@ -16,7 +16,7 @@ export const thunkGetAllChannels = (serverId) => async (dispatch) => {
   const res = await csrfFetch(`/api/servers/${serverId}/channels`);
   if (res.ok) {
     const data = await res.json();
-
+    console.log(data)
     if (data.errors) {
       return;
     }
