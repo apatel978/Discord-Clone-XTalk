@@ -7,8 +7,8 @@ import LeaveServerModal from "./LeaveServerModal"
 import DeleteServerModal from "./DeleteServerModal";
 import { FaCaretDown } from 'react-icons/fa';
 
-function ServerInfo() {
-  const { serverId } = useParams()
+function ServerInfo({serverId}) {
+
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);

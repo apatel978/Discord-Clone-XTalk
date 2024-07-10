@@ -1,17 +1,17 @@
-import { Link } from "react-router-dom"
 
-function ServerPreviewTile({ server }) {
+
+function ServerPreviewTile({ server, onClick }) {
     return (
-        <div className='ServerLinkHolder'>
-            <Link className="ServerLink" to={`/servers/${server.id}`}>
-
+        <div className='ServerLinkHolder' onClick={() => onClick(server.id)}>
+            <div className="ServerLink">
                 <img src={server.preview} className='serverPreview'/>
+            
                 <div>
                     <span id='tooltip'>{server.name}</span>
                 </div>
-            </Link>
+            </div>
         </div>
-    )
+    );
 }
 
-export default ServerPreviewTile
+export default ServerPreviewTile;
