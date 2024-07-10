@@ -91,10 +91,14 @@ def delete_channel(channelId):
 @login_required
 def messages(channelId):
 
+    channel = Channel.query.get(channelId)
     messages_and_reactions = db.session.query(Message).options(joinedload(Message.reactions)).filter_by(channel_id=channelId).all()
 
     #If channel does not exist
-    if not messages:
+    if not channel:
+        return jsonify({"message": "Channel couldn't be found"}), 404
+
+    if not messages_and_reactions:
         return jsonify({ "message": "Message couldn't be found" }), 404
 
     result = []
@@ -102,7 +106,14 @@ def messages(channelId):
         entry = message.to_dict()
         entry["reactions"] = [x.to_dict() for x in message.reactions]
         result.append(entry)
+
     return {
+        'id': channel.id,
+        'userId': channel.user_id,
+        'serverId': channel.server_id,
+        'name': channel.name,
+        'createdAt': channel.created_at,
+        'updatedAt': channel.updated_at,
         'Messages': result
     }
 

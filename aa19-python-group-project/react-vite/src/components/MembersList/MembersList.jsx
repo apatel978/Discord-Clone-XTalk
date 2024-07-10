@@ -3,7 +3,7 @@ const MemberList = ({ members }) => {
         <div>
             <span>Members</span>
             {members?.map((member) => (
-                <div>{member?.username}</div>
+                <div key={`${member.id}`}>{member?.username}</div>
             ))}
         </div>
     )

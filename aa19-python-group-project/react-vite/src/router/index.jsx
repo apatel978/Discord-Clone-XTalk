@@ -4,6 +4,7 @@ import HomePage from '../components/HomePage/HomePage';
 import ServerDetail from '../components/ServerDetails/ServerDetails';
 import { useSelector } from 'react-redux';
 import Layout from './Layout';
+import ChannelsOverview from '../components/ChannelsList/ChannelsOverview';
 
 
 export const useAuth = () => {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "/servers/:serverId",
         element: <ServerDetail />
+      },
+      {
+        path: "/channels/:channelId",
+        element: <ChannelsOverview />
       }
     ],
   },
