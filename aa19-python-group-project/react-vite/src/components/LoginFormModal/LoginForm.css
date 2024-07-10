@@ -212,6 +212,8 @@
       0 0 100px #38b2da;
 }
 
+
+
 .input-field {
   width: 100%;
   padding: 10px 5px;
@@ -236,4 +238,3 @@
       animBTN 5s linear infinite;
   ;
 }
-

@@ -9,6 +9,7 @@ import MemberList from '../MembersList/MembersList';
 import ProfileButton from '../../components/Navigation/ProfileButton'
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import { useParams } from 'react-router-dom';
+import ServerInfo from '../ServerInfo/ServerInfo';
 // import './HomePage.css'
 
 const ServerDetail = () => {
@@ -25,6 +26,7 @@ const ServerDetail = () => {
     // console.log('filtered: ', serverChannels);
     const members = useSelector((state) => state.servers[Number(serverId)]?.members)
     // console.log(members)
+  
 
     useEffect(() => {
       dispatch(thunkGetAllServers());
@@ -49,6 +51,9 @@ const ServerDetail = () => {
       <div className="profile-area">
         <ProfileButton user={user}/>
         {user.username}
+       
+          <ServerInfo />
+        
       </div>
       <MemberList members={members}/>
     </div>
