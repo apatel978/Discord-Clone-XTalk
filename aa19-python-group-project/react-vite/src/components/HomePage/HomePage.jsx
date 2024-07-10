@@ -7,6 +7,7 @@ import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from './ServerPreviewTiles';
 import ProfileButton from '../../components/Navigation/ProfileButton'
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
+
 import './HomePage.css'
 
 const HomePage = () => {
@@ -28,7 +29,7 @@ const HomePage = () => {
 
   return (
   <div className='main-page'>
-    {/* <h1>Welcome to the Home Page!</h1> */}
+
     <div className='serverPreviewContainer'>
       {serverList.map((server) => (
         <ServerPreviewTile key={`${server.id}`}  server={server}/>
@@ -40,6 +41,9 @@ const HomePage = () => {
     </div>
     <div className="profile-area">
       <ProfileButton user={user}/>
+      
+      
+      
       {user.username}
     </div>
   </div>

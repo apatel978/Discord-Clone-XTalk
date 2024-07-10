@@ -1,5 +1,6 @@
 .profile-dropdown {
   position: absolute;
+  background-color: black;
 }
 
 .hidden {
@@ -33,4 +34,3 @@
   grid-template-columns: 5fr 2fr;
   
 }
-
