@@ -7,13 +7,26 @@ from sqlalchemy.orm import joinedload
 server_routes = Blueprint('servers', __name__)
 
 ##Get all servers
-@server_routes.route('/')
+@server_routes.route('/all')
 @login_required
 def servers():
 
     servers = Server.query.all()
     return {
         'Servers': [server.to_dict() for server in servers]
+    }
+
+## Get all servers owned by or member of
+@server_routes.route('/', methods=['GET'])
+@login_required
+def user_servers():
+    user_id = current_user.id
+    owned_servers = Server.query.filter_by(owner_id=user_id).all()
+    member_servers = Server.query.join(Member, Server.id == Member.server_id).filter(Member.user_id == user_id).all()
+    all_user_servers = {server.id: server for server in owned_servers + member_servers}.values()
+
+    return {
+        'Servers': [server.to_dict() for server in all_user_servers]
     }
 
 ## Create a Server
@@ -226,3 +239,23 @@ def create_channel(server_id):
         'createdAt': new_channel.created_at,
         'updatedAt': new_channel.updated_at
     }), 201
+
+## Join Server Route
+@server_routes.route('/<int:server_id>/join', methods=['POST'])
+@login_required
+def join_server(server_id):
+    user_id = current_user.id
+    server = Server.query.get(server_id)
+
+    if not server:
+        return jsonify({"message": "Server not found"}), 404
+
+    membership = Member.query.filter_by(user_id=user_id, server_id=server_id).first()
+    if membership:
+        return jsonify({"message": "Already a member"}), 400
+
+    new_member = Member(user_id=user_id, server_id=server_id)
+    db.session.add(new_member)
+    db.session.commit()
+
+    return jsonify(server.to_dict()), 200

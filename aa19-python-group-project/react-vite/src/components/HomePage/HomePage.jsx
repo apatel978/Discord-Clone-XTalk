@@ -1,7 +1,7 @@
 // src/components/HomePage/HomePage.js
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
-import { thunkGetAllServers } from '../../redux/servers';
+import { thunkGetServers } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from './ServerPreviewTiles';
@@ -19,9 +19,9 @@ const HomePage = () => {
   console.log(serverList)
 
   useEffect(() => {
-    dispatch(thunkGetAllServers());
-    dispatch(thunkGetAllChannels(2));
-  }, [dispatch]);
+    dispatch(thunkGetServers());
+    // dispatch(thunkGetAllChannels(2));
+  }, []);
 
 
   return (

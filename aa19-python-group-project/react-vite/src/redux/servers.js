@@ -1,14 +1,21 @@
 import { csrfFetch } from "./csrf";
 
-const GET_ALL_SERVERS = "servers/getServers";
+
+const GET_SERVERS = "servers/getServers";
 const CREATE_SERVER = "servers/createServer";
 const GET_SERVER_BY_ID = "servers/getServerById";
 const DELETE_SERVER = "servers/deleteServer";
 const LEAVE_SERVER = "servers/leaveServer";
 const EDIT_SERVER = "servers/editServer";
+const JOIN_SERVER = 'servers/joinServer';
 
-const getAllServers = (servers) => ({
-  type: GET_ALL_SERVERS,
+const joinServer = (server) => ({
+  type: JOIN_SERVER,
+  payload: server,
+});
+
+const getServers = (servers) => ({
+  type: GET_SERVERS,
   payload: servers,
 });
 
@@ -38,18 +45,34 @@ const editServer = (server) => ({
 });
 
 
+export const thunkJoinServer = (serverId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/servers/${serverId}/join`, {
+    method: 'POST',
+  });
+  if (res.ok) {
+    const server = await res.json();
+    dispatch(joinServer(server));
+    return server;
+  } else {
+    const error = await res.json();
+    throw new Error(error.message);
+  }
+};
 
 
-export const thunkGetAllServers = () => async (dispatch) => {
+
+export const thunkGetServers = () => async (dispatch) => {
   const res = await csrfFetch("/api/servers/");
   if (res.ok) {
     const data = await res.json();
     if (data.errors) {
       return;
     }
-    dispatch(getAllServers(data));
+    dispatch(getServers(data));
   }
 };
+
+
 export const thunkServerById = (serverId) => async (dispatch) => {
   const res = await csrfFetch(`/api/servers/${serverId}`);
   if (res.ok) {
@@ -88,7 +111,7 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
 
     const serverData = {
       name: serverName,
-      preview: uploadData.imageUrl
+      preview: previewImageUrl
     };
 
   // Send the POST request to create the server
@@ -188,7 +211,7 @@ const initialState = {};
 
 function serversReducer(state = initialState, action) {
     switch (action.type) {
-      case GET_ALL_SERVERS: {
+      case GET_SERVERS: {
         let nextState = {...state};
         action.payload.Servers.forEach((server) => {
               nextState[server.id] = server;
@@ -225,6 +248,12 @@ function serversReducer(state = initialState, action) {
         const newState = { ...state };
         newState[action.payload.id] = action.payload;
         return newState;
+      }
+      case JOIN_SERVER: {
+        return {
+          ...state,
+          [action.payload.id]: action.payload,
+        };
       }
       default:
         return state;

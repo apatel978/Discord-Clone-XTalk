@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
-import { thunkGetAllServers, thunkServerById } from '../../redux/servers';
+import { thunkGetServers, thunkServerById } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
@@ -10,6 +10,7 @@ import ProfileButton from '../../components/Navigation/ProfileButton'
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import { useParams } from 'react-router-dom';
 import ServerInfo from '../ServerInfo/ServerInfo';
+import AllServersModal from '../AllServers/AllServersModal';
 // import './HomePage.css'
 
 const ServerDetail = () => {
@@ -30,7 +31,6 @@ const ServerDetail = () => {
   
 
     useEffect(() => {
-      dispatch(thunkGetAllServers());
       dispatch(thunkServerById(Number(serverId)));
       dispatch(thunkGetAllChannels(Number(serverId)));
     }, [dispatch, serverId]);
@@ -44,10 +44,14 @@ const ServerDetail = () => {
         {serverList.map((server) => (
           <ServerPreviewTile key={`${server.id}`}  server={server}/>
         ))}
+        <>
          <OpenModalMenuItem
+        modalComponent={<AllServersModal />}
+        itemText={<img src='../../../images/allServers.png' className='serverPreview' alt="Plus Sign" />}/>
+       <OpenModalMenuItem
         modalComponent={<CreateServerModal />}
-        itemText={<img src='../../../images/plus2.png' className='serverPreview' alt="Plus Sign" />}
-      />
+        itemText={<img src='../../../images/plus2.png' className='serverPreview' alt="All Servers" />}/>
+      </>
       </div>
       <div className="profile-area">
         <ProfileButton user={user}/>

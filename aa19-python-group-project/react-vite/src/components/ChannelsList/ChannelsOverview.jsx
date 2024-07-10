@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
-import { thunkGetAllServers, thunkServerById } from '../../redux/servers';
+import { thunkGetServers, thunkServerById } from '../../redux/servers';
 import { thunkGetAChannelsMessages, thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
@@ -40,7 +40,7 @@ const ChannelsOverview = () => {
     console.log("CHANNEL OVERVIEW", messages)
 
     useEffect(() => {
-      dispatch(thunkGetAllServers())
+      dispatch(thunkGetServers())
       .then(() => dispatch(thunkServerById(Number(serverId))))
       .then(() => dispatch(thunkGetAllChannels(Number(serverId))))
     }, [dispatch, channelId, serverId]);

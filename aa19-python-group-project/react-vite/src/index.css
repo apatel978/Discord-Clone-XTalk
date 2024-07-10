@@ -41,5 +41,11 @@
     font-size: 20px;
   }
   .server-info:hover{
-    background-color: gray;
+    background-color: rgb(82, 2, 2);
   }
+
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
