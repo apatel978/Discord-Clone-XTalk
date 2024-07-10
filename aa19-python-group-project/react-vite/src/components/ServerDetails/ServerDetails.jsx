@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { thunkServerById } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
@@ -13,6 +13,7 @@ import AllServersModal from '../AllServers/AllServersModal';
 
 const ServerDetail = ({ serverId, setSelectedServerId }) => {
   const dispatch = useDispatch();
+  const [ channelId, setChannelId ] = useState(null)
   const user = useSelector((state) => state.session.user);
   const servers = useSelector((state) => state.servers);
   let serverList = Object.values(servers);
@@ -28,27 +29,19 @@ const ServerDetail = ({ serverId, setSelectedServerId }) => {
 
   return (
     <div className='main-page'>
-      <div className='serverPreviewContainer'>
-        {serverList.map((server) => (
-          <ServerPreviewTile key={`${server.id}`} server={server}   />
-        ))}
-        <OpenModalMenuItem
-          modalComponent={<AllServersModal />}
-          itemText={<img src='../../../images/allServers.png' className='serverPreview' alt="All Servers" />}
-        />
-        <OpenModalMenuItem
-          modalComponent={<CreateServerModal />}
-          itemText={<img src='../../../images/plus2.png' className='serverPreview' alt="Create Server" />}
-        />
-      </div>
       <div className="profile-area">
         <ProfileButton user={user} />
         {user.username}
-       
+
         <ServerInfo serverId={serverId} />
       </div>
       <MemberList members={members} />
-      <ChannelsList channels={serverChannels} />
+      {serverChannels.map((channel) => (
+        <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
+          {channel.name}
+        </div>
+      ))}
+      {/* <ChannelsList channels={serverChannels} /> */}
     </div>
   );
 };

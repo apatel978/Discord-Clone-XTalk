@@ -19,7 +19,7 @@ const HomePage = () => {
   let serverList = Object.values(servers);
 
   useEffect(() => {
-    dispatch(thunkGetServers());  
+    dispatch(thunkGetServers());
     if (selectedServerId !== null) {
       dispatch(thunkServerById(selectedServerId));
       dispatch(thunkGetAllChannels(selectedServerId));
@@ -29,7 +29,6 @@ const HomePage = () => {
   return (
     <div className='main-page'>
       <ProfileButton user={user} />
-      {selectedServerId === null ? (<>
         <div className='serverPreviewContainer'>
           {serverList.map((server) => (
             <ServerPreviewTile key={`${server.id}`} server={server} onClick={() => setSelectedServerId(server.id)} />
@@ -43,11 +42,14 @@ const HomePage = () => {
             itemText={<img src='../../../images/allServers.png' className='serverPreview' alt="All Servers" />}
           />
         </div>
-          
+      {selectedServerId === null ? (<>
+        <div>
+          Hi! Pick a server to get started! HAHA {':)'}
+        </div>
         </>
       ) : (
         <div className="profile-area">
-          <ServerDetails serverId={selectedServerId} onClick={() => setSelectedServerId(null)} />
+          <ServerDetails serverId={selectedServerId} />
           {user.username}
         </div>
       )}
