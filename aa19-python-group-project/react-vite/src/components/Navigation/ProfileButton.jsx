@@ -5,27 +5,13 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-import { useNavigate } from 'react-router-dom';
 
-function ProfileButton() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate()
-=======
 import { useNavigate } from "react-router-dom";
 
 function ProfileButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
->>>>>>> Stashed changes
-=======
-import { useNavigate } from "react-router-dom";
 
-function ProfileButton() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
->>>>>>> Stashed changes
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
