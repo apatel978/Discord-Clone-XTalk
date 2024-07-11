@@ -2,22 +2,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import { thunkServerById } from '../../redux/servers';
 import { thunkGetAllChannels } from '../../redux/channels';
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
-import ChannelsList from '../ChannelsList/ChannelsList';
+// import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+// import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
+// import ChannelsList from '../ChannelsList/ChannelsList';
 import ChannelsMessages from '../ChannelsList/ChannelsMessage';
 import MemberList from '../MembersList/MembersList';
 import ProfileButton from '../../components/Navigation/ProfileButton';
-import CreateServerModal from '../CreateServerModal/CreateServerModal';
+// import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import ServerInfo from '../ServerInfo/ServerInfo';
-import AllServersModal from '../AllServers/AllServersModal';
+// import AllServersModal from '../AllServers/AllServersModal';
 
-const ServerDetail = ({ serverId, setSelectedServerId }) => {
+const ServerDetail = ({ serverId }) => {
   const dispatch = useDispatch();
   const [ channelId, setChannelId ] = useState(null)
   const user = useSelector((state) => state.session.user);
-  const servers = useSelector((state) => state.servers);
-  let serverList = Object.values(servers);
+  // const servers = useSelector((state) => state.servers);
+  // let serverList = Object.values(servers);
   const channels = useSelector((state) => state.channels);
   let allChannels = Object.values(channels);
   let serverChannels = allChannels.filter((channel) => channel.serverId === Number(serverId));

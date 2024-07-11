@@ -15,7 +15,7 @@ const HomePage = () => {
   const [selectedServerId, setSelectedServerId] = useState(null);
   const user = useSelector((state) => state.session.user);
   const servers = useSelector((state) => state.servers);
-  const channels = useSelector((state) => state.channels);
+
   let serverList = Object.values(servers);
 
   useEffect(() => {

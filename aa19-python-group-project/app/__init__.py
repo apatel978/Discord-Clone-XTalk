@@ -4,11 +4,11 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.server_routes import server_routes
-from .api.user_routes import user_routes
 from .api.channels_routes import channels_routes
 from .api.upload_routes import upload_routes
 from .api.retrieve_routes import retrieve_routes
@@ -18,7 +18,7 @@ from .seeds import seed_commands
 from .config import Config
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
-
+CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -28,6 +28,8 @@ login.login_view = 'auth.unauthorized'
 def load_user(id):
     return User.query.get(int(id))
 
+# Setup SocketIO
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)
@@ -52,7 +54,6 @@ CORS(app)
 # we won't be using a buildpack when we deploy to Heroku.
 # Therefore, we need to make sure that in production any
 # request made over http is redirected to https.
-# Well.........
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -102,3 +103,30 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+# SocketIO event handlers
+@socketio.on('join')
+def on_join(data):
+    username = data['username']
+    channel = data['channel']
+    join_room(channel)
+    send(f'{username} has entered the channel.', to=channel)
+
+
+@socketio.on('leave')
+def on_leave(data):
+    username = data['username']
+    channel = data['channel']
+    leave_room(channel)
+    send(f'{username} has left the channel.', to=channel)
+
+
+@socketio.on('message')
+def handle_message(data):
+    channel = data['channel']
+    message = data['message']
+    emit('message', {'message': message}, to=channel)
+
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
