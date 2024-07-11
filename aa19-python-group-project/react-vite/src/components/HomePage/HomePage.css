@@ -4,12 +4,21 @@
     display: grid;
     height: 10fr;
     border-color: white;
-    grid-template-columns: 1fr 2fr 5fr 2fr; 
+    grid-template-columns: 80px 220px 1fr 220px; 
+    
 }
-
+.column2 {
+  grid-column: 2;
+}
+.column3 {
+  grid-column: 3;
+}
+.column4 {
+  grid-column: 4;
+}
 .serverPreviewContainer {
     border: 2px rgb(0, 0, 0) solid;
-    background-color: rgb(22, 15, 114);
+    background-color: rgb(14, 17, 62);
     display: flex;
     width: 80px;
     height: 100vh;

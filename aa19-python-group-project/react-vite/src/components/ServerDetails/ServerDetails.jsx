@@ -5,8 +5,8 @@ import { thunkGetAllChannels } from '../../redux/channels';
 // import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 // import ServerPreviewTile from '../HomePage/ServerPreviewTiles';
 // import ChannelsList from '../ChannelsList/ChannelsList';
-import ChannelsMessages from '../ChannelsList/ChannelsMessage';
-import MemberList from '../MembersList/MembersList';
+// import ChannelsMessages from '../ChannelsList/ChannelsMessage';
+// import MemberList from '../MembersList/MembersList';
 import ProfileButton from '../../components/Navigation/ProfileButton';
 // import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import ServerInfo from '../ServerInfo/ServerInfo';
@@ -19,9 +19,9 @@ const ServerDetail = ({ serverId }) => {
   // const servers = useSelector((state) => state.servers);
   // let serverList = Object.values(servers);
   const channels = useSelector((state) => state.channels);
-  let allChannels = Object.values(channels);
-  let serverChannels = allChannels.filter((channel) => channel.serverId === Number(serverId));
-  const members = useSelector((state) => state.servers[Number(serverId)]?.members);
+  // let allChannels = Object.values(channels);
+  // let serverChannels = allChannels.filter((channel) => channel.serverId === Number(serverId));
+  // const members = useSelector((state) => state.servers[Number(serverId)]?.members);
 
   useEffect(() => {
     dispatch(thunkServerById(Number(serverId)));
@@ -29,15 +29,15 @@ const ServerDetail = ({ serverId }) => {
   }, [dispatch, serverId]);
 
   return (
-    <div className='main-page'>
-      <div className="profile-area">
-        <ProfileButton user={user} />
-        {user.username}
+    <>
+      <div className="server-info">
+        {/* <ProfileButton user={user} /> */}
+        {/* {user.username} */}
 
         <ServerInfo serverId={serverId} />
       </div>
-      <MemberList members={members} />
-      {serverChannels.map((channel) => (
+      {/* <div className='column4'> <MemberList members={members} /></div> */}
+      {/* {serverChannels.map((channel) => (
         <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
           {channel.name}
         </div>
@@ -47,8 +47,8 @@ const ServerDetail = ({ serverId }) => {
       ) : (
         <ChannelsMessages channelId={channelId}/>
       )}
-      {/* <ChannelsList channels={serverChannels} /> */}
-    </div>
+      <ChannelsList channels={serverChannels} /> */}
+      </>
   );
 };
 
