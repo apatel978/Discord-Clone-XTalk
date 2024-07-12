@@ -10,7 +10,8 @@ import AllServersModal from '../AllServers/AllServersModal';
 import ServerDetails from '../ServerDetails/ServerDetails';
 import MemberList from '../MembersList/MembersList';
 import ChannelsMessages from '../ChannelsList/ChannelsMessage';
-import ChannelsList from '../ChannelsList/ChannelsList';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import CreateChannel from '../CRUDChannels/CreateChannel';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -19,6 +20,7 @@ const HomePage = () => {
   const user = useSelector((state) => state.session.user);
   const servers = useSelector((state) => state.servers);
   const [ channelId, setChannelId ] = useState(null)
+  const [update, setUpdate] = useState(false);
   const channels = useSelector((state) => state.channels);
   let allChannels = Object.values(channels);
   let serverChannels = allChannels.filter((channel) => channel.serverId === Number(selectedServerId));
@@ -36,7 +38,7 @@ const HomePage = () => {
 
   return (
     <div className='main-page'>
-      
+
         <div className='serverPreviewContainer'>
           {serverList.map((server) => (
             <ServerPreviewTile key={`${server.id}`} server={server} onClick={() => setSelectedServerId(server.id)} />
@@ -59,14 +61,19 @@ const HomePage = () => {
         <>
         <div className='column2'>
           <ServerDetails serverId={selectedServerId} />
-         
+
           <div>
           {serverChannels.map((channel) => (
         <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
           {channel.name}
         </div>
       ))}
-      <ChannelsList channels={serverChannels} />
+
+      <OpenModalButton
+            modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
+            className={'create-channel-button'}
+            buttonText={"+"}
+      />
           </div>
 
           <div className="profile-area">
