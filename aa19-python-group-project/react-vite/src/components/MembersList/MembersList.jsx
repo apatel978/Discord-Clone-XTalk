@@ -1,6 +1,6 @@
 const MemberList = ({ members }) => {
     return (
-        <div>
+        <div className="column4">
             <span>Members</span>
             {members?.map((member) => (
                 <div key={`${member.id}`}>{member?.username}</div>

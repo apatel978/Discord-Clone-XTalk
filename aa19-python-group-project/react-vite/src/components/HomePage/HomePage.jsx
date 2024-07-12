@@ -8,6 +8,9 @@ import ProfileButton from '../../components/Navigation/ProfileButton';
 import CreateServerModal from '../CreateServerModal/CreateServerModal';
 import AllServersModal from '../AllServers/AllServersModal';
 import ServerDetails from '../ServerDetails/ServerDetails';
+import MemberList from '../MembersList/MembersList';
+import ChannelsMessages from '../ChannelsList/ChannelsMessage';
+import ChannelsList from '../ChannelsList/ChannelsList';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -15,6 +18,11 @@ const HomePage = () => {
   const [selectedServerId, setSelectedServerId] = useState(null);
   const user = useSelector((state) => state.session.user);
   const servers = useSelector((state) => state.servers);
+  const [ channelId, setChannelId ] = useState(null)
+  const channels = useSelector((state) => state.channels);
+  let allChannels = Object.values(channels);
+  let serverChannels = allChannels.filter((channel) => channel.serverId === Number(selectedServerId));
+  // const members = useSelector((state) => state.servers[Number(serverId)]?.members);
 
   let serverList = Object.values(servers);
 
@@ -28,7 +36,7 @@ const HomePage = () => {
 
   return (
     <div className='main-page'>
-      <ProfileButton user={user} />
+      
         <div className='serverPreviewContainer'>
           {serverList.map((server) => (
             <ServerPreviewTile key={`${server.id}`} server={server} onClick={() => setSelectedServerId(server.id)} />
@@ -48,10 +56,30 @@ const HomePage = () => {
         </div>
         </>
       ) : (
-        <div className="profile-area">
+        <>
+        <div className='column2'>
           <ServerDetails serverId={selectedServerId} />
-          {user.username}
+         
+          <div>
+          {serverChannels.map((channel) => (
+        <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
+          {channel.name}
         </div>
+      ))}
+      <ChannelsList channels={serverChannels} />
+          </div>
+
+          <div className="profile-area">
+          <ProfileButton user={user} />
+          {user.username}
+          </div>
+        </div>
+        <div className='column3'>
+        <ChannelsMessages channelId={channelId}/>
+        </div>
+        <div className='column4'> <MemberList members={servers[selectedServerId]?.members} />
+        </div>
+        </>
       )}
     </div>
   );
