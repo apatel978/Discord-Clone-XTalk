@@ -56,7 +56,7 @@ const CreateServerModal = () => {
 
         //         } else {
         //             console.error('Server Creation Error:', serverDataResponse.errors);
-        //           
+        //
         //         }
         //     } catch (error) {
         //         console.error('Error uploading file:', error);
@@ -78,7 +78,7 @@ const CreateServerModal = () => {
     return (
         <div className='modal-login'>
         <h1>Create Your Server</h1>
-        <h5>Give your Server a personality with a name an icon.</h5>
+        <h5>Give your Server a personality with a name and icon.</h5>
         <img
             src='../../../images/upload.png'
             alt="Upload Icon"
