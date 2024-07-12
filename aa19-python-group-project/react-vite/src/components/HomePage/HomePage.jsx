@@ -34,7 +34,8 @@ const HomePage = () => {
       dispatch(thunkServerById(selectedServerId));
       dispatch(thunkGetAllChannels(selectedServerId));
     }
-  }, [selectedServerId, dispatch]);
+    setUpdate(false)
+  }, [selectedServerId, dispatch, update]);
 
   return (
     <div className='main-page'>

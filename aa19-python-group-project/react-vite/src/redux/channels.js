@@ -43,6 +43,10 @@ export const thunkGetAllChannels = (serverId) => async (dispatch) => {
   }
 };
 
+export const thunkUpdateChannel = (channelId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/servers/`)
+}
+
 export const thunkGetAChannelsMessages = (channelId) => async (dispatch) => {
   const res = await csrfFetch(`/api/channels/${channelId}/messages`);
   if (res.ok) {
