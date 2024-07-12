@@ -77,7 +77,7 @@ const HomePage = () => {
         <div className='column3'>
         <ChannelsMessages channelId={channelId}/>
         </div>
-        <div className='column4'> <MemberList members={servers[selectedServerId].members} />
+        <div className='column4'> <MemberList members={servers[selectedServerId]?.members} />
         </div>
         </>
       )}
