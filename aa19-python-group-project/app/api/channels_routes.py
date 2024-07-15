@@ -24,11 +24,13 @@ def update_channel(channelId):
 
     # Find the channel by ID
     channel = Channel.query.get(channelId)
+    server = Server.query.get(channel.server_id)
     if not channel:
         return jsonify({"message": "Channel couldn't be found"}), 404
 
     # Check if the current user owns the channel
-    if channel.user_id != current_user.id:
+    if channel.user_id != current_user.id and current_user.id != server.owner_id:
+        print ("PRINT", current_user.username, channel.user_id, current_user.id, server.owner_id)
         return jsonify({"message": "Unauthorized"}), 403
 
     # Update the channel
@@ -99,7 +101,15 @@ def messages(channelId):
         return jsonify({"message": "Channel couldn't be found"}), 404
 
     if not messages_and_reactions:
-        return jsonify({ "message": "Message couldn't be found" }), 404
+        return {
+        'id': channel.id,
+        'userId': channel.user_id,
+        'serverId': channel.server_id,
+        'name': channel.name,
+        'createdAt': channel.created_at,
+        'updatedAt': channel.updated_at,
+        'Messages': []
+        }
 
     result = []
     for message in messages_and_reactions:

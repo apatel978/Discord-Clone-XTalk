@@ -12,6 +12,7 @@ import MemberList from '../MembersList/MembersList';
 import ChannelsMessages from '../ChannelsList/ChannelsMessage';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import CreateChannel from '../CRUDChannels/CreateChannel';
+import EditChannel from '../CRUDChannels/EditChannel';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -22,6 +23,9 @@ const HomePage = () => {
   const [ channelId, setChannelId ] = useState(null)
   const [update, setUpdate] = useState(false);
   const channels = useSelector((state) => state.channels);
+  const server = useSelector((store)=>store.servers[selectedServerId])
+
+
   let allChannels = Object.values(channels);
   let serverChannels = allChannels.filter((channel) => channel.serverId === Number(selectedServerId));
   // const members = useSelector((state) => state.servers[Number(serverId)]?.members);
@@ -62,12 +66,17 @@ const HomePage = () => {
         <>
         <div className='column2'>
           <ServerDetails serverId={selectedServerId} />
-
           <div>
           {serverChannels.map((channel) => (
-        <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
-          {channel.name}
-        </div>
+            <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
+              {channel.name}
+              {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
+                  <OpenModalButton
+                      modalComponent={<EditChannel channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
+                      className={'create-channel-button'}
+                      buttonText={"Edit"}
+                  />}
+            </div>
       ))}
 
       <OpenModalButton
