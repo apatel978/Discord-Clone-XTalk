@@ -87,12 +87,12 @@ const HomePage = () => {
                 }
             </div>
       ))}
-
-      <OpenModalButton
-            modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
-            className={'create-channel-button'}
-            buttonText={"+"}
-      />
+        {user && (user?.id === server?.ownerId) &&
+          <OpenModalButton
+          modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
+          className={'create-channel-button'}
+          buttonText={"+"}
+    />}
           </div>
 
           <div className="profile-area">
