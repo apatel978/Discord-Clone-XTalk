@@ -13,6 +13,7 @@ import ChannelsMessages from '../ChannelsList/ChannelsMessage';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import CreateChannel from '../CRUDChannels/CreateChannel';
 import EditChannel from '../CRUDChannels/EditChannel';
+import DeleteChannelModal from '../CRUDChannels/DeleteChannel';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -75,7 +76,15 @@ const HomePage = () => {
                       modalComponent={<EditChannel channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
                       className={'create-channel-button'}
                       buttonText={"Edit"}
-                  />}
+                  />
+                }
+                {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
+                <OpenModalButton
+                    modalComponent={<DeleteChannelModal channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
+                    className={'create-channel-button'}
+                    buttonText={"Delete"}
+                />
+                }
             </div>
       ))}
 

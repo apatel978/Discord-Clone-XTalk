@@ -1,4 +1,3 @@
-
 import { useDispatch,useSelector } from "react-redux";
 import { useState} from "react";
 import { useModal } from "../../context/Modal";
@@ -21,13 +20,13 @@ const DeleteServerModal = (serverId) => {
         <div className='modal-login'>
         <h1>Delete {serverName}?</h1>
         <h5>Your are about to delete {serverName}, are you sure?</h5>
-        
+
 
           <div className="buttons-container">
           <button onClick={closeModal} className="submit-btn" >No</button>
         <button onClick={handleDelete} className="button-leave" >Delete</button>
         </div>
-        
+
         <span className="sp sp-t"></span>
 			<span className="sp sp-r"></span>
 			<span className="sp sp-b"></span>

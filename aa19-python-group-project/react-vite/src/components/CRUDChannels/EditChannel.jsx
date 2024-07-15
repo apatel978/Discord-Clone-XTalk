@@ -30,7 +30,7 @@ const EditChannel = ({ channelId, setUpdate, serverChannels }) => {
       }, [name])
 
 
-    if (sessionUser) { //if user is logged in, they can make a channel
+    if (sessionUser) { //checks if user is logged in
 
     const handleSubmit =  (e) => {
         e.preventDefault();
