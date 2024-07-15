@@ -103,7 +103,6 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
-
 # SocketIO event handlers
 @socketio.on('join')
 def on_join(data):
@@ -125,8 +124,14 @@ def on_leave(data):
 def handle_message(data):
     channel = data['channel']
     message = data['message']
-    emit('message', {'message': message}, to=channel)
+    user_id = data['user_id'] 
+    
+   
+    new_message = Message(message=message, channel_id=channel, user_id=user_id)
+    db.session.add(new_message)
+    db.session.commit()
+    
 
-
+    emit('message', new_message.to_dict(), to=channel)
 if __name__ == '__main__':
     socketio.run(app, debug=True)
