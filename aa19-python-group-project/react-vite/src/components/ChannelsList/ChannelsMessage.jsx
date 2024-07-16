@@ -9,6 +9,7 @@ const ChannelsMessages = ({ channelId }) => {
     const dispatch = useDispatch();
     const messages = useSelector((state) => state.channels[channelId]?.Messages || []);
     const user = useSelector((state) => state.session.user);
+    const channel = useSelector((state) => state.channels[channelId])
 
     const [liveMessages, setLiveMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
@@ -49,13 +50,20 @@ const ChannelsMessages = ({ channelId }) => {
 
     return (
         <div className="channels-container">
-            <span>Messages</span>
-            {allMessages.map((message, index) => (
-                <div key={message.id || `live-${index}`}>
-                    <span>{message.message}</span>
-                </div>
-            ))}
-            <div>
+            <div className="messages-row1">
+                <h2>
+                    {`# ${channel.name}`}
+                </h2>
+            </div>
+            {/* <span>Messages</span> */}
+            <div className="messages-row2">
+                {allMessages.map((message, index) => (
+                    <div key={message.id || `live-${index}`}>
+                        <span>{message.message}</span>
+                    </div>
+                ))}
+            </div>
+            <div className="messages-row3">
                 <input
                     type="text"
                     value={newMessage}

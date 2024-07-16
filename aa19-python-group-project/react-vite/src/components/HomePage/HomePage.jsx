@@ -107,12 +107,9 @@ const HomePage = () => {
         <div className='column3'>
           {!channelId ? (<div>
             <p>Hi! Pick a channel!</p>
-          </div>) : (<div>
-            <h2>
-              {`# ${channels[channelId].name}`}
-            </h2>
+          </div>) : (
             <ChannelsMessages channelId={channelId}/>
-          </div>)}
+          )}
         </div>
 
         <div className='column4'> <MemberList members={servers[selectedServerId]?.members} />
