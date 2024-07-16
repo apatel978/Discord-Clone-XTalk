@@ -123,15 +123,16 @@ export const thunkCreateServer = (serverName, file) => async (dispatch) => {
     body: JSON.stringify(serverData),
   });
 
-    if (serverResponse.ok) {
-      const serverDataResponse = await serverResponse.json();
-      return serverDataResponse
-    }
-
-
-     const serverDataResponse = await serverResponse.json();
-      return dispatch(createServer(serverDataResponse ))
-    }
+  
+  if (serverResponse.ok) {
+    const serverDataResponse = await serverResponse.json();
+    dispatch(createServer(serverDataResponse));
+    return serverDataResponse;
+  } else {
+    const error = await serverResponse.json();
+    throw new Error(error.message);
+  }
+};
 
     export const thunkDeleteServer = (serverId) => async (dispatch) => {
       const res = await csrfFetch(`/api/servers/${serverId}`, {
