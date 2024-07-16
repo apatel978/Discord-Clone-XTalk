@@ -66,43 +66,55 @@ const HomePage = () => {
       ) : (
         <>
         <div className='column2'>
-          <ServerDetails serverId={selectedServerId} />
           <div>
-          {serverChannels.map((channel) => (
-            <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
-              {channel.name}
-              {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
-                  <OpenModalButton
-                      modalComponent={<EditChannel channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
-                      className={'create-channel-button'}
-                      buttonText={"Edit"}
-                  />
-                }
-                {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
-                <OpenModalButton
-                    modalComponent={<DeleteChannelModal channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
-                    className={'create-channel-button'}
-                    buttonText={"Delete"}
-                />
-                }
+            <ServerDetails serverId={selectedServerId} />
+            <div>
+            {serverChannels.map((channel) => (
+              <div key={`${channel.id}`} className='channel-container' onClick={() => setChannelId(channel.id)}>
+                {`# ${channel.name}`}
+                <div className='channel-buttons'>
+                  {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
+                      <OpenModalButton
+                          modalComponent={<EditChannel channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
+                          className={'create-channel-button'}
+                          buttonText={"Edit"}
+                      />
+                    }
+                    {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
+                    <OpenModalButton
+                        modalComponent={<DeleteChannelModal channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
+                        className={'create-channel-button'}
+                        buttonText={"Delete"}
+                    />
+                    }
+                </div>
+              </div>
+        ))}
+          {user && (user?.id === server?.ownerId) &&
+            <OpenModalButton
+            modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
+            className={'create-channel-button'}
+            buttonText={"+"}
+      />}
             </div>
-      ))}
-        {user && (user?.id === server?.ownerId) &&
-          <OpenModalButton
-          modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
-          className={'create-channel-button'}
-          buttonText={"+"}
-    />}
           </div>
-
           <div className="profile-area">
-          <ProfileButton user={user} />
-          {user.username}
+            <ProfileButton user={user} />
+            {user.username}
           </div>
         </div>
+
         <div className='column3'>
-        <ChannelsMessages channelId={channelId}/>
+          {!channelId ? (<div>
+            <p>Hi! Pick a channel!</p>
+          </div>) : (<div>
+            <h2>
+              {`# ${channels[channelId].name}`}
+            </h2>
+            <ChannelsMessages channelId={channelId}/>
+          </div>)}
         </div>
+
         <div className='column4'> <MemberList members={servers[selectedServerId]?.members} />
         </div>
         </>

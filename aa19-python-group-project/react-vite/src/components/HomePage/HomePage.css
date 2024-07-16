@@ -4,14 +4,19 @@
     display: grid;
     height: 10fr;
     border-color: white;
-    grid-template-columns: 80px 220px 1fr 220px; 
-    
+    grid-template-columns: 80px 270px 1fr 220px;
+
 }
 .column2 {
   grid-column: 2;
+  border: 2px red solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .column3 {
   grid-column: 3;
+  border: 2px solid green;
 }
 .column4 {
   grid-column: 4;
@@ -25,7 +30,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow-y: auto; 
+    overflow-y: auto;
     overflow-x:hidden;
 }
 @keyframes bounce {
@@ -92,13 +97,13 @@
 }
 
 .profile-area{
-    
-    
-    border: 2px rgb(0, 0, 0) solid;
+  justify-self: flex-end;
+
+  border: 2px rgb(0, 0, 0) solid;
 
 }
 .all-server-item{
-    
+
     width: 60px;
 }
 .servers-list{
@@ -113,7 +118,7 @@
     width: 70px;
     height: 70px; /* Ensure the height matches the width for a perfect circle */
     border-radius: 50%; /* Make the image circular */
-    
+
     object-fit: cover;
     margin-bottom: 5px;
 }
@@ -123,9 +128,34 @@
     opacity: 1;
 
   }
-  
+
   .servers:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-   
+
   }
+
+.channel-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.channel-buttons {
+    display: none;
+}
+
+.channel-container:hover {
+  border: 1px white solid;
+  cursor: pointer;
+}
+
+.channel-container:hover .channel-buttons {
+    display: inline-block;
+    /* cursor: pointer; */
+}
+
+.create-channel-button:hover {
+  cursor: pointer;
+}
