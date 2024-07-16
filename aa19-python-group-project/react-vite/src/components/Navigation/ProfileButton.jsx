@@ -61,6 +61,7 @@ function ProfileButton() {
             </>
           ) : (
             <>
+             <ul className={"profile-dropdown2"} ref={ulRef}></ul>
               <OpenModalMenuItem
                 itemText="Log In"
                 onItemClick={closeMenu}

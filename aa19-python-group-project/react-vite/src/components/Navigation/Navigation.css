@@ -1,5 +1,11 @@
 .profile-dropdown {
   position: absolute;
+  margin-top: 60px;
+  margin-left: -60px;
+  background-color: black;
+}
+.profile-dropdown2 {
+  position: absolute;
   margin-top: -100px;
   background-color: black;
 }
