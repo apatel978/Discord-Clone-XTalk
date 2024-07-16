@@ -5,7 +5,7 @@ const GET_CHANNELS_MESSAGES = "channels/getChannelsMessages"
 const DELETE_CHANNEL = "channels/deleteChannel"
 const UPDATE_CHANNEL = "channels/updateChannel"
 const CREATE_CHANNEL = "channels/createChannel"
-const CREATE_CHANNEL_MESSAGE = "channels/createMessage"
+// const CREATE_CHANNEL_MESSAGE = "channels/createMessage"
 
 
 const getAllChannels = (servers) => ({
@@ -33,10 +33,10 @@ const updateChannel = (payload) => ({
   payload: payload
 })
 
-const createChannelMessage = (message, channelId) => ({
-  type: CREATE_CHANNEL_MESSAGE,
-  payload: { message, channelId },
-});
+// const createChannelMessage = (message, channelId) => ({
+//   type: CREATE_CHANNEL_MESSAGE,
+//   payload: { message, channelId },
+// });
 
 export const thunkGetAllChannels = (serverId) => async (dispatch) => {
   const res = await csrfFetch(`/api/servers/${serverId}/channels`);
@@ -111,26 +111,26 @@ export const thunkDeleteChannel = (channelId) => async (dispatch) => {
   }
 }
 
-export const thunkCreateChannelMessage = (channelId, message) => async (dispatch) => {
-  
-    const response = await csrfFetch(`/api/channels/${channelId}/messages`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message }),
-    });
+// export const thunkCreateChannelMessage = (channelId, message) => async (dispatch) => {
 
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(createChannelMessage(data, channelId));
-      return data;
-    } else {
-      const error = await response.json();
-      throw new Error(error.message);
-    }
-  
-};
+//     const response = await csrfFetch(`/api/channels/${channelId}/messages`, {
+//       method: "POST",
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ message }),
+//     });
+
+//     if (response.ok) {
+//       const data = await response.json();
+//       dispatch(createChannelMessage(data, channelId));
+//       return data;
+//     } else {
+//       const error = await response.json();
+//       throw new Error(error.message);
+//     }
+
+// };
 
 
 
@@ -171,15 +171,15 @@ function channelsReducer(state = initialState, action) {
           delete newState[action.payload];
           return newState
         }
-        case CREATE_CHANNEL_MESSAGE: {
-          let newState = structuredClone(state);
-          const { message, channelId } = action.payload;
-          if (!newState[channelId].Messages) {
-              newState[channelId].Messages = [];
-          }
-          newState[channelId].Messages.push(message);
-          return newState;
-      }
+      //   case CREATE_CHANNEL_MESSAGE: {
+      //     let newState = structuredClone(state);
+      //     const { message, channelId } = action.payload;
+      //     if (!newState[channelId].Messages) {
+      //         newState[channelId].Messages = [];
+      //     }
+      //     newState[channelId].Messages.push(message);
+      //     return newState;
+      // }
         default:
             return state;
     }

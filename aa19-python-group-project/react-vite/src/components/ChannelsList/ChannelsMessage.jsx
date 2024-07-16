@@ -1,4 +1,4 @@
-import { thunkGetAChannelsMessages, thunkCreateChannelMessage } from "../../redux/channels";
+import { thunkGetAChannelsMessages } from "../../redux/channels";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import io from 'socket.io-client';
@@ -18,6 +18,31 @@ const ChannelsMessages = ({ channelId }) => {
         dispatch(thunkGetAChannelsMessages(channelId));
     }, [dispatch, channelId]);
 
+    // useEffect(() => {
+    //     socket.emit('join', { username: user.username, channel: channelId });
+
+    //     socket.on('message', (message) => {
+    //         setLiveMessages((prevMessages) => [...prevMessages, message]);
+    //     });
+
+    //     return () => {
+    //         socket.emit('leave', { username: user.username, channel: channelId });
+    //         socket.off('message');
+    //     };
+    // }, [channelId, user.username]);
+
+    // const handleSendMessage = async () => {
+    //     if (newMessage.trim()) {
+    //         try {
+    //             const messageObj = await dispatch(thunkCreateChannelMessage(channelId, newMessage));
+    //             socket.emit('message', messageObj);
+    //             setNewMessage('');
+    //         } catch (error) {
+    //             console.error('Error sending message:', error);
+    //         }
+    //     }
+    // };
+
     useEffect(() => {
         socket.emit('join', { username: user.username, channel: channelId });
 
@@ -31,15 +56,10 @@ const ChannelsMessages = ({ channelId }) => {
         };
     }, [channelId, user.username]);
 
-    const handleSendMessage = async () => {
+    const handleSendMessage = () => {
         if (newMessage.trim()) {
-            try {
-                const messageObj = await dispatch(thunkCreateChannelMessage(channelId, newMessage));
-                socket.emit('new_message', messageObj);
-                setNewMessage('');
-            } catch (error) {
-                console.error('Error sending message:', error);
-            }
+            socket.emit('message', { channel: channelId, message: newMessage, userId: user.id });
+            setNewMessage('');
         }
     };
 

@@ -16,6 +16,8 @@ from .api.messages_routes import message_routes
 from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
+from .models.message import Message
+
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
@@ -103,35 +105,37 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
-# SocketIO event handlers
+
+
+
 @socketio.on('join')
 def on_join(data):
+    # print(f"hello from join: {data}")
     username = data['username']
     channel = data['channel']
     join_room(channel)
-    send(f'{username} has entered the channel.', to=channel)
-
+    print('joined room')
 
 @socketio.on('leave')
 def on_leave(data):
+    # print(f"hello from leave: {data}")
     username = data['username']
     channel = data['channel']
     leave_room(channel)
-    send(f'{username} has left the channel.', to=channel)
-
+    print('left room')
 
 @socketio.on('message')
 def handle_message(data):
+    # print(f'hello from message: {data}')
     channel = data['channel']
     message = data['message']
-    user_id = data['user_id'] 
-    
-   
-    new_message = Message(message=message, channel_id=channel, user_id=user_id)
+    user_id = data['userId']
+
+    new_message = Message (message=message, channel_id=channel, user_id=user_id)
     db.session.add(new_message)
     db.session.commit()
-    
+    emit('message', {'message': message}, to=channel)
 
-    emit('message', new_message.to_dict(), to=channel)
 if __name__ == '__main__':
+    print("starting socketio")
     socketio.run(app, debug=True)
