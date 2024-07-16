@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import io from 'socket.io-client';
 
+
 const socket = io('http://localhost:8000');
 
 const ChannelsMessages = ({ channelId }) => {
@@ -44,6 +45,7 @@ const ChannelsMessages = ({ channelId }) => {
     // };
 
     useEffect(() => {
+
         socket.emit('join', { username: user.username, channel: channelId });
 
         socket.on('message', (message) => {

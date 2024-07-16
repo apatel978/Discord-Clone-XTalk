@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user, login_required
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from .models import db, User
 from .api.user_routes import user_routes
@@ -17,6 +17,7 @@ from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
 from .models.message import Message
+
 
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
@@ -108,6 +109,7 @@ def not_found(e):
 
 
 
+
 @socketio.on('join')
 def on_join(data):
     # print(f"hello from join: {data}")
@@ -115,6 +117,15 @@ def on_join(data):
     channel = data['channel']
     join_room(channel)
     print('joined room')
+
+@socketio.on('connect')
+def connect_handler():
+    if current_user.is_authenticated:
+        emit('my response',
+             {'message': '{0} has joined'.format(current_user.name)},
+             broadcast=True)
+    else:
+        return False
 
 @socketio.on('leave')
 def on_leave(data):
