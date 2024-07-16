@@ -1,6 +1,6 @@
 
 import { useDispatch,useSelector } from "react-redux";
-import { useState} from "react";
+
 import { useModal } from "../../context/Modal";
 import { thunkLeaveServer } from '../../redux/servers';
 
@@ -12,7 +12,7 @@ const LeaveServerModal = ({serverId}) => {
 
     const handleLeave = async (e) => {
         e.preventDefault();
-        dispatch(thunkLeaveServer(servId))
+        dispatch(thunkLeaveServer(serverId))
         closeModal()
     }
     return (
