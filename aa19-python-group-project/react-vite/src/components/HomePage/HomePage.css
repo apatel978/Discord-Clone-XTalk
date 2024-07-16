@@ -20,6 +20,7 @@
 }
 .column4 {
   grid-column: 4;
+  padding-left: 10px;
 }
 .serverPreviewContainer {
     border: 2px rgb(0, 0, 0) solid;
@@ -181,4 +182,19 @@
 .messages-row3 {
   /* grid-row: 3; */
   border: 1px yellow solid;
+}
+
+#members-list {
+  margin-left: 10px;
+  margin-bottom: 10px;
+
+  }
+
+  .online-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    margin-left: 8px;
 }

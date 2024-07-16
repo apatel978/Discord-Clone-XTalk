@@ -1,9 +1,11 @@
 const MemberList = ({ members }) => {
     return (
         <div className="column4">
-            <span>Members</span>
+           <h3>Members - {members?.length}</h3>
             {members?.map((member) => (
-                <div key={`${member.id}`}>{member?.username}</div>
+                <div id="members-list" key={`${member.id}`}>{member?.username}
+                <span className="online-status"></span>
+                </div>
             ))}
         </div>
     )
