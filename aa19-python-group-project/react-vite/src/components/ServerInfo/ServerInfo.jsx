@@ -15,12 +15,12 @@ function ServerInfo({serverId}) {
   const server = useSelector((store)=>store.servers[serverId])
 
   const owner = user?.id === server?.ownerId
-  
- 
+
+
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     setShowMenu(!showMenu);
   };
 
@@ -41,7 +41,7 @@ function ServerInfo({serverId}) {
   const closeMenu = () => setShowMenu(false);
 
   if (!server) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
   return (
     <>
@@ -52,7 +52,7 @@ function ServerInfo({serverId}) {
           {showMenu && (
             <div className={"profile-dropdown"} ref={ulRef}>
                 <>
-                {owner ?  ( 
+                {owner ?  (
                 <>
                     <OpenModalMenuItem
                     itemText="Edit Server"
@@ -64,7 +64,7 @@ function ServerInfo({serverId}) {
                     onItemClick={closeMenu}
                     modalComponent={<DeleteServerModal serverId={serverId}/>}
                     />
-                </>):( 
+                </>):(
                     <OpenModalMenuItem
                     itemText="Leave Server"
                     onItemClick={closeMenu}
@@ -74,7 +74,7 @@ function ServerInfo({serverId}) {
             </div>
           )}
         </div>
-      
+
     </>
   );
 }

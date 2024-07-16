@@ -17,54 +17,6 @@ const CreateServerModal = () => {
         e.preventDefault();
 
         dispatch(thunkCreateServer(serverName, file));
-        // const formData = new FormData();
-        // formData.append('serverName', serverName);
-
-        // if (file) {
-        //     formData.append('file', file);
-        //     try {
-        //         const uploadResponse = await fetch('/api/upload', {
-        //             method: 'POST',
-        //             body: formData
-        //         });
-        //         const uploadData = await uploadResponse.json();
-        //         console.log(uploadData)
-        //         if (uploadData.error) {
-        //             console.error('Upload Error:', uploadData.error);
-        //         } else {
-        //             console.log('Upload Successful:', uploadData.message);
-        //             setImageUrl(uploadData.imageUrl);
-        //             console.log('line 35', imageUrl)
-        //         }
-        //         const serverData = {
-        //             name: serverName,
-        //             preview: uploadData.imageUrl
-        //         };
-        //         const serverResponse = await csurFetch('/api/servers', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json'
-        //             },
-        //             body: JSON.stringify(serverData),
-        //             credentials: 'include'
-        //         });
-
-        //         const serverDataResponse = await serverResponse.json();
-
-        //         if (serverResponse.status === 200) {
-        //             console.log('Server Created:', serverDataResponse);
-
-        //         } else {
-        //             console.error('Server Creation Error:', serverDataResponse.errors);
-        //           
-        //         }
-        //     } catch (error) {
-        //         console.error('Error uploading file:', error);
-        //     }
-        // }else {
-        //     console.log('No file uploaded');
-        // }
-
           closeModal();
       };
       const handleImageClick = () => {
@@ -78,7 +30,7 @@ const CreateServerModal = () => {
     return (
         <div className='modal-login'>
         <h1>Create Your Server</h1>
-        <h5>Give your Server a personality with a name an icon.</h5>
+        <h5>Give your Server a personality with a name and icon.</h5>
         <img
             src='../../../images/upload.png'
             alt="Upload Icon"

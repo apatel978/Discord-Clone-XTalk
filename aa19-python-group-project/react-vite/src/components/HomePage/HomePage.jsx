@@ -10,7 +10,10 @@ import AllServersModal from '../AllServers/AllServersModal';
 import ServerDetails from '../ServerDetails/ServerDetails';
 import MemberList from '../MembersList/MembersList';
 import ChannelsMessages from '../ChannelsList/ChannelsMessage';
-import ChannelsList from '../ChannelsList/ChannelsList';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import CreateChannel from '../CRUDChannels/CreateChannel';
+import EditChannel from '../CRUDChannels/EditChannel';
+import DeleteChannelModal from '../CRUDChannels/DeleteChannel';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -19,7 +22,11 @@ const HomePage = () => {
   const user = useSelector((state) => state.session.user);
   const servers = useSelector((state) => state.servers);
   const [ channelId, setChannelId ] = useState(null)
+  const [update, setUpdate] = useState(false);
   const channels = useSelector((state) => state.channels);
+  const server = useSelector((store)=>store.servers[selectedServerId])
+
+
   let allChannels = Object.values(channels);
   let serverChannels = allChannels.filter((channel) => channel.serverId === Number(selectedServerId));
   // const members = useSelector((state) => state.servers[Number(serverId)]?.members);
@@ -32,11 +39,12 @@ const HomePage = () => {
       dispatch(thunkServerById(selectedServerId));
       dispatch(thunkGetAllChannels(selectedServerId));
     }
-  }, [selectedServerId, dispatch]);
+    setUpdate(false)
+  }, [selectedServerId, dispatch, update]);
 
   return (
     <div className='main-page'>
-      
+
         <div className='serverPreviewContainer'>
           {serverList.map((server) => (
             <ServerPreviewTile key={`${server.id}`} server={server} onClick={() => setSelectedServerId(server.id)} />
@@ -58,25 +66,55 @@ const HomePage = () => {
       ) : (
         <>
         <div className='column2'>
-          <ServerDetails serverId={selectedServerId} />
-         
           <div>
-          {serverChannels.map((channel) => (
-        <div key={`${channel.id}`} onClick={() => setChannelId(channel.id)}>
-          {channel.name}
-        </div>
-      ))}
-      <ChannelsList channels={serverChannels} />
+            <ServerDetails serverId={selectedServerId} />
+            <div>
+            {serverChannels.map((channel) => (
+              <div key={`${channel.id}`} className='channel-container' onClick={() => setChannelId(channel.id)}>
+                {`# ${channel.name}`}
+                <div className='channel-buttons'>
+                  {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
+                      <OpenModalButton
+                          modalComponent={<EditChannel channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
+                          className={'create-channel-button'}
+                          buttonText={"Edit"}
+                      />
+                    }
+                    {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
+                    <OpenModalButton
+                        modalComponent={<DeleteChannelModal channelId={channel.id} setUpdate={setUpdate} serverChannels={serverChannels}/>}
+                        className={'create-channel-button'}
+                        buttonText={"Delete"}
+                    />
+                    }
+                </div>
+              </div>
+        ))}
+          {user && (user?.id === server?.ownerId) &&
+            <OpenModalButton
+            modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
+            className={'create-channel-button'}
+            buttonText={"+"}
+      />}
+            </div>
           </div>
-
           <div className="profile-area">
-          <ProfileButton user={user} />
-          {user.username}
+            <ProfileButton user={user} />
+            {user.username}
           </div>
         </div>
+
         <div className='column3'>
-        <ChannelsMessages channelId={channelId}/>
+          {!channelId ? (<div>
+            <p>Hi! Pick a channel!</p>
+          </div>) : (<div>
+            <h2>
+              {`# ${channels[channelId].name}`}
+            </h2>
+            <ChannelsMessages channelId={channelId}/>
+          </div>)}
         </div>
+
         <div className='column4'> <MemberList members={servers[selectedServerId]?.members} />
         </div>
         </>
