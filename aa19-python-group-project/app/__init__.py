@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, current_user, login_required
-from flask_socketio import SocketIO, send, emit, join_room, leave_room
+from flask_socketio import SocketIO, send, emit, join_room, leave_room, disconnect
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
@@ -17,6 +17,7 @@ from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
 from .models.message import Message
+import functools
 
 
 
@@ -118,7 +119,17 @@ def on_join(data):
     join_room(channel)
     print('joined room')
 
+def authenticated_only(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            disconnect()
+        else:
+            return f(*args, **kwargs)
+    return wrapped
+
 @socketio.on('connect')
+@login_required
 def connect_handler():
     if current_user.is_authenticated:
         emit('my response',
@@ -127,6 +138,7 @@ def connect_handler():
     else:
         return False
 
+
 @socketio.on('leave')
 def on_leave(data):
     # print(f"hello from leave: {data}")
@@ -134,6 +146,7 @@ def on_leave(data):
     channel = data['channel']
     leave_room(channel)
     print('left room')
+
 
 @socketio.on('message')
 def handle_message(data):

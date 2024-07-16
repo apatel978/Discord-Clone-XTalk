@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditServerModal from "../CreateServerModal/EditServerModal";
 import LeaveServerModal from "./LeaveServerModal"
@@ -9,7 +8,6 @@ import { FaCaretDown } from 'react-icons/fa';
 
 function ServerInfo({serverId}) {
 
-  const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const server = useSelector((store)=>store.servers[serverId])

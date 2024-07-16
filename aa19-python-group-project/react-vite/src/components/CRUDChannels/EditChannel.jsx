@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { thunkUpdateChannel } from '../../redux/channels';
-import { useNavigate } from 'react-router-dom';
 
 const EditChannel = ({ channelId, setUpdate, serverChannels }) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { closeModal } = useModal()
     const sessionUser = useSelector(state => state.session.user)
