@@ -8,6 +8,7 @@
 
 }
 .column2 {
+
   grid-column: 2;
   /* border: 2px red solid; */
   display: flex;
@@ -71,31 +72,31 @@
     align-items: center;
     justify-content: center;
 }
-
-.ServerLink {
-    position: relative;
+#tooltip {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.74);
+  color: white;
+  font-size: 14px;
+  z-index: 1000;
+  padding: 5px; 
+  border-radius: 4px; 
+  pointer-events: none; 
+  white-space: nowrap; 
 }
 
-#tooltip {
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.74);
-    color: white;
-    font-size: 14px;
-    z-index: 1;
-    margin-left: 40px;
-    margin-bottom: 50px;
-    top: 20px;
-    left: 18px;
-    justify-self: flex-start;
+.ServerLinkHolder {
+  position: relative; 
 }
 
 .ServerLink:hover #tooltip {
-    opacity: 1;
-    visibility: visible;
-    z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  top: 5px;
+  z-index: 1000; 
 }
+
 
 .profile-area{
   justify-self: flex-end;
