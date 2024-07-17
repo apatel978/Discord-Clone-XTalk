@@ -2,7 +2,7 @@ import Navigation from "../../components/Navigation";
 import './LandingPage.css';
 
 const LandingPage = () => {
-  return (<>
+  return (<div className="landingP">
   <Navigation />
   <div className='lph1'>
       <h1>CONNECT AND CHAT TOGETHER</h1>
@@ -22,7 +22,7 @@ Our platform is perfect for casual hangouts and connecting with communities all 
         <img src="../../../images/landing2.jpg" alt="Landing" />
       </div>
     </div>
-    </>
+    </div>
   );
 };
 

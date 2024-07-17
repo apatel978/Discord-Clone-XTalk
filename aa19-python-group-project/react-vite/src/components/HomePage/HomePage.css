@@ -1,11 +1,11 @@
 
 .main-page{
-    color:white;
+    color:goldenrod;
     display: grid;
     height: 10fr;
     border-color: white;
     grid-template-columns: 80px 270px 1fr 220px;
-
+   background-color: rgb(14, 2, 36);
 }
 .column2 {
 
@@ -95,6 +95,7 @@
   visibility: visible;
   top: 5px;
   z-index: 1000; 
+ 
 }
 
 

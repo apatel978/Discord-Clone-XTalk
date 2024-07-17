@@ -46,7 +46,7 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button id='prof' onClick={toggleMenu}>
         <FaUserCircle />
       </button>
       {showMenu && (

@@ -5,7 +5,35 @@
   background-color: black;
   padding: 20px;
 }
+#prof {
+  background-color: rgb(50, 50, 158);
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  background-image: linear-gradient(45deg, rgb(50, 50, 158), rgb(70, 70, 178));
+}
 
+#prof:hover {
+  background-color: rgb(70, 70, 178);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+#prof:active {
+  background-color: rgb(30, 30, 138);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+}
+
+#prof:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(50, 50, 158, 0.5);
+}
 .hidden {
   display: none;
 }
@@ -21,7 +49,7 @@
   display: grid;
   grid-template-columns: auto 1fr auto; 
   height: 3em;
-  margin-top: 20px;
+  padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
   border-bottom: solid rgba(36, 37, 37, 0.1);
