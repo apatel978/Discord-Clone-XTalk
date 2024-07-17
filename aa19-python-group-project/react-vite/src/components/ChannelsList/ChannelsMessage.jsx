@@ -2,6 +2,8 @@ import { thunkGetAChannelsMessages } from "../../redux/channels";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import io from 'socket.io-client';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import EmojiModal from "../Reactions";
 
 const url = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8000';
 const socket = io(url);
@@ -67,6 +69,13 @@ const ChannelsMessages = ({ channelId }) => {
                                     <img src={reaction.reaction}/>
                                 </button>
                             ))}
+                        </div>
+                        <div>
+                            <OpenModalButton
+                                modalComponent={<EmojiModal message={message}/>}
+                                className='create-channel-button'
+                                buttonText={"Add Reaction"}
+                            />
                         </div>
                     </div>
                 ))}
