@@ -56,8 +56,18 @@ const ChannelsMessages = ({ channelId }) => {
             {/* <span>Messages</span> */}
             <div className="messages-row2">
                 {allMessages.map((message, index) => (
-                    <div key={message.id || `live-${index}`}>
+                    <div key={message.id || `live-${index}`} className='singleMessageDiv'>
+                        <div>
+                            <span>{message.messageOwner}</span>
+                        </div>
                         <span>{message.message}</span>
+                        <div>
+                            {message.reactions.map((reaction) => (
+                                <button key={reaction.id} type='submit'>
+                                    <img src={reaction.reaction}/>
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </div>

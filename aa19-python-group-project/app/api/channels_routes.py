@@ -1,4 +1,4 @@
-from app.models import Channel, Server, db, Message
+from app.models import Channel, Server, db, Message, User
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from datetime import datetime
@@ -115,6 +115,8 @@ def messages(channelId):
     for message in messages_and_reactions:
         entry = message.to_dict()
         entry["reactions"] = [x.to_dict() for x in message.reactions]
+        user = User.query.get(message.user_id)
+        entry["messageOwner"] = user.username
         result.append(entry)
 
     return {
