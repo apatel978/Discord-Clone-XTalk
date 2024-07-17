@@ -9,7 +9,10 @@ const EmojiModal = ({ message }) => {
         event.preventDefault();
         console.log('MESSAGE: ', message);
         console.log('DATA: ', emojiData);
-        dispatch()
+        const payload = {
+            'reaction': emojiData.emoji
+        }
+        return dispatch(addReactionToAMessage(payload, message.id))
     }
     return (
         <div>
