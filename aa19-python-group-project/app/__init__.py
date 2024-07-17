@@ -113,7 +113,7 @@ def not_found(e):
 
 @socketio.on('join')
 def on_join(data):
-    # print(f"hello from join: {data}")
+    print(f"hello from join: {data}")
     username = data['username']
     channel = data['channel']
     join_room(channel)
@@ -128,20 +128,13 @@ def authenticated_only(f):
             return f(*args, **kwargs)
     return wrapped
 
-@socketio.on('connect')
-@login_required
-def connect_handler():
-    if current_user.is_authenticated:
-        emit('my response',
-             {'message': '{0} has joined'.format(current_user.name)},
-             broadcast=True)
-    else:
-        return False
+
 
 
 @socketio.on('leave')
+@authenticated_only
 def on_leave(data):
-    # print(f"hello from leave: {data}")
+    print(f"hello from leave: {data}")
     username = data['username']
     channel = data['channel']
     leave_room(channel)
@@ -149,16 +142,16 @@ def on_leave(data):
 
 
 @socketio.on('message')
+@authenticated_only
 def handle_message(data):
-    # print(f'hello from message: {data}')
+    print(f'hello from message: {data}')
     channel = data['channel']
     message = data['message']
-    user_id = data['userId']
 
-    new_message = Message (message=message, channel_id=channel, user_id=user_id)
+    new_message = Message (message=message, channel_id=channel, user_id=current_user.id)
     db.session.add(new_message)
     db.session.commit()
-    emit('message', {'message': message}, to=channel)
+    emit('message', new_message.to_dict(), to=channel)
 
 if __name__ == '__main__':
     print("starting socketio")

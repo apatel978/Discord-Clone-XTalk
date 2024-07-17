@@ -5,14 +5,13 @@ import io from 'socket.io-client';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import EmojiModal from "../Reactions";
 
-const url = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8000';
-const socket = io(url);
 
 const ChannelsMessages = ({ channelId }) => {
     const dispatch = useDispatch();
     const messages = useSelector((state) => state.channels[channelId]?.Messages || []);
     const user = useSelector((state) => state.session.user);
     const channel = useSelector((state) => state.channels[channelId])
+    const [socket, setSocket] = useState(undefined)
 
     const [liveMessages, setLiveMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
@@ -24,21 +23,25 @@ const ChannelsMessages = ({ channelId }) => {
 
     useEffect(() => {
 
-        socket.emit('join', { username: user.username, channel: channelId });
+        const new_socket = io();
 
-        socket.on('message', (message) => {
+        new_socket.emit('join', { username: user.username, channel: channelId });
+
+        new_socket.on('message', (message) => {
             setLiveMessages((prevMessages) => [...prevMessages, message]);
         });
 
+        setSocket(new_socket)
+
         return () => {
-            socket.emit('leave', { username: user.username, channel: channelId });
-            socket.off('message');
+            new_socket.emit('leave', { username: user.username, channel: channelId });
+            new_socket.off('message');
         };
-    }, [channelId, user.username]);
+    }, [channelId, user.username, setSocket]);
 
     const handleSendMessage = () => {
-        if (newMessage.trim()) {
-            socket.emit('message', { channel: channelId, message: newMessage, userId: user.id });
+        if (socket && newMessage.trim()) {
+            socket.emit('message', { channel: channelId, message: newMessage});
             setNewMessage('');
         }
     };
@@ -64,7 +67,7 @@ const ChannelsMessages = ({ channelId }) => {
                         </div>
                         <span>{message.message}</span>
                         <div>
-                            {message.reactions.map((reaction) => (
+                            {message?.reactions?.map((reaction) => (
                                 <button key={reaction.id} type='submit'>
                                     <img src={reaction.reaction}/>
                                 </button>

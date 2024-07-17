@@ -18,7 +18,7 @@ const LeaveServerModal = ({serverId}) => {
     return (
         <div className='modal-login'>
         <h1>Leave {server.name}?</h1>
-        <h5>Your are about to leave {server.name}, are you sure?</h5>
+        <h5>You are about to leave {server.name}, are you sure?</h5>
 
 
           <div className="buttons-container">
