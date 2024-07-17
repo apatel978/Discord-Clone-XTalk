@@ -50,7 +50,7 @@ function ProfileButton() {
         <FaUserCircle />
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+           <ul className={user ? "profile-dropdown-logged-out" : "profile-dropdown-logged-in"} ref={ulRef}>
           {user ? (
             <>
               <li>{user.username}</li>
@@ -61,7 +61,7 @@ function ProfileButton() {
             </>
           ) : (
             <>
-             <ul className={"profile-dropdown2"} ref={ulRef}></ul>
+             
               <OpenModalMenuItem
                 itemText="Log In"
                 onItemClick={closeMenu}

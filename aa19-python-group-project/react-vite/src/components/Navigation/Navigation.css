@@ -1,13 +1,9 @@
 .profile-dropdown {
   position: absolute;
-  margin-top: 60px;
-  margin-left: -60px;
+  margin-top: 5px;
+  margin-left: 20px;
   background-color: black;
-}
-.profile-dropdown2 {
-  position: absolute;
-  margin-top: -100px;
-  background-color: black;
+  padding: 20px;
 }
 
 .hidden {
@@ -37,7 +33,30 @@
   cursor: pointer;
   grid-column: 3; 
   display: grid;
-  margin-top: 10px;
-  grid-template-columns: 5fr 2fr;
+  height: 25px;
+  /* margin-top: 10px; */
+  /* grid-template-columns: 5fr 2fr; */
   
 }
+.profile-dropdown-logged-in {
+  position: absolute;
+  margin-top: 50px;
+  margin-left: -60px;
+  padding: none;
+}
+.profile-dropdown-logged-in div {
+  margin-bottom: 5px;
+}
+
+.profile-dropdown-logged-out{
+position: absolute;
+margin-top: -130px;
+background-color: black;
+padding-top: 20px;
+padding-bottom: 10px;
+padding-right: 20px;
+}
+.profile-dropdown-logged-out li{
+  margin-bottom: 5px;
+  }
+  
