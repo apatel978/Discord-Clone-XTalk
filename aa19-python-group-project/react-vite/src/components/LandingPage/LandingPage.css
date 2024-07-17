@@ -1,8 +1,9 @@
-body, html {
+.landingP {
   background: linear-gradient(to right, rgb(7, 4, 54), rgb(0, 0, 11));
   font-family: Arial, sans-serif;
-
-
+}
+header {
+  margin: none;
 }
 .landing-page {
     display: flex;

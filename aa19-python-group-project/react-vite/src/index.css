@@ -32,18 +32,15 @@
         0 0 100px #38b2da;
   }
 
-  .server-info{
-    background-color: transparent;
-    border: none;
+  .server-info {
+    background-color: rgb(50, 50, 158);
     color: white;
+    font-size: 16px;
     width: 100%;
-    font-weight: bold;
-    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   
   }
-  .server-info:hover{
-    background-color: rgb(82, 2, 2);
-  }
-
 
   ::-webkit-scrollbar {
     display: none;
