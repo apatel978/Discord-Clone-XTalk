@@ -14,6 +14,12 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    servers = db.relationship('Server', back_populates='owner')
+    server = db.relationship('Server', secondary='members', back_populates='users')
+    channel_user = db.relationship('Channel', back_populates='owner')
+    messages = db.relationship('Message', back_populates='user')
+    rxns = db.relationship('Reaction', back_populates='users')
+
     @property
     def password(self):
         return self.hashed_password

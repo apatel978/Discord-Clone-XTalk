@@ -1,15 +1,24 @@
 
 .modal-signup {
     height: 500px;
-       display: flex;
-       flex-direction: column;
-       background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
-       padding: 10px 30px 30px 30px;
-       color: white;
-       align-content: center;
-       justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 530px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
+    padding: 10px 30px 30px 30px;
+    color: white;
+    overflow: hidden;
      }
-   
+     .modal-signup h1 {
+      color: rgb(78, 105, 169);
+      margin-bottom: 0px;
+      margin-top: 10px;
+      text-align: center;
+      margin-bottom: 10px;
+      
+    }
      #passwordErrors {
        width: 318px;
        height: 32px;
@@ -25,11 +34,7 @@
         color: rgb(178, 35, 181);
 
      }
-     .modal-signup h1 {
-       font-size: 1.5rem;
-     /* margin-bottom: 40px; */
-       text-align: center;
-     }
+ 
      .modal-signup #top {
     
       margin-bottom: 15px;
@@ -62,7 +67,7 @@
      
      .modal-signup button {
        padding: 10px 20px;
-       /* width: 100%; */
+       width: 100%;
        background-color: #007bff;
        color: white;
        border: none;
@@ -82,16 +87,14 @@
         display: flex;
         flex-direction: row;
         width: 400px;
+        gap:10px
      }
      .modal-signup button:disabled {
        opacity: 0.7; 
        cursor: not-allowed;
      }
      
-     .modal-signup button:hover {
-       background-color: #0056b3;
-     }
-     
+  
      .modal-signup p {
        color: red;
        margin-top: 5px;
