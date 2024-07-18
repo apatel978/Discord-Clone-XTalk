@@ -31,10 +31,12 @@ const AllServersModal = () => {
         {allServersArr.length > 0 ? (
           allServersArr.map((server) => (
             <div key={server.id} className="all-server-item">
-             <img src={server.preview} onClick={() => handleJoin(server.id)} className='AllServersPreview'/>
-
-                    <span id='tooltip'>{server.name}</span>
-
+             <img src={server.preview}
+              onClick={() => handleJoin(server.id)}
+              className='AllServersPreview'/>
+                <div className="dropdown">
+                 <span className="dropdown-content">{server.name}</span>
+                </div>
             </div>
           ))
         ) : (
