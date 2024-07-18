@@ -52,6 +52,7 @@ export const thunkGetAChannelsMessages = (channelId) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json()
     dispatch(getChannelMessages(data, channelId));
+    return data.Messages
   } else {
     const error = await res.json();
     throw new Error(error.message);

@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Message, db, Reaction
-from flask_socketio import emit, SocketIO
+from flask_socketio import emit, SocketIO, disconnect
+import functools
 
 message_routes = Blueprint('messages', __name__)
 
@@ -76,6 +77,8 @@ def messages(messageId):
 
 
 
+
+# Setup SocketIO
 #Create A Reaction For A Message
 @message_routes.route('/<int:messageId>/reactions', methods=['POST'])
 @login_required
@@ -98,7 +101,7 @@ def post_reaction(messageId):
     db.session.add(model)
     db.session.commit()
 
-    emit('reaction', model.to_dict(), to=channel)
+    SocketIO.emit('reaction', model.to_dict(), to=channel)
 
     return jsonify({
         'id': model.id,

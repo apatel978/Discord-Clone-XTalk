@@ -8,23 +8,23 @@ import EmojiModal from "../Reactions";
 
 const ChannelsMessages = ({ channelId }) => {
     const dispatch = useDispatch();
-    const messages = useSelector((state) => state.channels[channelId]?.Messages || []);
+    // const messages = useSelector((state) => state.channels[channelId]?.Messages || []);
     const user = useSelector((state) => state.session.user);
     const channel = useSelector((state) => state.channels[channelId])
     const [socket, setSocket] = useState(undefined)
 
-    const [liveMessages, setLiveMessages] = useState([]);
+    // const [liveMessages, setLiveMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const [allMessages, setAllMessages] = useState([]);
+    const [allMessages, setAllMessages] = useState();
 
     useEffect(() => {
         dispatch(thunkGetAChannelsMessages(channelId))
-        .then(() => setAllMessages([...messages]))
-        .then(() => console.log("RES"));
-        // setAllMessages(messages)
+        .then((messages) => {
+            setAllMessages([...messages])
+        })
     }, [dispatch, channelId]);
 
-    console.log('allMessages: ', allMessages)
+
     useEffect(() => {
 
         const new_socket = io();
@@ -41,6 +41,8 @@ const ChannelsMessages = ({ channelId }) => {
                 message[0].reactions.push(reaction)
             })
         }
+
+
         setSocket(new_socket)
 
         return () => {
@@ -71,7 +73,7 @@ const ChannelsMessages = ({ channelId }) => {
             </div>
             {/* <span>Messages</span> */}
             <div className="messages-row2">
-                {allMessages.map((message, index) => (
+                {allMessages?.map((message, index) => (
                     <div key={message.id || `live-${index}`} className='singleMessageDiv'>
                         <div>
                             <span>{message.messageOwner}</span>
