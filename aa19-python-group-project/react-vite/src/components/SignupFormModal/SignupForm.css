@@ -1,0 +1,103 @@
+
+.modal-signup {
+    height: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 530px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #133252 10%, #061d2b 80%);
+    padding: 10px 30px 30px 30px;
+    color: white;
+    overflow: hidden;
+     }
+     .modal-signup h1 {
+      color: rgb(78, 105, 169);
+      margin-bottom: 0px;
+      margin-top: 10px;
+      text-align: center;
+      margin-bottom: 10px;
+      
+    }
+     #passwordErrors {
+       width: 318px;
+       height: 32px;
+       color: red;
+       /* margin-top: 5px; */
+       font-size: 0.9rem;
+     }
+     #link_id{
+        color: white;
+        text-decoration: none;
+     }
+     #link_id:hover{
+        color: rgb(178, 35, 181);
+
+     }
+ 
+     .modal-signup #top {
+    
+      margin-bottom: 15px;
+        text-align: center;
+      }
+    
+   
+     .modal-signup form {
+       display: flex;
+       flex-direction: column;
+       width: 400px;
+     }
+     
+     .modal-signup label {
+       margin-bottom: 10px;
+       width: 100%;
+   
+     }
+     
+     .modal-signup input {
+       display: flex;
+       padding: 8px;
+       width: 380px;
+       justify-content: center;
+       align-items: center;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       margin-bottom: 10px;
+     }
+     
+     .modal-signup button {
+       padding: 10px 20px;
+       width: 100%;
+       background-color: #007bff;
+       color: white;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+       margin-bottom: 10px;
+    
+     }
+     .modal-l {
+        display: inline;
+      }
+     .modal-l li{
+        list-style: none;
+        padding-left: 0;
+     }
+     .modal-container12{
+        display: flex;
+        flex-direction: row;
+        width: 400px;
+        gap:10px
+     }
+     .modal-signup button:disabled {
+       opacity: 0.7; 
+       cursor: not-allowed;
+     }
+     
+  
+     .modal-signup p {
+       color: red;
+       margin-top: 5px;
+       font-size: 0.9rem;
+     }
+     

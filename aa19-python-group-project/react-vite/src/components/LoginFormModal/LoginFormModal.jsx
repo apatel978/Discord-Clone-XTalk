@@ -27,16 +27,32 @@ function LoginFormModal() {
       closeModal();
     }
   };
-
+  const isSubmitDisabled = email.length < 4 || password.length < 6;
+  const handleDemoUserLogin = async () => {
+    setEmail('demo@aa.io');
+    setPassword('password');
+    try {
+      // Attempt to log in with demo user credentials
+      await dispatch(thunkLogin.login({ credential: 'demo@aa.io', password: 'password' }));
+      closeModal(); 
+    } catch (error) {
+      if (error.status === 401)
+        setErrors({ invalidCredentials: 'The provided credentials were invalid' });
+    }
+  };
   return (
-    <>
-      <h1>Log In</h1>
+    
+    <div className='modal-login'>
+      <h1>Welcome Back!</h1>
+      <h5>We are excited to see you again!</h5>
       <form onSubmit={handleSubmit}>
         <label>
-          Email
+          <div>Email</div>
           <input
             type="text"
             value={email}
+            className="input-field"
+            placeholder="email@domain.com"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -46,15 +62,24 @@ function LoginFormModal() {
           Password
           <input
             type="password"
+            className="input-field"
             value={password}
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <div className="buttons-container">
+        <button type="submit" className="submit-btn" disabled={isSubmitDisabled}>Log In</button>
+        <button onClick={handleDemoUserLogin} className="submit-btn">Demo User</button>
+        </div>
       </form>
-    </>
+      <span className="sp sp-t"></span>
+			<span className="sp sp-r"></span>
+			<span className="sp sp-b"></span>
+			<span className="sp sp-l"></span>
+      </div>
   );
 }
 

@@ -1,0 +1,226 @@
+/* LoginFormModal.css */
+
+
+  
+  .modal-login h1 {
+    color: rgb(78, 105, 169);
+    margin-bottom: 0px;
+    margin-top: 10px;
+    text-align: center;
+    
+  }
+  .modal-login h5 {
+    color: white;
+    margin-bottom: 0px;
+    margin-top: 7px;
+    text-align: center;
+  }
+  
+  .modal-login form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-login label {
+    color: white;
+    margin-top: 20px;
+    /* margin-bottom: 10px; */
+    
+  }
+  
+  .modal-login input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 198px;
+  }
+  
+  .modal-login button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+ 
+  }
+ 
+
+  .buttons-container{
+    margin-top: 10px;
+
+  }
+  .modal-login button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .modal-login button:hover {
+    background-color: #0056b3;
+  }
+  
+.Cs {
+    z-index: 1;
+    width: 150px;
+    
+    color: white;
+    margin-left: 45px;
+    filter: invert(48%) sepia(91%) saturate(4547%) hue-rotate(230deg) brightness(94%) contrast(108%);
+}   
+  
+
+.sp {
+    position: absolute;
+    transition: 0.5s;
+}
+
+.sp-t {
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(to left, transparent, #318fdd, #00fffc);
+    animation: anim2 2s linear infinite;
+    transform: translateY(-300%);
+    animation-delay: 0.8s;
+}
+
+.sp-r {
+    bottom: 0;
+    right: 0;
+    width: 2px;
+    height: 200px;
+    background: linear-gradient(to left, transparent, #318fdd, #00fffc);
+    animation: anim1 2s linear infinite;
+    animation-delay: 0s;
+}
+
+.sp-b {
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(to left, transparent, #318fdd, #00fffc);
+    animation: anim2 2s linear infinite;
+}
+
+.sp-l {
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 200px;
+    background: linear-gradient(to left, transparent, #00fffc, #318fdd);
+    animation: anim1 2s linear infinite;
+    animation-delay: 1s;
+    transform: translateX(-300%);
+}
+
+@keyframes anim1 {
+    0% {
+        transform: translateY(300%);
+
+    }
+
+    100% {
+        transform: translateY(-300%);
+
+    }
+}
+
+@keyframes anim2 {
+    0% {
+        transform: translateX(300%);
+    }
+
+    100% {
+        transform: translateX(-300%);
+
+    }
+}
+@keyframes a {
+  0% {
+      background-position: 0%;
+  }
+
+  100% {
+      background-position: 400%;
+  }
+}
+
+@keyframes animBTN {
+  0% {
+      box-shadow: 0 0 10px 9px rgba(31, 184, 211, 0.3);
+  }
+
+  33% {
+      box-shadow: 0 0 10px 9px rgba(31, 120, 171, 0.3);
+
+  }
+
+  66.9% {
+      box-shadow: 0 0 10px 9px rgba(19, 171, 125, 0.3);
+
+  }
+
+  100% {
+      box-shadow: 0 0 10px 9px rgba(50, 223, 229, 0.3);
+  }
+}
+
+.submit-btn {
+  width: 100%;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0 auto;
+  background: linear-gradient(to left, transparent, #297dd7, #00fffc);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  position: relative;
+  z-index: 5;
+  box-sizing: border-box;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.5s;
+}
+
+.submit-btn:hover {
+
+  background: #2f9ad4;
+  color: #fff;
+  border-radius: 30px;
+  box-shadow: inset 4px 4px 6px -1px rgba(234, 234, 235, 0.2),
+      inset 4px 4px 6px -1px rgba(37, 37, 37, 0.7),
+      0 0 5px #00fffc,
+      0 0 25px #2ddcd9,
+      0 0 50px #53b6b5,
+      0 0 100px #38b2da;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 5px;
+  margin: 10px 0;
+  border-top: 0;
+  border-left: 2px solid #00fffc;
+  border-right: 0;
+  border-bottom: 2px solid #00fffc;
+  outline: none;
+  background: transparent;
+  color: rgb(234, 234, 235);
+  font-size: 15px;
+  transition: 0.5s;
+}
+
+.input-field:focus {
+  border-left: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
+  border-right: 2px solid transparent;
+  animation: animINP 5s linear infinite,
+      animBTN 5s linear infinite;
+  ;
+}

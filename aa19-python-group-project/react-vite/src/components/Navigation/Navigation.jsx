@@ -1,18 +1,23 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
+import { useSelector } from 'react-redux';
 import "./Navigation.css";
 
 function Navigation() {
+  const sessionUser = useSelector(state => state.session.user);
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+<div className='header'>
+<div className="logo-navbar">
+  <NavLink to="/" >
+     <img className='logo' src='../../../images/logo.png' alt="CrossTalkLogo" />
+  </NavLink>
+</div>
+ 
+  <div className='profile'>
+    <ProfileButton user={sessionUser} />
+  </div>
 
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+</div>
   );
 }
 

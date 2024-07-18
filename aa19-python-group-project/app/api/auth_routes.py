@@ -8,7 +8,7 @@ auth_routes = Blueprint('auth', __name__)
 
 
 @auth_routes.route('/me')
-def current_user():
+def get_current_user():
     """
     return current user
     """
