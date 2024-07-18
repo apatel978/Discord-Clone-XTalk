@@ -55,7 +55,7 @@ const HomePage = () => {
           />
           <OpenModalMenuItem
             modalComponent={<AllServersModal />}
-            itemText={<img src='../../../images/allServers.png' className='serverPreview' alt="All Servers" />}
+            itemText={<img src='../../../images/allservers.png' className='serverPreview' alt="All Servers" />}
           />
         </div>
       {selectedServerId === null ? (<>

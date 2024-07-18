@@ -2,12 +2,12 @@ import { csrfFetch } from "./csrf";
 
 const ADD_REACTION = "reactions/addReaction";
 
-const addReaction = (reaction) => ({
-    type: ADD_REACTION,
-    payload: reaction
-})
+// const addReaction = (reaction) => ({
+//     type: ADD_REACTION,
+//     payload: reaction
+// })
 
-export const addReactionToAMessage = (payload, messageId) => async (dispatch) => {
+export const addReactionToAMessage = (payload, messageId) => async () => {
     const res = await csrfFetch(`/api/messages/${messageId}/reactions`, {
         method: "POST",
         headers: {

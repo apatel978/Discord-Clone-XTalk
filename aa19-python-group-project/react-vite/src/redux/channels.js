@@ -92,7 +92,7 @@ export const thunkCreateChannel = (payload, serverId) => async (dispatch) => {
     dispatch(createChannel(channel))
     return channel
   } else {
-    const error = await res.json();
+    const error = await response.json();
     throw new Error(error.message);
   }
 }

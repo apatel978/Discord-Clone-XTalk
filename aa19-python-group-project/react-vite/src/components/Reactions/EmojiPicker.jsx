@@ -1,5 +1,5 @@
 import EmojiPicker from 'emoji-picker-react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addReactionToAMessage } from '../../redux/reactions';
 
 const EmojiModal = ({ message }) => {
