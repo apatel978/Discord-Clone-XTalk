@@ -15,7 +15,7 @@ const ChannelsMessages = ({ channelId }) => {
 
     // const [liveMessages, setLiveMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const [allMessages, setAllMessages] = useState();
+    const [allMessages, setAllMessages] = useState([]);
 
     useEffect(() => {
         dispatch(thunkGetAChannelsMessages(channelId))
@@ -35,13 +35,22 @@ const ChannelsMessages = ({ channelId }) => {
             setAllMessages((prevMessages) => [...prevMessages, message]);
         });
 
-        new_socket.on('reaction'), (reaction) => {
-            setAllMessages((prevMessages) => {
-                let message = prevMessages?.filter((item) => reaction?.messageId === item?.id)
-                message[0].reactions.push(reaction)
+        new_socket.on('reaction', (reaction) => {
+            setAllMessages( (prevMessages) => {
+                return prevMessages.map(message => {
+                    if(message.id === reaction?.messageId) {
+                         // update current message by creating a new message with updated reactions
+                         let updatedReactions = message.reactions ? [...message.reactions] : []; // copy previous reactions
+                         updatedReactions.push(reaction);
+                         // copy old message, then replace with updatedReactions
+                         return { ...message, reactions: updatedReactions };
+                    } else {
+                         // no changes - shallow return current message
+                         return message;
+                    }
+                });
             })
-        }
-
+        })
 
         setSocket(new_socket)
 
