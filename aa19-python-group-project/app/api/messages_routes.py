@@ -81,6 +81,7 @@ def messages(messageId):
 #Create A Reaction For A Message
 @message_routes.route('/<int:messageId>/reactions', methods=['POST'])
 @login_required
+@authenticated_only
 def post_reaction(messageId):
     #Check if message exists
     message = Message.query.get(messageId)
