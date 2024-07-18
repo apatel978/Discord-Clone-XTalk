@@ -18,7 +18,8 @@ export const addReactionToAMessage = (payload, messageId) => async (dispatch) =>
 
     if (res.ok) {
         const reaction = await res.json();
-        dispatch(addReaction(reaction));
+        // dispatch(addReaction(reaction));
+        console.log("reactions", reaction)
         return reaction
     } else {
         const error = await res.json();

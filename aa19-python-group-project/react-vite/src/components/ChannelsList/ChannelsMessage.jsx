@@ -8,16 +8,20 @@ import EmojiModal from "../Reactions";
 
 const ChannelsMessages = ({ channelId }) => {
     const dispatch = useDispatch();
-    const messages = useSelector((state) => state.channels[channelId]?.Messages || []);
+    // const messages = useSelector((state) => state.channels[channelId]?.Messages || []);
     const user = useSelector((state) => state.session.user);
     const channel = useSelector((state) => state.channels[channelId])
     const [socket, setSocket] = useState(undefined)
 
-    const [liveMessages, setLiveMessages] = useState([]);
+    // const [liveMessages, setLiveMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [allMessages, setAllMessages] = useState([]);
 
     useEffect(() => {
-        dispatch(thunkGetAChannelsMessages(channelId));
+        dispatch(thunkGetAChannelsMessages(channelId))
+        .then((messages) => {
+            setAllMessages([...messages])
+        })
     }, [dispatch, channelId]);
 
 
@@ -28,14 +32,32 @@ const ChannelsMessages = ({ channelId }) => {
         new_socket.emit('join', { username: user.username, channel: channelId });
 
         new_socket.on('message', (message) => {
-            setLiveMessages((prevMessages) => [...prevMessages, message]);
+            setAllMessages((prevMessages) => [...prevMessages, message]);
         });
+
+        new_socket.on('reaction', (reaction) => {
+            setAllMessages( (prevMessages) => {
+                return prevMessages.map(message => {
+                    if(message.id === reaction?.messageId) {
+                         // update current message by creating a new message with updated reactions
+                         let updatedReactions = message.reactions ? [...message.reactions] : []; // copy previous reactions
+                         updatedReactions.push(reaction);
+                         // copy old message, then replace with updatedReactions
+                         return { ...message, reactions: updatedReactions };
+                    } else {
+                         // no changes - shallow return current message
+                         return message;
+                    }
+                });
+            })
+        })
 
         setSocket(new_socket)
 
         return () => {
             new_socket.emit('leave', { username: user.username, channel: channelId });
             new_socket.off('message');
+            new_socket.off('reaction');
         };
     }, [channelId, user.username, setSocket]);
 
@@ -46,10 +68,10 @@ const ChannelsMessages = ({ channelId }) => {
         }
     };
 
-    const allMessages = [
-        ...messages,
-        ...liveMessages,
-    ];
+    // const allMessages = [
+    //     ...messages,
+    //     ...liveMessages,
+    // ];
 
     return (
         <div className="channels-container">
@@ -60,7 +82,7 @@ const ChannelsMessages = ({ channelId }) => {
             </div>
             {/* <span>Messages</span> */}
             <div className="messages-row2">
-                {allMessages.map((message, index) => (
+                {allMessages?.map((message, index) => (
                     <div key={message.id || `live-${index}`} className='singleMessageDiv'>
                         <div>
                             <span>{message.messageOwner}</span>
@@ -75,7 +97,7 @@ const ChannelsMessages = ({ channelId }) => {
                         </div>
                         <div>
                             <OpenModalButton
-                                modalComponent={<EmojiModal message={message}/>}
+                                modalComponent={<EmojiModal channelId={channelId} message={message}/>}
                                 className='create-channel-button'
                                 buttonText={"Add Reaction"}
                             />
