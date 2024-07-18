@@ -17,6 +17,7 @@ from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
 from .models.message import Message
+from .models.reaction import Reaction
 import functools
 
 

@@ -15,12 +15,16 @@ const ChannelsMessages = ({ channelId }) => {
 
     const [liveMessages, setLiveMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [allMessages, setAllMessages] = useState([]);
 
     useEffect(() => {
-        dispatch(thunkGetAChannelsMessages(channelId));
+        dispatch(thunkGetAChannelsMessages(channelId))
+        .then(() => setAllMessages([...messages]))
+        .then(() => console.log("RES"));
+        // setAllMessages(messages)
     }, [dispatch, channelId]);
 
-
+    console.log('allMessages: ', allMessages)
     useEffect(() => {
 
         const new_socket = io();
@@ -28,14 +32,21 @@ const ChannelsMessages = ({ channelId }) => {
         new_socket.emit('join', { username: user.username, channel: channelId });
 
         new_socket.on('message', (message) => {
-            setLiveMessages((prevMessages) => [...prevMessages, message]);
+            setAllMessages((prevMessages) => [...prevMessages, message]);
         });
 
+        new_socket.on('reaction'), (reaction) => {
+            setAllMessages((prevMessages) => {
+                let message = prevMessages?.filter((item) => reaction?.messageId === item?.id)
+                message[0].reactions.push(reaction)
+            })
+        }
         setSocket(new_socket)
 
         return () => {
             new_socket.emit('leave', { username: user.username, channel: channelId });
             new_socket.off('message');
+            new_socket.off('reaction');
         };
     }, [channelId, user.username, setSocket]);
 
@@ -46,10 +57,10 @@ const ChannelsMessages = ({ channelId }) => {
         }
     };
 
-    const allMessages = [
-        ...messages,
-        ...liveMessages,
-    ];
+    // const allMessages = [
+    //     ...messages,
+    //     ...liveMessages,
+    // ];
 
     return (
         <div className="channels-container">
@@ -75,7 +86,7 @@ const ChannelsMessages = ({ channelId }) => {
                         </div>
                         <div>
                             <OpenModalButton
-                                modalComponent={<EmojiModal message={message}/>}
+                                modalComponent={<EmojiModal channelId={channelId} message={message}/>}
                                 className='create-channel-button'
                                 buttonText={"Add Reaction"}
                             />

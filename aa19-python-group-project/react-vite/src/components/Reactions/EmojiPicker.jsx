@@ -2,7 +2,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addReactionToAMessage } from '../../redux/reactions';
 
-const EmojiModal = ({ message }) => {
+const EmojiModal = ({ channelId, message }) => {
     const dispatch = useDispatch();
 
     const handleEmojiClick = (emojiData, event) => {
@@ -10,7 +10,7 @@ const EmojiModal = ({ message }) => {
         console.log('MESSAGE: ', message);
         console.log('DATA: ', emojiData);
         const payload = {
-            'reaction': emojiData.emoji
+            'reaction': emojiData.imageUrl
         }
         return dispatch(addReactionToAMessage(payload, message.id))
     }

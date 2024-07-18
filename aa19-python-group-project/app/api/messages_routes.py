@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Message, db, Reaction
+from flask_socketio import emit, SocketIO
 
 message_routes = Blueprint('messages', __name__)
 
@@ -86,13 +87,18 @@ def post_reaction(messageId):
 
     data = request.get_json()
 
+    channel = message.channel_id
+
     model = Reaction()
     model.reaction = data['reaction']
     model.user_id = current_user.id
     model.message_id = messageId
 
+    print('MODEL: ', model)
     db.session.add(model)
     db.session.commit()
+
+    emit('reaction', model.to_dict(), to=channel)
 
     return jsonify({
         'id': model.id,
