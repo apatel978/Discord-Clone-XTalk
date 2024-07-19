@@ -5,5 +5,5 @@ from .db import db
 # from .member import Member
 # from .message import Message
 # from .reaction import Reaction
-from .modelsAll import User, Server, Member, Channel, Message, Reaction
+from .modelsAll import Member, User, Server, Channel, Message, Reaction
 from .db import environment, SCHEMA

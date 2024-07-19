@@ -3,6 +3,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 
+
+class Member(db.Model):
+    __tablename__ = 'members'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    server_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('servers.id')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -66,16 +77,7 @@ class Server(db.Model):
         }
 
 
-class Member(db.Model):
-    __tablename__ = 'members'
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
-    id = db.Column(db.Integer, primary_key=True)
-    server_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('servers.id')), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    
 
 
 class Channel(db.Model):
