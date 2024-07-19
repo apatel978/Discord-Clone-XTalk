@@ -17,7 +17,7 @@ from .api.messages_routes import message_routes
 from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
-from .models.message import Message
+from .models.modelsAll import Message
 from app.websocket import socketio, setup_socketio, authenticated_only
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
