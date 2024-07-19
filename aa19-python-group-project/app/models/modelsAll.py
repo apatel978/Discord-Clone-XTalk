@@ -26,10 +26,10 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     servers = db.relationship('Server', back_populates='owner')
-    server = db.relationship('Server', secondary='members', back_populates='users')
+    server = db.relationship('Server', secondary=add_prefix_for_prod('members'), back_populates='users')
     channel_user = db.relationship('Channel', back_populates='owner')
     messages = db.relationship('Message', back_populates='user')
-    rxns = db.relationship('Reaction', back_populates='users')
+    rxns = db.relationship('Reaction', back_populates='user')
 
     @property
     def password(self):
@@ -49,8 +49,6 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
-
-
 class Server(db.Model):
     __tablename__= 'servers'
 
@@ -61,12 +59,12 @@ class Server(db.Model):
     name = db.Column(db.String(100), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview = db.Column(db.String(2000))
-    created_at =  db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     owner = db.relationship('User', back_populates='servers')
-    users = db.relationship('User', secondary='members', back_populates='server')
-    server_channels = db.relationship('Channel', back_populates='server',  cascade='all, delete-orphan')
+    users = db.relationship('User', secondary=add_prefix_for_prod('members'), back_populates='server')
+    server_channels = db.relationship('Channel', back_populates='server', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -75,10 +73,6 @@ class Server(db.Model):
             'ownerId': self.owner_id,
             'preview': self.preview
         }
-
-
-
-
 
 class Channel(db.Model):
     __tablename__= 'channels'
@@ -106,8 +100,6 @@ class Channel(db.Model):
             'createdAt': self.created_at
         }
 
-
-
 class Message(db.Model):
     __tablename__= 'messages'
 
@@ -116,13 +108,13 @@ class Message(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(2000), nullable=False)
-    channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id'),  ondelete='CASCADE'), nullable=False, )
+    channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id'), ondelete='CASCADE'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    created_at =  db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     user = db.relationship('User', back_populates='messages')
-    channel = db.relationship('Channel', back_populates='messages',single_parent=True, cascade='all, delete-orphan')
+    channel = db.relationship('Channel', back_populates='messages', single_parent=True, cascade='all, delete-orphan')
     reactions = db.relationship('Reaction', back_populates='message', cascade='all, delete-orphan')
 
     def to_dict(self):
@@ -133,8 +125,6 @@ class Message(db.Model):
             'message': self.message
         }
 
-
-
 class Reaction(db.Model):
     __tablename__= 'reactions'
 
@@ -143,11 +133,11 @@ class Reaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     reaction = db.Column(db.String(1000), nullable=False)
-    message_id = db.Column(db.Integer, db.ForeignKey('messages.id'), nullable=False)
+    message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('messages.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     message = db.relationship('Message', back_populates='reactions')
-    users = db.relationship('User', back_populates='rxns')
+    user = db.relationship('User', back_populates='rxns')
 
     def to_dict(self):
         return {

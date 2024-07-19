@@ -1,4 +1,4 @@
-from app.models import db, User, Server, Channel, Message, Reaction, environment, SCHEMA
+from app.models import db, User, Server, Channel, Message, Reaction, Member, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_users():
@@ -39,34 +39,34 @@ def undo_servers():
         db.session.execute(text("DELETE FROM servers"))
     db.session.commit()
 
-# def seed_members():
-#     members = [
-#         Member(server_id=1, user_id=1),
-#         Member(server_id=1, user_id=2),
-#         Member(server_id=1, user_id=3),
-#         Member(server_id=2, user_id=1),
-#         Member(server_id=2, user_id=2),
-#         Member(server_id=2, user_id=3),
-#         Member(server_id=3, user_id=1),
-#         Member(server_id=3, user_id=2),
-#         Member(server_id=3, user_id=3),
-#         Member(server_id=4, user_id=1),
-#         Member(server_id=4, user_id=2),
-#         Member(server_id=4, user_id=3),
-#         Member(server_id=5, user_id=1),
-#         Member(server_id=5, user_id=2),
-#         Member(server_id=5, user_id=3)
-#     ]
+def seed_members():
+    members = [
+        Member(server_id=1, user_id=1),
+        Member(server_id=1, user_id=2),
+        Member(server_id=1, user_id=3),
+        Member(server_id=2, user_id=1),
+        Member(server_id=2, user_id=2),
+        Member(server_id=2, user_id=3),
+        Member(server_id=3, user_id=1),
+        Member(server_id=3, user_id=2),
+        Member(server_id=3, user_id=3),
+        Member(server_id=4, user_id=1),
+        Member(server_id=4, user_id=2),
+        Member(server_id=4, user_id=3),
+        Member(server_id=5, user_id=1),
+        Member(server_id=5, user_id=2),
+        Member(server_id=5, user_id=3)
+    ]
 
-#     db.session.bulk_save_objects(members)
-#     db.session.commit()
+    db.session.bulk_save_objects(members)
+    db.session.commit()
 
-# def undo_members():
-#     if environment == "production":
-#         db.session.execute(f"TRUNCATE table {SCHEMA}.members RESTART IDENTITY CASCADE;")
-#     else:
-#         db.session.execute(text("DELETE FROM members"))
-#     db.session.commit()
+def undo_members():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.members RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM members"))
+    db.session.commit()
 
 def seed_channels():
     channels = [
@@ -132,7 +132,7 @@ def undo_reactions():
 def seed_all():
     seed_users()
     seed_servers()
-    # seed_members()
+    seed_members()
     seed_channels()
     seed_messages()
     seed_reactions()
@@ -141,6 +141,6 @@ def undo_all():
     undo_reactions()
     undo_messages()
     undo_channels()
-    # undo_members()
+    undo_members()
     undo_servers()
     undo_users()
