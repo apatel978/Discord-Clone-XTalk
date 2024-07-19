@@ -31,3 +31,5 @@ python-socketio==5.11.3; python_version >= '3.8'
 simple-websocket==1.0.0; python_version >= '3.6'
 wsproto==1.2.0; python_full_version >= '3.7.0'
 psycopg2-binary==2.9.9; python_version >= '3.6'
+eventlet==0.36.1
+dnspython==2.6.1
