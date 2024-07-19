@@ -23,7 +23,6 @@
 # RUN flask seed all
 # CMD gunicorn app:app
 
-
 FROM python:3.9.18-alpine3.18
 
 # Install necessary build dependencies
