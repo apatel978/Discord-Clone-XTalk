@@ -28,3 +28,36 @@ export default defineConfig((mode) => ({
     }
   }
 }));
+
+
+
+
+// import { defineConfig } from 'vite';
+// import dotenv from 'dotenv';
+// import react from '@vitejs/plugin-react';
+// import eslint from 'vite-plugin-eslint';
+
+
+// dotenv.config();
+// // https://vitejs.dev/config/
+// export default defineConfig(({ mode }) => ({
+//   plugins: [
+//     react(),
+//     eslint({
+//       lintOnStart: true,
+//       failOnError: mode === "production"
+//     })
+    
+//   ],
+//   define: {
+//     'process.env': process.env
+//   },
+//   // To automatically open the app in the browser whenever the server starts,
+//   // uncomment the following lines:
+//   server: {
+//     open: true,
+//     proxy: {
+//       '/api': 'http://localhost:8000'
+//     },
+//   }
+// }));
