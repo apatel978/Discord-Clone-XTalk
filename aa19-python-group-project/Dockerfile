@@ -26,7 +26,7 @@
 
 FROM python:3.9.18-alpine3.18
 
-# Install necessary build dependencies in a single layer to reduce image size
+# Install necessary build dependencies
 RUN apk add --no-cache build-base postgresql-dev gcc python3-dev musl-dev
 
 # Set environment variables for Flask and database
@@ -47,8 +47,7 @@ WORKDIR /var/www
 # Copy and install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt \
-    && pip install psycopg2-binary
+    && pip install -r requirements.txt
 
 # Copy the rest of the application code
 COPY . .

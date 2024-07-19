@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import generate_csrf
 from flask_login import LoginManager, current_user, login_required
 from flask_socketio import emit, join_room, leave_room, disconnect
+from markupsafe import Markup  # Updated import for Markup
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
