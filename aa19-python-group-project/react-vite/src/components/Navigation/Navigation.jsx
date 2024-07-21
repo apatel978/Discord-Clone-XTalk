@@ -9,7 +9,7 @@ function Navigation() {
 <div className='header'>
 <div className="logo-navbar">
   <NavLink to="/" >
-     <img className='logo' src='../../../images/logo.png' alt="CrossTalkLogo" />
+     <img className='logo' src='https://crosstalkappbuck.s3.us-east-2.amazonaws.com/logo.png' alt="CrossTalkLogo" />
   </NavLink>
 </div>
  
