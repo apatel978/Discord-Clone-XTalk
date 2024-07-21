@@ -19,7 +19,7 @@ Our platform is perfect for casual hangouts and connecting with communities all 
 <p></p>
       </div>
       <div className="image-container">
-        <img src="../../../images/landing2.jpg" alt="Landing" />
+        <img src="https://crosstalkappbuck.s3.us-east-2.amazonaws.com/landing2.jpg" alt="Landing" />
       </div>
     </div>
     </div>
