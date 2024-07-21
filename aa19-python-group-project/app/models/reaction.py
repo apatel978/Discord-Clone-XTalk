@@ -9,11 +9,11 @@ class Reaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     reaction = db.Column(db.String(1000), nullable=False)
-    message_id = db.Column(db.Integer, db.ForeignKey('messages.id'), nullable=False)
+    message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('messages.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     message = db.relationship('Message', back_populates='reactions')
-    users = db.relationship('User', back_populates='rxns')
+    user = db.relationship('User', back_populates='rxns')
 
     def to_dict(self):
         return {
