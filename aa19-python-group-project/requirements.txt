@@ -41,3 +41,4 @@ Werkzeug==2.2.2
 wsproto==1.2.0
 WTForms==3.0.1
 zipp==3.17.0
+eventlet==0.30.2
