@@ -12,12 +12,12 @@ class Server(db.Model):
     name = db.Column(db.String(100), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview = db.Column(db.String(2000))
-    created_at =  db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     owner = db.relationship('User', back_populates='servers')
-    users = db.relationship('User', secondary='members', back_populates='server')
-    server_channels = db.relationship('Channel', back_populates='server',  cascade='all, delete-orphan')
+    users = db.relationship('User', secondary=add_prefix_for_prod('members'), back_populates='server')
+    server_channels = db.relationship('Channel', back_populates='server', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

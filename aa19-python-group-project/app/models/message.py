@@ -10,13 +10,13 @@ class Message(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(2000), nullable=False)
-    channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id'),  ondelete='CASCADE'), nullable=False, )
+    channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id'), ondelete='CASCADE'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    created_at =  db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     user = db.relationship('User', back_populates='messages')
-    channel = db.relationship('Channel', back_populates='messages',single_parent=True, cascade='all, delete-orphan')
+    channel = db.relationship('Channel', back_populates='messages', single_parent=True, cascade='all, delete-orphan')
     reactions = db.relationship('Reaction', back_populates='message', cascade='all, delete-orphan')
 
     def to_dict(self):
