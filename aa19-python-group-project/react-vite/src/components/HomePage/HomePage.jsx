@@ -51,11 +51,11 @@ const HomePage = () => {
           ))}
           <OpenModalMenuItem
             modalComponent={<CreateServerModal />}
-            itemText={<img src='../../../images/plus2.png' className='serverPreview' alt="Plus Sign" />}
+            itemText={<img src='https://crosstalkappbuck.s3.us-east-2.amazonaws.com/plus2.png' className='serverPreview' alt="Plus Sign" />}
           />
           <OpenModalMenuItem
             modalComponent={<AllServersModal />}
-            itemText={<img src='../../../images/allservers.png' className='serverPreview' alt="All Servers" />}
+            itemText={<img src='https://crosstalkappbuck.s3.us-east-2.amazonaws.com/allservers.png' className='serverPreview' alt="All Servers" />}
           />
         </div>
       {selectedServerId === null ? (<>

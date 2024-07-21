@@ -32,7 +32,7 @@ const EditServerModal = (serverId) => {
         <h1>Edit Your Server</h1>
         <h5>Give your Server a personality with a name an icon.</h5>
         <img
-            src='../../../images/upload.png'
+            src='https://crosstalkappbuck.s3.us-east-2.amazonaws.com/upload.png'
             alt="Upload Icon"
             onClick={handleImageClick}
             className='Cs'>
