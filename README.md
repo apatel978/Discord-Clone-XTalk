@@ -41,7 +41,7 @@ Cross-Talk is currently limited to posting data and modification of the database
 
 #### Authentication
 
-Users of the site are required to sign up if they would like to create a new server and join a server. Users can see members, servers list, and channels list. Upon account creation, the user passwords are hashed with B-crypt before being stored. Authentication uses B-crypt to match passwords which allow a user to login if the passwords match.
+Users of the site are required to sign up if they would like to create a new server and join a server. Users can see members, servers list, and channels list. Upon account creation, the user passwords are hashed with Werkzeug before being stored. Authentication uses Werkzeug to match passwords which allow a user to login if the passwords match.
 
 #### Server Management
 
