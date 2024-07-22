@@ -72,7 +72,7 @@
 //                     {`# ${channel.name}`}
 //                 </h2>
 //             </div>
-//             <div className="messages-container"> 
+//             <div className="messages-container">
 //                 <div className="messages-row2">
 //                     {allMessages?.map((message, index) => (
 //                         <div key={message.id || `live-${index}`} className='singleMessageDiv'>
@@ -107,9 +107,9 @@
 //                     onChange={(e) => setNewMessage(e.target.value)}
 //                     placeholder="Type a message"
 //                 />
-              
+
 //                 <button id='prof' onClick={handleSendMessage}>Send</button>
-               
+
 //             </div>
 //         </>
 //     );
@@ -206,10 +206,10 @@ const ChannelsMessages = ({ channelId }) => {
         <>
             <div className="messages-row1">
                 <h2>
-                    {`# ${channel.name}`}
+                    {`# ${channel?.name}`}
                 </h2>
             </div>
-            <div className="messages-container"> 
+            <div className="messages-container">
                 <div className="messages-row2">
                     {allMessages?.map((message, index) => (
                         <div key={message.id || `live-${index}`} className='singleMessageDiv'>

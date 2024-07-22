@@ -27,7 +27,7 @@ const DeleteChannelModal = ({ channelId, setUpdate, serverChannels}) => {
     return (
         <div className='modal-login'>
         <h1>Delete {specificChannel[0].name}?</h1>
-        <h5>Your are about to delete {specificChannel[0].name}, are you sure?</h5>
+        <h5>You are about to delete {specificChannel[0].name}, are you sure?</h5>
 
 
         <div className="buttons-container">

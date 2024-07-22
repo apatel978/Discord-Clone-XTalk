@@ -82,8 +82,8 @@ const HomePage = () => {
       />
       </div>}
             {serverChannels.map((channel) => (
-              <div key={`${channel.id}`} className='channel-container' onClick={() => setChannelId(channel.id)}>
-                {`# ${channel.name}`}
+              <div key={`${channel?.id}`} className='channel-container' onClick={() => setChannelId(channel?.id)}>
+                {`# ${channel?.name}`}
                 <div className='channel-buttons'>
                   {user && (user?.id === server?.ownerId || user?.id === channel.userId) &&
                       <OpenModalButton
