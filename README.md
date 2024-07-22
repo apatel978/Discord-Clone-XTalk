@@ -45,7 +45,7 @@ Users of the site are required to sign up if they would like to create a new ser
 
 #### Server Management
 
-Users can create, read, update and delete servers. Any user can create servers, while only users who are members of servers can access those servers. Currently only server owners can update and delete their own servers. Each server can have multiple channels in them.
+Users can create, read, update and delete servers. Any user can create servers, while only users who are members of servers can access those servers. Currently only server owners can update and delete their own servers. Servers can each have an associated image, which is managed by Amazon S3 services. Each server can have multiple channels in them.
 
 #### Channel Management
 
@@ -53,7 +53,7 @@ Users can create, read, update and delete channels. Currently only the owner of 
 
 #### Message Management
 
-Users are currently able to create and read messages within channels of servers. Only members of a server can read the messages within the channels of that server. Updating and deleting messages will be added in the future. Each message can have an assortment of reactions
+Users are currently able to create and read messages within channels of servers. Creation of each message is dynamic and occurs simultaneously across multiple devices through the use of WebSockets implemented from SocketIO. Only members of a server can read the messages within the channels of that server. Updating and deleting messages will be added in the future. Each message can have an assortment of reactions.
 
 #### Reaction Management
 
