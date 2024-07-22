@@ -69,6 +69,15 @@ const HomePage = () => {
           <div>
             <ServerDetails serverId={selectedServerId} />
             <div>
+            {user && (user?.id === server?.ownerId) &&
+          <div className='text-channels'>
+            <span>Text Channels</span>
+            <OpenModalButton
+            modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
+            className={'create-channel-button'}
+            buttonText={"+"}
+      />
+      </div>}
             {serverChannels.map((channel) => (
               <div key={`${channel.id}`} className='channel-container' onClick={() => setChannelId(channel.id)}>
                 {`# ${channel.name}`}
@@ -90,12 +99,7 @@ const HomePage = () => {
                 </div>
               </div>
         ))}
-          {user && (user?.id === server?.ownerId) &&
-            <OpenModalButton
-            modalComponent={<CreateChannel serverId={selectedServerId} setUpdate={setUpdate}/>}
-            className={'create-channel-button'}
-            buttonText={"+"}
-      />}
+       
             </div>
           </div>
           <div className="profile-area">

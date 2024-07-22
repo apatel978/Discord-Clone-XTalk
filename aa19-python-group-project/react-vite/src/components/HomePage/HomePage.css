@@ -16,12 +16,16 @@
   justify-content: space-between;
 }
 .column3 {
+  display: flex;
+  flex-direction: column;
   grid-column: 3;
-  border: 2px solid green;
+  /* border: 2px solid green; */
+  background-color: rgb(15, 17, 43);
 }
 .column4 {
   grid-column: 4;
   padding-left: 10px;
+
 }
 .serverPreviewContainer {
     border: 2px rgb(0, 0, 0) solid;
@@ -103,7 +107,7 @@
   justify-self: flex-end;
 
   border: 2px rgb(0, 0, 0) solid;
-
+ margin-bottom: 15px;
 }
 .all-server-item{
   
@@ -165,27 +169,28 @@
   cursor: pointer;
 }
 
-.channels-container {
-  display: flex;
-  flex-direction: column;
-  /* grid-template-rows: 100px 1fr 100px; */
-  justify-content: space-between;
-}
 
-.messages-row1 {
-  /* grid-row: 1; */
-  border: 1px rebeccapurple solid;
-}
+
+
 
 .messages-row2 {
-  /* grid-row: 2; */
-  border: 1px red solid;
-
+  height: 650px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
+.messages-container {
+  flex: 1;
+  height: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 10px;
 
+  
+}
 .messages-row3 {
-  /* grid-row: 3; */
-  border: 1px yellow solid;
+  display: flex;
+  padding: 10px;
+ 
 }
 
 #members-list {
@@ -232,4 +237,87 @@
   border-radius: 5px;
   white-space: nowrap;
   z-index: 1;
+}
+
+.text-channels{
+ margin-left: 10px;
+ margin-top: 10px;
+ display: flex;
+ justify-content: space-between;
+ margin-right: 10px;
+ color: rgb(167, 127, 25);
+}
+
+.create-channel-button {
+  background-color: rgb(167, 127, 25);
+  border-radius: 20%;
+  color: black;
+  font-weight: 800;
+}
+
+
+.input-field2 {
+ 
+  width: 70%;
+  padding: 10px 5px;
+  margin: 10px 10px;
+  border-top: 0;
+  outline: none;
+  background: rgb(19, 15, 73);
+  color: goldenrod;
+  font-size: 15px;
+ 
+}
+
+
+.singleMessageDiv:hover{
+ background-color: rgba(0, 0, 0, 0.2);
+}
+
+.singleMessageDiv:hover .reaction-button {
+  display: block; 
+}
+
+.singleMessageDiv {
+  padding: 10px;
+  font-size: large;
+  position: relative; 
+}
+
+.reaction-button {
+  display: none; 
+  position: absolute;
+  top: 36px;
+  right: 10px;
+}
+
+#reaction-id {
+  padding: 5px 20px 5px 5px;
+  border: 1px rgba(149, 147, 13, 0.337) solid;
+  border-radius: 30%;
+  width: 20px;
+}
+
+.message-name{
+  font-size: larger;
+  margin-bottom: 5px;
+  color: rgba(149, 147, 13, 0.337)
+}
+
+.reactions-cont {
+  /* background-color: WHITE; */
+  display: flex;
+
+}
+
+.modal-menu {
+  color: goldenrod;
+}
+
+
+#count{
+  position: relative;
+  bottom: 5px;
+  right: 15px;
+
 }

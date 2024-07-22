@@ -56,7 +56,7 @@ function ProfileButton() {
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
-                <button onClick={logout}>Log Out</button>
+                <button  className='create-channel-button' onClick={logout}>Log Out</button>
               </li>
             </>
           ) : (

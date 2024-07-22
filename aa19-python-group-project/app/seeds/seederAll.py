@@ -1,4 +1,4 @@
-from app.models import db, User, Server, Channel, Message, Reaction, Member, environment, SCHEMA
+from app.models import db, User, Server, Channel, Message, Member, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_users():
@@ -105,29 +105,29 @@ def undo_messages():
         db.session.execute(text("DELETE FROM messages"))
     db.session.commit()
 
-def seed_reactions():
-    reactions = [
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f525.svg', message_id=1, user_id=1),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f368.svg', message_id=1, user_id=2),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f383.svg', message_id=2, user_id=3),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f383.svg', message_id=2, user_id=1),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f3b1.svg', message_id=3, user_id=2),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f5a5.svg', message_id=3, user_id=3),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f433.svg', message_id=4, user_id=1),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f991.svg', message_id=4, user_id=2),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f368.svg', message_id=5, user_id=3),
-        Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f368.svg', message_id=5, user_id=1)
-    ]
+# def seed_reactions():
+#     reactions = [
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f525.svg', message_id=1, user_id=1),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f368.svg', message_id=1, user_id=2),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f383.svg', message_id=2, user_id=3),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f383.svg', message_id=2, user_id=1),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f3b1.svg', message_id=3, user_id=2),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f5a5.svg', message_id=3, user_id=3),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f433.svg', message_id=4, user_id=1),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f991.svg', message_id=4, user_id=2),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f368.svg', message_id=5, user_id=3),
+#         Reaction(reaction='https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/svg/1f368.svg', message_id=5, user_id=1)
+#     ]
 
-    db.session.bulk_save_objects(reactions)
-    db.session.commit()
+#     db.session.bulk_save_objects(reactions)
+#     db.session.commit()
 
-def undo_reactions():
-    if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.reactions RESTART IDENTITY CASCADE;")
-    else:
-        db.session.execute(text("DELETE FROM reactions"))
-    db.session.commit()
+# def undo_reactions():
+#     if environment == "production":
+#         db.session.execute(f"TRUNCATE table {SCHEMA}.reactions RESTART IDENTITY CASCADE;")
+#     else:
+#         db.session.execute(text("DELETE FROM reactions"))
+#     db.session.commit()
 
 def seed_all():
     seed_users()
@@ -135,10 +135,10 @@ def seed_all():
     seed_members()
     seed_channels()
     seed_messages()
-    seed_reactions()
+    # seed_reactions()
 
 def undo_all():
-    undo_reactions()
+    # undo_reactions()
     undo_messages()
     undo_channels()
     undo_members()

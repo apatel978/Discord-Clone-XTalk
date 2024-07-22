@@ -15,7 +15,7 @@ function OpenModalButton({
   };
 
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <button className='create-channel-button' onClick={onClick}>{buttonText}</button>
   )
 }
 
