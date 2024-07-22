@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
@@ -13,42 +13,42 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [hasSubmitted, setHasSubmitted] = useState(false)
   const { closeModal } = useModal();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  useEffect(() => {
     const errors = {};
 
-    const glass = await dispatch(thunkSignup({email, username, password}))
-
-
-    if (glass.username) {
-      errors.username = glass.username[0]
-    }
-
-    if (glass.email) {
-      errors.email = glass.email[0]
-    }
-
-
-    if (password !== confirmPassword) {
-      errors.password = "Passwords do not match";
-    }
-
-    if (!email.includes(`@`)){errors.email = 'Invalid email';}
-
+    if (!email.includes(`@`)) errors.email = 'Invalid email';
+    if (password !== confirmPassword) errors.matchPassword = 'Passwords do not match'
     setErrors(errors)
 
+  }, [email, password, confirmPassword])
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setHasSubmitted(true);
+
     if (Object.values(errors).length) {
-        return
+      return
     }
 
-    if (!errors) {
-      closeModal()
+    if (Object.values(errors).length === 0) {
+      return dispatch(thunkSignup({email, username, password}))
+        .then(closeModal)
+        .catch(async (res) => {
+          const data = await res.json();
+          console.log("DATA", data)
+          if (!data) {
+            setErrors(data.errors);
+          }
+        });
     }
-
+    setErrors({});
+    setHasSubmitted(false)
   };
+
+
   const isDisabled = email.trim() === "" || username.trim().length < 4 || password.trim().length < 6 || confirmPassword.trim() === "" ;
   return (
     <div className='modal-signup'>
@@ -67,7 +67,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {hasSubmitted === true && errors.email && <p>{errors.email}</p>}
         <label>
           Username
           <input
@@ -79,7 +79,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {hasSubmitted === true && errors.username && <p>{errors.username}</p>}
         <label>
           Password
           <input
@@ -91,7 +91,6 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
         <label>
           Confirm Password
           <input
@@ -103,7 +102,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {hasSubmitted===true && errors.matchPassword && <p>{errors.matchPassword}</p>}
         <button type="submit" className="submit-btn" disabled={isDisabled}>Sign Up</button>
       </form>
       <div className="modal-container12">
