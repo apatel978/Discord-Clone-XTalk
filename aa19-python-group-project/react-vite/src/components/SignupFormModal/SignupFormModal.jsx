@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
@@ -18,26 +18,36 @@ function SignupFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const errors = {};
+
+    const glass = await dispatch(thunkSignup({email, username, password}))
+
+
+    if (glass.username) {
+      errors.username = glass.username[0]
+    }
+
+    if (glass.email) {
+      errors.email = glass.email[0]
+    }
+
+
     if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Passwords don't match",
-      });
+      errors.password = "Passwords do not match";
     }
 
-    const serverResponse = await dispatch(
-      thunkSignup({
-        email,
-        username,
-        password,
-      })
-    );
+    if (!email.includes(`@`)){errors.email = 'Invalid email';}
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      closeModal();
+    setErrors(errors)
+
+    if (Object.values(errors).length) {
+        return
     }
+
+    if (!errors) {
+      closeModal()
+    }
+
   };
   const isDisabled = email.trim() === "" || username.trim().length < 4 || password.trim().length < 6 || confirmPassword.trim() === "" ;
   return (
@@ -104,7 +114,7 @@ function SignupFormModal() {
                 modalComponent={<LoginFormModal />}
               />
               </div>
-      
+
       </div>
       <span className="sp sp-t"></span>
 			<span className="sp sp-r"></span>

@@ -44,7 +44,6 @@ const HomePage = () => {
 
   return (
     <div className='main-page'>
-
         <div className='serverPreviewContainer'>
           {serverList.map((server) => (
             <ServerPreviewTile key={`${server.id}`} server={server} onClick={() => setSelectedServerId(server.id)} />
@@ -61,6 +60,10 @@ const HomePage = () => {
       {selectedServerId === null ? (<>
         <div>
           Hi! Pick a server to get started! HAHA {':)'}
+          <div className="profile-area">
+            <ProfileButton user={user} />
+            {user.username}
+          </div>
         </div>
         </>
       ) : (
@@ -99,7 +102,7 @@ const HomePage = () => {
                 </div>
               </div>
         ))}
-       
+
             </div>
           </div>
           <div className="profile-area">

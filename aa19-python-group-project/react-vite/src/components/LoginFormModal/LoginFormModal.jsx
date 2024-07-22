@@ -14,19 +14,19 @@ function LoginFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const serverResponse = await dispatch(
-      thunkLogin({
-        email,
-        password,
+    return dispatch(thunkLogin({email, password}))
+    .then(closeModal)
+    .catch(async (res) => {
+        const data = await res.json();
+        if (data) {
+          setErrors({email: data.email, password: data.password});
+        }
       })
-    );
+    ;
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      closeModal();
-    }
+
   };
+
   const isSubmitDisabled = email.length < 4 || password.length < 6;
   const handleDemoUserLogin = async () => {
     setEmail('demo@aa.io');
@@ -34,14 +34,14 @@ function LoginFormModal() {
     try {
       // Attempt to log in with demo user credentials
       await dispatch(thunkLogin.login({ credential: 'demo@aa.io', password: 'password' }));
-      closeModal(); 
+      closeModal();
     } catch (error) {
       if (error.status === 401)
         setErrors({ invalidCredentials: 'The provided credentials were invalid' });
     }
   };
   return (
-    
+
     <div className='modal-login'>
       <h1>Welcome Back!</h1>
       <h5>We are excited to see you again!</h5>
