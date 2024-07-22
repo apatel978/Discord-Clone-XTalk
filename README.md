@@ -42,3 +42,19 @@ Cross-Talk is currently limited to posting data and modification of the database
 #### Authentication
 
 Users of the site are required to sign up if they would like to create a new server and join a server. Users can see members, servers list, and channels list. Upon account creation, the user passwords are hashed with B-crypt before being stored. Authentication uses B-crypt to match passwords which allow a user to login if the passwords match.
+
+#### Server Management
+
+Users can create, read, update and delete servers. Any user can create servers, while only users who are members of servers can access those servers. Currently only server owners can update and delete their own servers. Each server can have multiple channels in them.
+
+#### Channel Management
+
+Users can create, read, update and delete channels. Currently only the owner of a server can create, edit, and delete channels, while any user who is a member of the server can access and read the channels within that server. Each channel can be named differently and has different messages associated with it, which provides for easy organization.
+
+#### Message Management
+
+Users are currently able to create and read messages within channels of servers. Only members of a server can read the messages within the channels of that server. Updating and deleting messages will be added in the future. Each message can have an assortment of reactions
+
+#### Reaction Management
+
+Users can create and read reactions for messages. Each reaction can be updated based on the number of times the reaction has been added. Only members of a server that can see the message are able to create and read reactions for a message in that server. Deleting a reaction will be add in the future.
