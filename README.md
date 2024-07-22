@@ -57,4 +57,4 @@ Users are currently able to create and read messages within channels of servers.
 
 #### Reaction Management
 
-Users can create and read reactions for messages. Each reaction can be updated based on the number of times the reaction has been added. Only members of a server that can see the message are able to create and read reactions for a message in that server. Deleting a reaction will be add in the future.
+Users can create and read reactions for messages. Each reaction can be updated based on the number of times the reaction has been added. Only members of a server that can see the message are able to create and read reactions for a message in that server. Deleting a reaction will be added in the future.
