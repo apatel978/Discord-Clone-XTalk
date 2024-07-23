@@ -69,7 +69,7 @@
 //         <>
 //             <div className="messages-row1">
 //                 <h2>
-//                     {`# ${channel.name}`}
+//                     {`# ${channel?.name}`}
 //                 </h2>
 //             </div>
 //             <div className="messages-container">
@@ -77,7 +77,7 @@
 //                     {allMessages?.map((message, index) => (
 //                         <div key={message.id || `live-${index}`} className='singleMessageDiv'>
 //                             <div className="message-name">
-//                                 {message.messageOwner}
+//                                 {message?.messageOwner}
 //                             </div>
 //                             <span>{message.message}</span>
 //                             <div className="reactions-cont">

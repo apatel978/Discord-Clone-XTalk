@@ -118,7 +118,10 @@ def handle_message(data):
     new_message = Message(message=message, channel_id=channel, user_id=current_user.id)
     db.session.add(new_message)
     db.session.commit()
-    emit('message', new_message.to_dict(), to=channel)
+    user = User.query.get(new_message.user_id)
+    new_message = new_message.to_dict()
+    new_message["messageOwner"] = user.username
+    emit('message', new_message, to=channel)
 
 if __name__ == '__main__':
     print("starting socketio")
